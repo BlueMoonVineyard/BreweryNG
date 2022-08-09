@@ -30,7 +30,9 @@ BreweryNG can be obtained from [Spigot](https://www.spigotmc.org/resources/brewe
 </dependency>
 ```
 
+### The Fork, Or What's Up With The Package Name
 
+BreweryNG is a fork of Brewery by DieReicheErethons; hence the com.dre.brewery package name.
 
 ### License
 
