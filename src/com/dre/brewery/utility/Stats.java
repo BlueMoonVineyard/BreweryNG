@@ -44,7 +44,7 @@ public class Stats {
 
 	public void setupBStats() {
 		try {
-			Metrics metrics = new Metrics(P.p, 3494);
+			Metrics metrics = new Metrics(P.p, 16078);
 			metrics.addCustomChart(new SingleLineChart("drunk_players", BPlayer::numDrunkPlayers));
 			metrics.addCustomChart(new SingleLineChart("brews_in_existence", () -> brewsCreated));
 			metrics.addCustomChart(new SingleLineChart("barrels_built", Barrel.barrels::size));
