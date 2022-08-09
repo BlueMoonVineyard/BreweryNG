@@ -1,21 +1,14 @@
-### Brewery is a Minecraft-Plugin for an alternate brewing process, including alcoholic Potions.
+### BreweryNG is a Minecraft plugin that adds more advanced brewing, including alcohol
 
-[![Build Status](https://github.com/DieReicheErethons/Brewery/actions/workflows/maven.yml/badge.svg)](https://github.com/DieReicheErethons/Brewery/actions/workflows/maven.yml)
+[![Build Status](https://github.com/BlueMoonVineyard/BreweryNG/actions/workflows/maven.yml/badge.svg)](https://github.com/BlueMoonVineyard/BreweryNG/actions/workflows/maven.yml)
 ![License: GPLv3](https://img.shields.io/badge/license-GPLv3-blue)
-[![Releases](https://img.shields.io/github/v/release/DieReicheErethons/Brewery)](https://github.com/DieReicheErethons/Brewery/releases/latest)
-
-***
-
-#### Find the Project Page on [Spigot](https://www.spigotmc.org/resources/brewery.3082/) or [Bukkit](https://dev.bukkit.org/projects/brewery)
-
-#### Also see  [Wiki](https://github.com/DieReicheErethons/Brewery/wiki) | [Releases](https://github.com/DieReicheErethons/Brewery/releases) | [Changelog](https://github.com/DieReicheErethons/Brewery/wiki/changelog) | [Commits](https://github.com/DieReicheErethons/Brewery/commits/master)
-
+[![Releases](https://img.shields.io/github/v/release/BlueMoonVineyard/BreweryNG)](https://github.com/BlueMoonVineyard/BreweryNG/releases/latest)
 
 ***
 
 ### JavaDocs
 
-[JavaDocs on Jitpack](https://javadoc.jitpack.io/com/github/DieReicheErethons/Brewery/3.1.1/javadoc/index.html)
+[JavaDocs on Jitpack](https://javadoc.jitpack.io/com/github/BlueMoonVineyard/BreweryNG/1.0.0/javadoc/index.html)
 
 ### Maven
 
@@ -26,9 +19,9 @@
 </repository>
 
 <dependency>
-   <groupId>com.github.DieReicheErethons</groupId>
-   <artifactId>Brewery</artifactId>
-   <version>3.1.1</version>
+   <groupId>com.github.BlueMoonVineyard</groupId>
+   <artifactId>BreweryNG</artifactId>
+   <version>1.0.0</version>
    <scope>provided</scope>
 </dependency>
 ```
@@ -37,4 +30,4 @@
 
 ### License
 
-This Project is licensed under GPLv3
+This Project is licensed under the GPL license, version 3.
