@@ -4,7 +4,7 @@
 
 	<groupId>com.github.BlueMoonVineyard</groupId>
 	<artifactId>BreweryNG</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<name>BreweryNG</name>
 
 	<properties>
