@@ -6,6 +6,10 @@
 
 ***
 
+### Get It
+
+BreweryNG can be obtained from [Spigot](https://www.spigotmc.org/resources/breweryng.104381/).
+
 ### JavaDocs
 
 [JavaDocs on Jitpack](https://javadoc.jitpack.io/com/github/BlueMoonVineyard/BreweryNG/1.0.0/javadoc/index.html)
