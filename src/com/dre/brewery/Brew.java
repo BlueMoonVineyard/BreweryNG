@@ -447,8 +447,8 @@ public class Brew implements Cloneable {
 	 *
 	 * @param item The Item this Brew is on
 	 */
-	public void unLabel(ItemStack item) {
-		if (unlabeled) return;
+	public ItemMeta unLabel(ItemStack item) {
+		if (unlabeled) return null;
 		unlabeled = true;
 		ItemMeta meta = item.getItemMeta();
 		if (meta instanceof PotionMeta && meta.hasLore()) {
@@ -463,7 +463,9 @@ public class Brew implements Cloneable {
 			lore.updateAlc(false);
 			lore.write();
 			item.setItemMeta(meta);
+			return meta;
 		}
+		return null;
 	}
 
 	public BCauldron.LiquidType getLiquidType() {

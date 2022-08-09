@@ -2,6 +2,7 @@ package com.dre.brewery.listeners;
 
 import com.dre.brewery.*;
 import com.dre.brewery.filedata.BConfig;
+import com.dre.brewery.filedata.CraftedBrewTracker;
 import com.dre.brewery.lore.BrewLore;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -143,31 +144,36 @@ public class InventoryListener implements Listener {
 		}
 
 		ItemStack item = event.getCurrentItem();
-		if (item != null && item.getType() == Material.POTION && item.hasItemMeta()) {
-			PotionMeta meta = (PotionMeta) item.getItemMeta();
-			assert meta != null;
-			Brew brew = Brew.get(meta);
-			if (brew != null) {
-				BrewLore lore = null;
-				if (BrewLore.hasColorLore(meta)) {
-					lore = new BrewLore(brew, meta);
-					lore.convertLore(false);
-				} else if (!BConfig.alwaysShowAlc && event.getInventory().getType() == InventoryType.BREWING) {
-					lore = new BrewLore(brew, meta);
-					lore.updateAlc(false);
-				}
-				if (lore != null) {
-					lore.write();
-					item.setItemMeta(meta);
-					if (event.getWhoClicked() instanceof Player) {
-						switch (event.getAction()) {
-							case MOVE_TO_OTHER_INVENTORY:
-							case HOTBAR_SWAP:
-								// Fix a Graphical glitch of item still showing colors until clicking it
-								P.p.getServer().getScheduler().runTask(P.p, () -> ((Player) event.getWhoClicked()).updateInventory());
-						}
-					}
-				}
+		if (item == null || item.getType() != Material.POTION || !item.hasItemMeta()) return;
+
+		PotionMeta meta = (PotionMeta) item.getItemMeta();
+		assert meta != null;
+		Brew brew = Brew.get(meta);
+
+		if (brew == null) return;
+
+		if (brew.hasRecipe() && brew.getCurrentRecipe().getOptionalID().isPresent() && event.getWhoClicked() instanceof Player) {
+			CraftedBrewTracker.playerHasMadeBrew(event.getWhoClicked().getUniqueId().toString(), brew.getCurrentRecipe().getOptionalID().get());
+		}
+
+		BrewLore lore = null;
+		if (BrewLore.hasColorLore(meta)) {
+			lore = new BrewLore(brew, meta);
+			lore.convertLore(false);
+		} else if (!BConfig.alwaysShowAlc && event.getInventory().getType() == InventoryType.BREWING) {
+			lore = new BrewLore(brew, meta);
+			lore.updateAlc(false);
+		}
+		if (lore == null) return;
+
+		lore.write();
+		item.setItemMeta(meta);
+		if (event.getWhoClicked() instanceof Player) {
+			switch (event.getAction()) {
+				case MOVE_TO_OTHER_INVENTORY:
+				case HOTBAR_SWAP:
+					// Fix a Graphical glitch of item still showing colors until clicking it
+					P.p.getServer().getScheduler().runTask(P.p, () -> ((Player) event.getWhoClicked()).updateInventory());
 			}
 		}
 	}

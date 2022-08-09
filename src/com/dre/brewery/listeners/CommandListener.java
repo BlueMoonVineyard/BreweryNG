@@ -3,12 +3,20 @@ package com.dre.brewery.listeners;
 import com.dre.brewery.*;
 import com.dre.brewery.api.events.brew.BrewModifyEvent;
 import com.dre.brewery.filedata.BConfig;
+import com.dre.brewery.filedata.CraftedBrewTracker;
 import com.dre.brewery.recipe.BRecipe;
 import com.dre.brewery.recipe.Ingredient;
 import com.dre.brewery.recipe.RecipeItem;
 import com.dre.brewery.utility.BUtil;
 import com.dre.brewery.utility.PermissionUtil;
 import com.dre.brewery.utility.Tuple;
+import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
+import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
+import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
+import com.github.stefvanschie.inventoryframework.pane.Pane;
+import com.google.common.collect.Lists;
+
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,8 +28,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.function.Function;
 
 import static com.dre.brewery.utility.PermissionUtil.BPermission.*;
 
@@ -40,6 +52,10 @@ public class CommandListener implements CommandExecutor {
 		if (cmd.equalsIgnoreCase("help")) {
 
 			cmdHelp(sender, args);
+
+		} else if (cmd.equalsIgnoreCase("collection")) {
+
+			cmdCollection(sender);
 
 		} else if (cmd.equalsIgnoreCase("reload")) {
 
@@ -193,6 +209,80 @@ public class CommandListener implements CommandExecutor {
 
 	}
 
+	private Pane recipePagePane(Player player, List<BRecipe> recipes) {
+		OutlinePane pane = new OutlinePane(9, 5);
+		Set<String> crafted = CraftedBrewTracker.playerBrews(player.getUniqueId().toString());
+
+		for (BRecipe recipe : recipes) {
+			if (crafted.contains(recipe.getOptionalID().get())) {
+				pane.addItem(new GuiItem(recipe.create(10), ev -> ev.setCancelled(true)));
+			} else {
+				ItemStack item = new ItemStack(Material.BARRIER);
+				Brew brew = recipe.createBrew(10);
+				ItemMeta meta = brew.unLabel(brew.createItem(recipe));
+				ItemMeta itemMeta = item.getItemMeta();
+				itemMeta.setDisplayName(meta.getDisplayName());
+				item.setItemMeta(itemMeta);
+				pane.addItem(new GuiItem(item, ev -> ev.setCancelled(true)));
+			}
+		}
+
+		return pane;
+	}
+
+	public void cmdCollection(CommandSender sender) {
+		if (!(sender instanceof Player)) {
+			return;
+		}
+
+		Player pSender = (Player)sender;
+
+		PaginatedPane paginatedPane = new PaginatedPane(0, 0, 9, 5);
+		List<BRecipe> eligible = BRecipe.getAllRecipes().stream().filter(recipe -> recipe.getOptionalID().isPresent()).toList();
+		List<List<BRecipe>> pageRecipes = Lists.partition(eligible, 5*9);
+		ChestGui gui = new ChestGui(6, MessageFormat.format("{0} ({1}/{2})", p.languageReader.get("CraftedBrews_Title"), 1, pageRecipes.size()));
+
+		int pageNumber = 0;
+		for (List<BRecipe> page : pageRecipes) {
+			paginatedPane.addPane(pageNumber, recipePagePane(pSender, page));
+			pageNumber++;
+		}
+
+		Function<Integer, Void> adjust = num -> {
+			int target = paginatedPane.getPage() + num;
+			if (target < 0) {
+				target = 0;
+			}
+			if (target >= pageRecipes.size()-1) {
+				target = pageRecipes.size()-1;
+			}
+			gui.setTitle(MessageFormat.format("{0} ({1}/{2})", p.languageReader.get("CraftedBrews_Title"), target+1, pageRecipes.size()));
+			paginatedPane.setPage(target);
+			gui.update();
+			return null;
+		};
+
+		OutlinePane paginatorPane = new OutlinePane(0, 5, 9, 1);
+		ItemStack goBackItem = new ItemStack(Material.RED_STAINED_GLASS_PANE);
+		ItemMeta goBackMeta = goBackItem.getItemMeta();
+		goBackMeta.setDisplayName(p.languageReader.get("CraftedBrews_PageBack"));
+		goBackItem.setItemMeta(goBackMeta);
+		paginatorPane.addItem(new GuiItem(goBackItem, ig -> adjust.apply(-1)));
+		for (int i = 0; i < 7; i++) {
+			paginatorPane.addItem(new GuiItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), ev -> ev.setCancelled(true)));
+		}
+		ItemStack goForwardItem = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
+		ItemMeta goForwardMeta = goForwardItem.getItemMeta();
+		goForwardMeta.setDisplayName(p.languageReader.get("CraftedBrews_PageNext"));
+		goForwardItem.setItemMeta(goForwardMeta);
+		paginatorPane.addItem(new GuiItem(goForwardItem, ig -> adjust.apply(1)));
+
+		gui.addPane(paginatedPane);
+		gui.addPane(paginatorPane);
+		gui.show(pSender);
+
+	}
+
 	public ArrayList<String> getCommands(CommandSender sender) {
 
 		ArrayList<String> cmds = new ArrayList<>();
@@ -217,6 +307,10 @@ public class CommandListener implements CommandExecutor {
 
 		if (PermissionUtil.noExtendedPermissions(sender)) {
 			return cmds;
+		}
+
+		if (COLLECTION.checkCached(sender)) {
+			cmds.add(p.languageReader.get("Help_Collection"));
 		}
 
 		if (INFO_OTHER.checkCached(sender)) {

@@ -27,6 +27,7 @@ public class TabListener implements TabCompleter {
 		COMMAND_COMPLETIONS.put("static", STATIC);
 		COMMAND_COMPLETIONS.put("puke", PUKE);
 		COMMAND_COMPLETIONS.put("wakeup", WAKEUP);
+		COMMAND_COMPLETIONS.put("collection", COLLECTION);
 	}
 
 	private static final String[] QUALITY = {"1", "10"};

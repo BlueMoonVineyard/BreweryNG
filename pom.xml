@@ -48,6 +48,7 @@
 				<version>3.3.0</version>
 				<executions>
 					<execution>
+						<id>shade-bstats</id>
 						<phase>package</phase>
 						<goals>
 							<goal>shade</goal>
@@ -62,6 +63,22 @@
 								<relocation>
 									<pattern>org.bstats</pattern>
 									<shadedPattern>com.dre.brewery.integration.bstats</shadedPattern>
+								</relocation>
+							</relocations>
+						</configuration>
+					</execution>
+					<execution>
+						<id>shade-if</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+							<relocations>
+								<relocation>
+									<pattern>com.github.stefvanschie.inventoryframework</pattern>
+									<shadedPattern>com.dre.inventoryframework</shadedPattern>
 								</relocation>
 							</relocations>
 						</configuration>
@@ -144,6 +161,12 @@
 	</repositories>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.github.stefvanschie.inventoryframework</groupId>
+			<artifactId>IF</artifactId>
+			<version>0.10.6</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>

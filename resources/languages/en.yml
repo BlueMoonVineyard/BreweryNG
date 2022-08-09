@@ -17,6 +17,11 @@ Brew_fermented: fermented
 Brew_minute: minute
 Brew_Alc: Alc &v1ml
 
+# Collections UI
+CraftedBrews_Title: "Crafted Brews"
+CraftedBrews_PageBack: "Go Back"
+CraftedBrews_PageNext: "Go Forward"
+
 # CMD
 CMD_Copy_Error: '&6&v1 &cPotions did not fit into your inventory'
 CMD_Info_Drunk: '&v1 is &6&v2% &fdrunk, with a quality of &6&v3'
@@ -78,6 +83,7 @@ Help_Give: '&6/brew give <Recipe> [Quality] [Player] &9Alias for /brew create'
 Help_Delete: '&6/brew delete &9Deletes the potion in your hand'
 Help_Help: '&6/brew help [Page] &9Shows a specific help-page'
 Help_Info: '&6/brew info&9 Displays your current Drunkeness and Quality'
+Help_Collection: '&6/brew collection&9 Shows what brews you have and haven''t crafted'
 Help_InfoOther: '&6/brew info [Player]&9 Displays the current Drunkeness and Quality of [Player]'
 Help_Player: '&6/brew <Player> <%Drunkeness> [Quality]&9 Sets Drunkeness (and Quality) of a Player'
 Help_Reload: '&6/brew reload &9Reload config'

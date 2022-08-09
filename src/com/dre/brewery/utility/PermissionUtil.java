@@ -154,6 +154,7 @@ public class PermissionUtil {
 		PUKE("brewery.cmd.puke"),
 		PUKE_OTHER("brewery.cmd.pukeOther"),
 		WAKEUP("brewery.cmd.wakeup"),
+		COLLECTION("brewery.cmd.collections"),
 
 		STATIC("brewery.cmd.static"),
 		COPY("brewery.cmd.copy"),

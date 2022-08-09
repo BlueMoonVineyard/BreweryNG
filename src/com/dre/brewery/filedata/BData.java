@@ -178,6 +178,10 @@ public class BData {
 				}
 			}
 
+			section = data.getConfigurationSection("CraftedBrews");
+			if (section != null) {
+				CraftedBrewTracker.loadFrom(section);
+			}
 
 			final List<World> worlds = P.p.getServer().getWorlds();
 			if (BConfig.loadDataAsync) {

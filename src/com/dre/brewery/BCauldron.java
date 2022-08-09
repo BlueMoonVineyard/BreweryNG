@@ -2,7 +2,9 @@ package com.dre.brewery;
 
 import com.dre.brewery.api.events.IngedientAddEvent;
 import com.dre.brewery.filedata.BConfig;
+import com.dre.brewery.filedata.CraftedBrewTracker;
 import com.dre.brewery.recipe.BCauldronRecipe;
+import com.dre.brewery.recipe.BRecipe;
 import com.dre.brewery.recipe.RecipeItem;
 import com.dre.brewery.utility.BUtil;
 import com.dre.brewery.utility.LegacyUtil;
@@ -188,6 +190,13 @@ public class BCauldron {
 		}
 		ItemStack potion = ingredients.cook(LegacyUtil.getCauldronType(block.getType()), state);
 		if (potion == null) return false;
+
+		BRecipe cookRecipe = ingredients.getCookRecipe(LegacyUtil.getCauldronType(block.getType()));
+		if (cookRecipe != null) {
+			if (cookRecipe.getOptionalID().isPresent()) {
+				CraftedBrewTracker.playerHasMadeBrew(player.getUniqueId().toString(), cookRecipe.getOptionalID().get());
+			}
+		}
 
 		// lava cauldrons can only do one drink each, so they're always going to drain
 		if (LegacyUtil.getCauldronType(block.getType()) == LiquidType.LAVA) {

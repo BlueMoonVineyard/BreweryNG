@@ -16,6 +16,7 @@ permissions:
     default: true
     children:
       brewery.cmd.unlabel: true
+      brewery.cmd.collections: true
       brewery.createbarrel: true
       brewery.openbarrel: true
       brewery.cauldron.time: true
@@ -89,6 +90,8 @@ permissions:
     description: Make Brews Static
   brewery.cmd.reload:
     description: Reload config
+  brewery.cmd.collections:
+    description: View what brews you have and haven't created
 
 # -- Barrel --
   brewery.createbarrel:

@@ -106,6 +106,8 @@ public class DataSave extends BukkitRunnable {
 				Wakeup.save(worldData.createSection("Wakeup"), oldWorldData.getConfigurationSection("Wakeup"));
 			}
 
+			CraftedBrewTracker.saveTo(data.createSection("CraftedBrews"));
+
 			saveWorldNames(worldData, oldWorldData.getConfigurationSection("Worlds"));
 
 			data.set("Version", dataVersion);
