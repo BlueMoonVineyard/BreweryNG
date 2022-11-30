@@ -6,7 +6,7 @@
 # 方框[]内的设定为默认设定
 # 移除某一行可以禁用该功能, 或者true为启用, false为禁用
 
-# 语言文件(可在plugins/Brewery/languages下找到)
+# 语言文件(可在plugins/Brewery/i18n下找到)
 language: zh
 
 # 喝高了的下线玩家会在家里醒来(需要/home等功能支持)[true]

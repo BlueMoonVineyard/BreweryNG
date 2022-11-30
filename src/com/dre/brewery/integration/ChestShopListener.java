@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.mini2Dx.gettext.GetText;
 
 public class ChestShopListener implements Listener {
 
@@ -22,7 +23,7 @@ public class ChestShopListener implements Listener {
 					if (item != null && item.getType() == Material.POTION) {
 						Brew brew = Brew.get(item);
 						if (brew != null && !brew.isSealed()) {
-							event.getPlayer().sendTitle("", P.p.color(P.p.languageReader.get("Player_ShopSealBrew")), 10, 70, 20);
+							event.getPlayer().sendTitle("", P.p.color(GetText.tr("&eIt's recommended to trade/sell &6sealed &eBrews")), 10, 70, 20);
 							return;
 						}
 					}

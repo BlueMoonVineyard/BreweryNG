@@ -22,6 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
+import org.mini2Dx.gettext.GetText;
 
 import java.io.*;
 import java.security.InvalidKeyException;
@@ -651,7 +652,7 @@ public class Brew implements Cloneable {
 			quality = 0;
 			lore.removeEffects();
 			lore.addOrReplaceLore(Type.ERROR, "", error.userMessage());
-			potionMeta.setDisplayName(P.p.color("&f" + P.p.languageReader.get("Brew_DistillUndefined")));
+			potionMeta.setDisplayName(P.p.color("&f" + GetText.tr("Murky Distillate")));
 			PotionColor.GREY.colorBrew(potionMeta, slotItem, canDistill());
 		}
 		alc = calcAlcohol();
@@ -727,7 +728,7 @@ public class Brew implements Cloneable {
 				lore.removeEffects();
 				lore.addOrReplaceLore(Type.ERROR, "", error.userMessage());
 				currentRecipe = null;
-				potionMeta.setDisplayName(P.p.color("&f" + P.p.languageReader.get("Brew_BadPotion")));
+				potionMeta.setDisplayName(P.p.color("&f" + GetText.tr("Ruined Potion")));
 				PotionColor.GREY.colorBrew(potionMeta, item, canDistill());
 			}
 		}

@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.mini2Dx.gettext.GetText;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -89,16 +90,16 @@ public class Wakeup {
 
 			Player player = (Player) sender;
 			wakeups.add(new Wakeup(player.getLocation()));
-			p.msg(sender, p.languageReader.get("Player_WakeCreated", "" + (wakeups.size() - 1)));
+			p.msg(sender, GetText.tr("&aWakeup Point with id: &6{0} &awas created successfully!", "" + (wakeups.size() - 1)));
 
 		} else {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 		}
 	}
 
 	public static void remove(CommandSender sender, int id) {
 		if (wakeups.isEmpty() || id < 0 || id >= wakeups.size()) {
-			p.msg(sender, p.languageReader.get("Player_WakeNotExist", "" + id));//"&cDer Aufwachpunkt mit der id: &6" + id + " &cexistiert nicht!");
+			p.msg(sender, GetText.tr("&cThe Wakeup Point with the id: &6{0} &cdoesn't exist!", "" + id));//"&cDer Aufwachpunkt mit der id: &6" + id + " &cexistiert nicht!");
 			return;
 		}
 
@@ -106,16 +107,16 @@ public class Wakeup {
 
 		if (wakeup.active) {
 			wakeup.active = false;
-			p.msg(sender, p.languageReader.get("Player_WakeDeleted", "" + id));
+			p.msg(sender, GetText.tr("&aThe Wakeup Point with the id: &6{0} &awas successfully deleted!", "" + id));
 
 		} else {
-			p.msg(sender, p.languageReader.get("Player_WakeAlreadyDeleted", "" + id));
+			p.msg(sender, GetText.tr("&cThe Wakeup Point with the id: &6{0} &chas already been deleted!", "" + id));
 		}
 	}
 
 	public static void list(CommandSender sender, int page, String worldOnly) {
 		if (wakeups.isEmpty()) {
-			p.msg(sender, p.languageReader.get("Player_WakeNoPoints"));
+			p.msg(sender, GetText.tr("&cThere are no Wakeup Points!"));
 			return;
 		}
 
@@ -148,7 +149,7 @@ public class Wakeup {
 
 			if (!all) {
 				if (wakeups.isEmpty() || id >= wakeups.size()) {
-					p.msg(sender, p.languageReader.get("Player_WakeNotExist", "" + id));
+					p.msg(sender, GetText.tr("&cThe Wakeup Point with the id: &6{0} &cdoesn't exist!", "" + id));
 					return;
 				}
 
@@ -160,12 +161,12 @@ public class Wakeup {
 					int x = (int) wakeup.loc.getX();
 					int y = (int) wakeup.loc.getY();
 					int z = (int) wakeup.loc.getZ();
-					p.msg(sender, p.languageReader.get("Player_WakeFilled", "" + id, world, "" + x , "" + y, "" + z));
+					p.msg(sender, GetText.tr("&cThe Wakeup Point with the id: &6{0}&c at position &6{1} {2}, {3}, {4}&c is filled with Blocks!", "" + id, world, "" + x , "" + y, "" + z));
 				}
 
 			} else {
 				if (wakeups.isEmpty()) {
-					p.msg(sender, p.languageReader.get("Player_WakeNoPoints"));
+					p.msg(sender, GetText.tr("&cThere are no Wakeup Points!"));
 					return;
 				}
 				if (checkPlayer != null && checkPlayer != player) {
@@ -177,7 +178,7 @@ public class Wakeup {
 
 
 		} else {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 		}
 	}
 
@@ -188,7 +189,7 @@ public class Wakeup {
 	public static void tpNext() {
 		checkId++;
 		if (checkId >= wakeups.size()) {
-			p.msg(checkPlayer, p.languageReader.get("Player_WakeLast"));
+			p.msg(checkPlayer, GetText.tr("&aThis was the last Wakeup Point"));
 			checkId = -1;
 			checkPlayer = null;
 			return;
@@ -206,23 +207,23 @@ public class Wakeup {
 		int z = (int) wakeup.loc.getZ();
 
 		if (wakeup.check()) {
-			p.msg(checkPlayer, p.languageReader.get("Player_WakeTeleport", "" + checkId, world, "" + x , "" + y, "" + z));
+			p.msg(checkPlayer, GetText.tr("Teleport to Wakeup Point with the id: &6{0}&f At position: &6{1} {2}, {3}, {4}", "" + checkId, world, "" + x , "" + y, "" + z));
 			checkPlayer.teleport(wakeup.loc);
 		} else {
-			p.msg(checkPlayer, p.languageReader.get("Player_WakeFilled", "" + checkId, world, "" + x , "" + y, "" + z));
+			p.msg(checkPlayer, GetText.tr("&cThe Wakeup Point with the id: &6{0}&c at position &6{1} {2}, {3}, {4}&c is filled with Blocks!", "" + checkId, world, "" + x , "" + y, "" + z));
 		}
-		p.msg(checkPlayer, p.languageReader.get("Player_WakeHint1"));
-		p.msg(checkPlayer, p.languageReader.get("Player_WakeHint2"));
+		p.msg(checkPlayer, GetText.tr("To Next Wakeup Point: Punch your fist in the air"));
+		p.msg(checkPlayer, GetText.tr("To Cancel: &9/brew wakeup cancel"));
 	}
 
 	public static void cancel(CommandSender sender) {
 		if (checkPlayer != null) {
 			checkPlayer = null;
 			checkId = -1;
-			p.msg(sender, p.languageReader.get("Player_WakeCancel"));
+			p.msg(sender, GetText.tr("&6Wakeup Point Check was cancelled"));
 			return;
 		}
-		p.msg(sender, p.languageReader.get("Player_WakeNoCheck"));
+		p.msg(sender, GetText.tr("&cNo Wakeup Point Check is currently active"));
 	}
 
 

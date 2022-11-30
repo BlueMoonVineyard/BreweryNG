@@ -27,6 +27,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mini2Dx.gettext.GetText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +50,9 @@ public class Barrel implements InventoryHolder {
 	public Barrel(Block spigot, byte signoffset) {
 		this.spigot = spigot;
 		if (isLarge()) {
-			inventory = P.p.getServer().createInventory(this, 27, P.p.languageReader.get("Etc_Barrel"));
+			inventory = P.p.getServer().createInventory(this, 27, GetText.tr("Barrel"));
 		} else {
-			inventory = P.p.getServer().createInventory(this, 9, P.p.languageReader.get("Etc_Barrel"));
+			inventory = P.p.getServer().createInventory(this, 9, GetText.tr("Barrel"));
 		}
 		body = new BarrelBody(this, signoffset);
 	}
@@ -71,9 +72,9 @@ public class Barrel implements InventoryHolder {
 	public Barrel(Block spigot, byte sign, BoundingBox bounds, Map<String, Object> items, float time, boolean async) {
 		this.spigot = spigot;
 		if (isLarge()) {
-			this.inventory = P.p.getServer().createInventory(this, 27, P.p.languageReader.get("Etc_Barrel"));
+			this.inventory = P.p.getServer().createInventory(this, 27, GetText.tr("Barrel"));
 		} else {
-			this.inventory = P.p.getServer().createInventory(this, 9, P.p.languageReader.get("Etc_Barrel"));
+			this.inventory = P.p.getServer().createInventory(this, 9, GetText.tr("Barrel"));
 		}
 		if (items != null) {
 			for (String slot : items.keySet()) {
@@ -114,12 +115,12 @@ public class Barrel implements InventoryHolder {
 	public boolean hasPermsOpen(Player player, PlayerInteractEvent event) {
 		if (isLarge()) {
 			if (!player.hasPermission("brewery.openbarrel.big")) {
-				P.p.msg(player, P.p.languageReader.get("Error_NoBarrelAccess"));
+				P.p.msg(player, GetText.tr("&cYou don't have permissions to access this barrel!"));
 				return false;
 			}
 		} else {
 			if (!player.hasPermission("brewery.openbarrel.small")) {
-				P.p.msg(player, P.p.languageReader.get("Error_NoBarrelAccess"));
+				P.p.msg(player, GetText.tr("&cYou don't have permissions to access this barrel!"));
 				return false;
 			}
 		}
@@ -147,9 +148,9 @@ public class Barrel implements InventoryHolder {
 	public void open(Player player) {
 		if (inventory == null) {
 			if (isLarge()) {
-				inventory = P.p.getServer().createInventory(this, 27, P.p.languageReader.get("Etc_Barrel"));
+				inventory = P.p.getServer().createInventory(this, 27, GetText.tr("Barrel"));
 			} else {
-				inventory = P.p.getServer().createInventory(this, 9, P.p.languageReader.get("Etc_Barrel"));
+				inventory = P.p.getServer().createInventory(this, 9, GetText.tr("Barrel"));
 			}
 		} else {
 			if (time > 0) {
@@ -347,12 +348,12 @@ public class Barrel implements InventoryHolder {
 			if (barrel.body.getBrokenBlock(true) == null) {
 				if (LegacyUtil.isSign(spigot.getType())) {
 					if (!player.hasPermission("brewery.createbarrel.small")) {
-						P.p.msg(player, P.p.languageReader.get("Perms_NoSmallBarrelCreate"));
+						P.p.msg(player, GetText.tr("&cYou don't have permissions to create small barrels!"));
 						return false;
 					}
 				} else {
 					if (!player.hasPermission("brewery.createbarrel.big")) {
-						P.p.msg(player, P.p.languageReader.get("Perms_NoBigBarrelCreate"));
+						P.p.msg(player, GetText.tr("&cYou don't have permissions to create big barrels!"));
 						return false;
 					}
 				}

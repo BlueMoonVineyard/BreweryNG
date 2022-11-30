@@ -15,6 +15,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.jetbrains.annotations.Nullable;
+import org.mini2Dx.gettext.GetText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -139,7 +140,7 @@ public class BIngredients {
 			brew = new Brew(this);
 
 			if (state <= 0) {
-				cookedName = P.p.languageReader.get("Brew_ThickBrew");
+				cookedName = GetText.tr("Muddy Brew");
 				PotionColor.BLUE.colorBrew(potionMeta, potion, false);
 			} else {
 				BCauldronRecipe cauldronRecipe = getCauldronRecipe();
@@ -160,7 +161,7 @@ public class BIngredients {
 		}
 		if (cookedName == null) {
 			// if no name could be found
-			cookedName = P.p.languageReader.get("Brew_Undefined");
+			cookedName = GetText.tr("Cauldron Brew");
 			PotionColor.CYAN.colorBrew(potionMeta, potion, true);
 		}
 

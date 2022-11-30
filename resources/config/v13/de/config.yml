@@ -4,7 +4,7 @@
 # -- Verschiedene Einstellungen --
 # Standardeinstellungen sind in [] angegeben
 
-# Sprachedatei die genutzt werden sollte (befindet sich in plugins/Brewery/languages)
+# Sprachedatei die genutzt werden sollte (befindet sich in plugins/Brewery/i18n)
 language: de
 
 # Ob der Spieler beim nächsten Einloggen nach starker Trunkenheit am nächsten morgen Zuhause "aufwacht" (Ein home Plugin muss installiert sein!) [true]

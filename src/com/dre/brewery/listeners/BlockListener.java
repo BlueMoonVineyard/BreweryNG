@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
+import org.mini2Dx.gettext.GetText;
 
 public class BlockListener implements Listener {
 
@@ -27,7 +28,7 @@ public class BlockListener implements Listener {
 		if (hasBarrelLine(lines)) {
 			Player player = event.getPlayer();
 			if (!player.hasPermission("brewery.createbarrel.small") && !player.hasPermission("brewery.createbarrel.big")) {
-				P.p.msg(player, P.p.languageReader.get("Perms_NoBarrelCreate"));
+				P.p.msg(player, GetText.tr("&cYou don't have permissions to create barrels!"));
 				return;
 			}
 			if (BData.dataMutex.get() > 0) {
@@ -35,14 +36,14 @@ public class BlockListener implements Listener {
 				return;
 			}
 			if (Barrel.create(event.getBlock(), player)) {
-				P.p.msg(player, P.p.languageReader.get("Player_BarrelCreated"));
+				P.p.msg(player, GetText.tr("Barrel created"));
 			}
 		}
 	}
 
 	public static boolean hasBarrelLine(String[] lines) {
 		for (String line : lines) {
-			if (line.equalsIgnoreCase("Barrel") || line.equalsIgnoreCase(P.p.languageReader.get("Etc_Barrel"))) {
+			if (line.equalsIgnoreCase("Barrel") || line.equalsIgnoreCase(GetText.tr("Barrel"))) {
 				return true;
 			}
 		}

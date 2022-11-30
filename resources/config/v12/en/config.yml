@@ -4,7 +4,7 @@
 # -- Settings --
 # Defaults are written in []
 
-# Languagefile to be used (found in plugins/Brewery/languages)
+# Languagefile to be used (found in plugins/Brewery/i18n)
 language: en
 
 # If the player wakes up at /home when logging in after excessive drinking (/home plugin must be installed!) [true]

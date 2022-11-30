@@ -5,7 +5,7 @@
 # -- Paramètres --
 # Les paramètres par défaut sont entre []
 
-# Fichier de langage utilisé (trouvable dans plugins/Brewery/languages)
+# Fichier de langage utilisé (trouvable dans plugins/Brewery/i18n)
 language: fr
 
 # Si le joueur se réveille à son /home lors de sa connexion après un excès alcool (Un plugin de /home est nécessaire!) [true]

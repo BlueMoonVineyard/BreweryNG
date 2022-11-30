@@ -27,6 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mini2Dx.gettext.GetText;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class CommandListener implements CommandExecutor {
 			if (sender.hasPermission("brewery.cmd.reload")) {
 				p.reload(sender);
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("configname") || cmd.equalsIgnoreCase("itemname") || cmd.equalsIgnoreCase("iteminfo")) {
@@ -70,7 +71,7 @@ public class CommandListener implements CommandExecutor {
 			if (sender.hasPermission("brewery.cmd.reload")) {
 				cmdItemName(sender);
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("wakeup")) {
@@ -78,7 +79,7 @@ public class CommandListener implements CommandExecutor {
 			if (sender.hasPermission("brewery.cmd.wakeup")) {
 				cmdWakeup(sender, args);
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("create") || cmd.equalsIgnoreCase("give")) {
@@ -86,7 +87,7 @@ public class CommandListener implements CommandExecutor {
 			if (sender.hasPermission("brewery.cmd.create")) {
 				cmdCreate(sender, args);
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("info")) {
@@ -95,13 +96,13 @@ public class CommandListener implements CommandExecutor {
 				if (sender.hasPermission("brewery.cmd.infoOther")) {
 					cmdInfo(sender, args[1]);
 				} else {
-					p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+					p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 				}
 			} else {
 				if (sender.hasPermission("brewery.cmd.info")) {
 					cmdInfo(sender, null);
 				} else {
-					p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+					p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 				}
 			}
 
@@ -110,7 +111,7 @@ public class CommandListener implements CommandExecutor {
 			if (sender.hasPermission("brewery.cmd.seal")) {
 				cmdSeal(sender);
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("copy") || cmd.equalsIgnoreCase("cp")) {
@@ -122,7 +123,7 @@ public class CommandListener implements CommandExecutor {
 					cmdCopy(sender, 1);
 				}
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("delete") || cmd.equalsIgnoreCase("rm") || cmd.equalsIgnoreCase("remove")) {
@@ -130,7 +131,7 @@ public class CommandListener implements CommandExecutor {
 			if (sender.hasPermission("brewery.cmd.delete")) {
 				cmdDelete(sender);
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("static")) {
@@ -138,7 +139,7 @@ public class CommandListener implements CommandExecutor {
 			if (sender.hasPermission("brewery.cmd.static")) {
 				cmdStatic(sender);
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("unlabel")) {
@@ -146,7 +147,7 @@ public class CommandListener implements CommandExecutor {
 			if (sender.hasPermission("brewery.cmd.unlabel")) {
 				cmdUnlabel(sender);
 			} else {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 
 		} else if (cmd.equalsIgnoreCase("debuginfo")) {
@@ -177,14 +178,14 @@ public class CommandListener implements CommandExecutor {
 					if (sender.hasPermission("brewery.cmd.player")) {
 						cmdPlayer(sender, args);
 					} else {
-						p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+						p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 					}
 				}
 
 			} else {
 
-				p.msg(sender, p.languageReader.get("Error_UnknownCommand"));
-				p.msg(sender, p.languageReader.get("Error_ShowHelp"));
+				p.msg(sender, GetText.tr("Unknown Command"));
+				p.msg(sender, GetText.tr("Use &6/brew help &fto display the help"));
 
 			}
 		}
@@ -240,7 +241,7 @@ public class CommandListener implements CommandExecutor {
 		PaginatedPane paginatedPane = new PaginatedPane(0, 0, 9, 5);
 		List<BRecipe> eligible = BRecipe.getAllRecipes().stream().filter(recipe -> recipe.getOptionalID().isPresent()).toList();
 		List<List<BRecipe>> pageRecipes = Lists.partition(eligible, 5*9);
-		ChestGui gui = new ChestGui(6, MessageFormat.format("{0} ({1}/{2})", p.languageReader.get("CraftedBrews_Title"), 1, pageRecipes.size()));
+		ChestGui gui = new ChestGui(6, MessageFormat.format("{0} ({1}/{2})", GetText.tr("Crafted Brews"), 1, pageRecipes.size()));
 
 		int pageNumber = 0;
 		for (List<BRecipe> page : pageRecipes) {
@@ -256,7 +257,7 @@ public class CommandListener implements CommandExecutor {
 			if (target >= pageRecipes.size()-1) {
 				target = pageRecipes.size()-1;
 			}
-			gui.setTitle(MessageFormat.format("{0} ({1}/{2})", p.languageReader.get("CraftedBrews_Title"), target+1, pageRecipes.size()));
+			gui.setTitle(MessageFormat.format("{0} ({1}/{2})", GetText.tr("Crafted Brews"), target+1, pageRecipes.size()));
 			paginatedPane.setPage(target);
 			gui.update();
 			return null;
@@ -265,7 +266,7 @@ public class CommandListener implements CommandExecutor {
 		OutlinePane paginatorPane = new OutlinePane(0, 5, 9, 1);
 		ItemStack goBackItem = new ItemStack(Material.RED_STAINED_GLASS_PANE);
 		ItemMeta goBackMeta = goBackItem.getItemMeta();
-		goBackMeta.setDisplayName(p.languageReader.get("CraftedBrews_PageBack"));
+		goBackMeta.setDisplayName(GetText.tr("Go Back"));
 		goBackItem.setItemMeta(goBackMeta);
 		paginatorPane.addItem(new GuiItem(goBackItem, ig -> adjust.apply(-1)));
 		for (int i = 0; i < 7; i++) {
@@ -273,7 +274,7 @@ public class CommandListener implements CommandExecutor {
 		}
 		ItemStack goForwardItem = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
 		ItemMeta goForwardMeta = goForwardItem.getItemMeta();
-		goForwardMeta.setDisplayName(p.languageReader.get("CraftedBrews_PageNext"));
+		goForwardMeta.setDisplayName(GetText.tr("Go Forward"));
 		goForwardItem.setItemMeta(goForwardMeta);
 		paginatorPane.addItem(new GuiItem(goForwardItem, ig -> adjust.apply(1)));
 
@@ -286,23 +287,23 @@ public class CommandListener implements CommandExecutor {
 	public ArrayList<String> getCommands(CommandSender sender) {
 
 		ArrayList<String> cmds = new ArrayList<>();
-		cmds.add(p.languageReader.get("Help_Help"));
+		cmds.add(GetText.tr("&6/brew help [Page] &9Shows a specific help-page"));
 		PermissionUtil.evaluateExtendedPermissions(sender);
 
 		if (PLAYER.checkCached(sender)) {
-			cmds.add (p.languageReader.get("Help_Player"));
+			cmds.add (GetText.tr("&6/brew <Player> <%Drunkeness> [Quality]&9 Sets Drunkeness (and Quality) of a Player"));
 		}
 
 		if (INFO.checkCached(sender)) {
-			cmds.add (p.languageReader.get("Help_Info"));
+			cmds.add (GetText.tr("&6/brew info&9 Displays your current Drunkeness and Quality"));
 		}
 
 		if (P.use1_13 && SEAL.checkCached(sender)) {
-			cmds.add (p.languageReader.get("Help_Seal"));
+			cmds.add (GetText.tr("&6/brew seal &9Seal Brews for selling in shops"));
 		}
 
 		if (UNLABEL.checkCached(sender)) {
-			cmds.add (p.languageReader.get("Help_UnLabel"));
+			cmds.add (GetText.tr("&6/brew unlabel &9Removes the detailled label of a potion"));
 		}
 
 		if (PermissionUtil.noExtendedPermissions(sender)) {
@@ -310,50 +311,50 @@ public class CommandListener implements CommandExecutor {
 		}
 
 		if (COLLECTION.checkCached(sender)) {
-			cmds.add(p.languageReader.get("Help_Collection"));
+			cmds.add(GetText.tr("&6/brew collection&9 Shows what brews you have and haven't crafted"));
 		}
 
 		if (INFO_OTHER.checkCached(sender)) {
-			cmds.add (p.languageReader.get("Help_InfoOther"));
+			cmds.add (GetText.tr("&6/brew info [Player]&9 Displays the current Drunkeness and Quality of [Player]"));
 		}
 
 		if (CREATE.checkCached(sender)) {
-			cmds.add(p.languageReader.get("Help_Create"));
-			cmds.add(p.languageReader.get("Help_Give"));
+			cmds.add(GetText.tr("&6/brew create <Recipe> [Quality] [Player] &9Create a Brew with optional quality (1-10)"));
+			cmds.add(GetText.tr("&6/brew give <Recipe> [Quality] [Player] &9Alias for /brew create"));
 		}
 
 		if (DRINK.checkCached(sender) || DRINK_OTHER.checkCached(sender)) {
-			cmds.add(p.languageReader.get("Help_Drink"));
+			cmds.add(GetText.tr("&6/brew drink <Recipe> [Quality] [Player] &9Simulates [Player] drinking a Brew"));
 		}
 
 		if (RELOAD.checkCached(sender)) {
-			cmds.add(p.languageReader.get("Help_Configname"));
-			cmds.add(p.languageReader.get("Help_Reload"));
+			cmds.add(GetText.tr("&6/brew ItemName &9Display name of item in hand for the config"));
+			cmds.add(GetText.tr("&6/brew reload &9Reload config"));
 		}
 
 		if (PUKE.checkCached(sender) || PUKE_OTHER.checkCached(sender)) {
-			cmds.add(p.languageReader.get("Help_Puke"));
+			cmds.add(GetText.tr("&6/brew puke [Player] [Amount] &9Makes you or [Player] puke"));
 		}
 
 		if (WAKEUP.checkCached(sender)) {
-			cmds.add(p.languageReader.get("Help_Wakeup"));
-			cmds.add(p.languageReader.get("Help_WakeupList"));
-			cmds.add(p.languageReader.get("Help_WakeupCheck"));
-			cmds.add(p.languageReader.get("Help_WakeupCheckSpecific"));
-			cmds.add(p.languageReader.get("Help_WakeupAdd"));
-			cmds.add(p.languageReader.get("Help_WakeupRemove"));
+			cmds.add(GetText.tr("&6/brew wakeup list <Page>&9 Lists all wakeup points"));
+			cmds.add(GetText.tr("&6/brew wakeup list <Page> [World]&9 Lists all wakeup points of <world>"));
+			cmds.add(GetText.tr("&6/brew wakeup check &9Teleports to all wakeup points"));
+			cmds.add(GetText.tr("&6/brew wakeup check <id> &9Teleports to the wakeup point with <id>"));
+			cmds.add(GetText.tr("&6/brew wakeup add &9Adds a wakeup point at your current position"));
+			cmds.add(GetText.tr("&6/brew wakeup remove <id> &9Removes the wakeup point with <id>"));
 		}
 
 		if (STATIC.checkCached(sender)) {
-			cmds.add(p.languageReader.get("Help_Static"));
+			cmds.add(GetText.tr("&6/brew static &9Make Brew static -> No further ageing or distilling"));
 		}
 
 		if (COPY.checkCached(sender)) {
-			cmds.add (p.languageReader.get("Help_Copy"));
+			cmds.add (GetText.tr("&6/brew copy [Quantity]&9 Copies the potion in your hand"));
 		}
 
 		if (DELETE.checkCached(sender)) {
-			cmds.add (p.languageReader.get("Help_Delete"));
+			cmds.add (GetText.tr("&6/brew delete &9Deletes the potion in your hand"));
 		}
 
 		return cmds;
@@ -388,8 +389,8 @@ public class CommandListener implements CommandExecutor {
 				int id = p.parseInt(args[2]);
 				Wakeup.remove(sender, id);
 			} else {
-				p.msg(sender, p.languageReader.get("Etc_Usage"));
-				p.msg(sender, p.languageReader.get("Help_WakeupRemove"));
+				p.msg(sender, GetText.tr("Usage:"));
+				p.msg(sender, GetText.tr("&6/brew wakeup remove <id> &9Removes the wakeup point with <id>"));
 			}
 
 		} else if (args[1].equalsIgnoreCase("check")){
@@ -409,8 +410,8 @@ public class CommandListener implements CommandExecutor {
 
 		} else {
 
-			p.msg(sender, p.languageReader.get("Error_UnknownCommand"));
-			p.msg(sender, p.languageReader.get("Error_ShowHelp"));
+			p.msg(sender, GetText.tr("Unknown Command"));
+			p.msg(sender, GetText.tr("Use &6/brew help &fto display the help"));
 
 		}
 	}
@@ -425,7 +426,7 @@ public class CommandListener implements CommandExecutor {
 		if (args.length > 2) {
 			quality = p.parseInt(args[2]);
 			if (quality < 1 || quality > 10) {
-				p.msg(sender, p.languageReader.get("CMD_Player_Error"));
+				p.msg(sender, GetText.tr("&cThe quality has to be between 1 and 10!"));
 				return;
 			}
 		}
@@ -466,7 +467,7 @@ public class CommandListener implements CommandExecutor {
 				}
 			}
 		}
-		p.msg(sender, p.languageReader.get("CMD_Player", playerName, "" + drunkeness, "" + bPlayer.getQuality()));
+		p.msg(sender, GetText.tr("&a{0} is now &6{1}% &adrunk, with a quality of &6{2}", playerName, "" + drunkeness, "" + bPlayer.getQuality()));
 
 	}
 
@@ -478,7 +479,7 @@ public class CommandListener implements CommandExecutor {
 				Player player = (Player) sender;
 				playerName = player.getName();
 			} else {
-				p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+				p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 				return;
 			}
 		}
@@ -491,12 +492,12 @@ public class CommandListener implements CommandExecutor {
 			bPlayer = BPlayer.get(player);
 		}
 		if (bPlayer == null) {
-			p.msg(sender, p.languageReader.get("CMD_Info_NotDrunk", playerName));
+			p.msg(sender, GetText.tr("{0} is not drunk", playerName));
 		} else {
 			if (selfInfo) {
 				bPlayer.showDrunkeness(player);
 			} else {
-				p.msg(sender, p.languageReader.get("CMD_Info_Drunk", playerName, "" + bPlayer.getDrunkeness(), "" + bPlayer.getQuality()));
+				p.msg(sender, GetText.tr("{0} is &6{1}% &fdrunk, with a quality of &6{2}", playerName, "" + bPlayer.getDrunkeness(), "" + bPlayer.getQuality()));
 			}
 		}
 
@@ -504,7 +505,7 @@ public class CommandListener implements CommandExecutor {
 
 	public void cmdItemName(CommandSender sender) {
 		if (!(sender instanceof Player)) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return;
 		}
 
@@ -512,9 +513,9 @@ public class CommandListener implements CommandExecutor {
 		@SuppressWarnings("deprecation")
 		ItemStack hand = P.use1_9 ? player.getInventory().getItemInMainHand() : player.getItemInHand();
 		if (hand != null) {
-			p.msg(sender, p.languageReader.get("CMD_Configname", hand.getType().name().toLowerCase(Locale.ENGLISH)));
+			p.msg(sender, GetText.tr("&aName for the Config is: &f{0}", hand.getType().name().toLowerCase(Locale.ENGLISH)));
 		} else {
-			p.msg(sender, p.languageReader.get("CMD_Configname_Error"));
+			p.msg(sender, GetText.tr("&cCould not find item in your hand"));
 		}
 
 	}
@@ -525,7 +526,7 @@ public class CommandListener implements CommandExecutor {
 			return;
 		}
 		if (!(sender instanceof Player)) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return;
 		}
 
@@ -537,12 +538,12 @@ public class CommandListener implements CommandExecutor {
 	public void cmdCopy(CommandSender sender, int count) {
 
 		if (!(sender instanceof Player)) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return;
 		}
 		if (count < 1 || count > 36) {
-			p.msg(sender, p.languageReader.get("Etc_Usage"));
-			p.msg(sender, p.languageReader.get("Help_Copy"));
+			p.msg(sender, GetText.tr("Usage:"));
+			p.msg(sender, GetText.tr("&6/brew copy [Quantity]&9 Copies the potion in your hand"));
 			return;
 		}
 		Player player = (Player) sender;
@@ -552,7 +553,7 @@ public class CommandListener implements CommandExecutor {
 				while (count > 0) {
 					ItemStack item = hand.clone();
 					if (!(player.getInventory().addItem(item)).isEmpty()) {
-						p.msg(sender, p.languageReader.get("CMD_Copy_Error", "" + count));
+						p.msg(sender, GetText.tr("&6{0} &cPotions did not fit into your inventory", "" + count));
 						return;
 					}
 					count--;
@@ -561,7 +562,7 @@ public class CommandListener implements CommandExecutor {
 			}
 		}
 
-		p.msg(sender, p.languageReader.get("Error_ItemNotPotion"));
+		p.msg(sender, GetText.tr("&cThe item in your hand could not be identified as a potion!"));
 
 	}
 
@@ -569,7 +570,7 @@ public class CommandListener implements CommandExecutor {
 	public void cmdDelete(CommandSender sender) {
 
 		if (!(sender instanceof Player)) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return;
 		}
 		Player player = (Player) sender;
@@ -580,14 +581,14 @@ public class CommandListener implements CommandExecutor {
 				return;
 			}
 		}
-		p.msg(sender, p.languageReader.get("Error_ItemNotPotion"));
+		p.msg(sender, GetText.tr("&cThe item in your hand could not be identified as a potion!"));
 
 	}
 
 	public void debugInfo(CommandSender sender, String recipeName) {
 		if (!P.use1_9 || !sender.isOp()) return;
 		if (!(sender instanceof Player)) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return;
 		}
 		Player player = (Player) sender;
@@ -654,7 +655,7 @@ public class CommandListener implements CommandExecutor {
 	public void cmdStatic(CommandSender sender) {
 
 		if (!(sender instanceof Player)) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return;
 		}
 		Player player = (Player) sender;
@@ -665,14 +666,14 @@ public class CommandListener implements CommandExecutor {
 				if (brew.isStatic()) {
 					if (!brew.isStripped()) {
 						brew.setStatic(false, hand);
-						p.msg(sender, p.languageReader.get("CMD_NonStatic"));
+						p.msg(sender, GetText.tr("&ePotion is not static anymore and will normally age in barrels."));
 					} else {
-						p.msg(sender, p.languageReader.get("Error_SealedAlwaysStatic"));
+						p.msg(sender, GetText.tr("Sealed Brews are always static!"));
 						return;
 					}
 				} else {
 					brew.setStatic(true, hand);
-					p.msg(sender, p.languageReader.get("CMD_Static"));
+					p.msg(sender, GetText.tr("&aPotion is now static and will not change in barrels or brewing stands."));
 				}
 				brew.touch();
 				ItemMeta meta = hand.getItemMeta();
@@ -687,7 +688,7 @@ public class CommandListener implements CommandExecutor {
 				return;
 			}
 		}
-		p.msg(sender, p.languageReader.get("Error_ItemNotPotion"));
+		p.msg(sender, GetText.tr("&cThe item in your hand could not be identified as a potion!"));
 
 	}
 
@@ -695,7 +696,7 @@ public class CommandListener implements CommandExecutor {
 	public void cmdUnlabel(CommandSender sender) {
 
 		if (!(sender instanceof Player)) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return;
 		}
 		Player player = (Player) sender;
@@ -717,22 +718,22 @@ public class CommandListener implements CommandExecutor {
 					}
 					brew.save(meta);
 					hand.setItemMeta(meta);
-					p.msg(sender, p.languageReader.get("CMD_UnLabel"));
+					p.msg(sender, GetText.tr("&aLabel removed!"));
 					return;
 				} else {
-					p.msg(sender, p.languageReader.get("Error_AlreadyUnlabeled"));
+					p.msg(sender, GetText.tr("&cThe Brew in your hand is already unlabeled!"));
 					return;
 				}
 			}
 		}
-		p.msg(sender, p.languageReader.get("Error_ItemNotPotion"));
+		p.msg(sender, GetText.tr("&cThe item in your hand could not be identified as a potion!"));
 
 	}
 
 	public void cmdCreate(CommandSender sender, String[] args) {
 		if (args.length < 2) {
-			p.msg(sender, p.languageReader.get("Etc_Usage"));
-			p.msg(sender, p.languageReader.get("Help_Create"));
+			p.msg(sender, GetText.tr("Usage:"));
+			p.msg(sender, GetText.tr("&6/brew create <Recipe> [Quality] [Player] &9Create a Brew with optional quality (1-10)"));
 			return;
 		}
 
@@ -740,14 +741,14 @@ public class CommandListener implements CommandExecutor {
 
 		if (brewForPlayer != null) {
 			if (brewForPlayer.b().getInventory().firstEmpty() == -1) {
-				p.msg(sender, p.languageReader.get("CMD_Copy_Error", "1"));
+				p.msg(sender, GetText.tr("&6{0} &cPotions did not fit into your inventory", "1"));
 				return;
 			}
 
 			ItemStack item = brewForPlayer.a().createItem(null);
 			if (item != null) {
 				brewForPlayer.b().getInventory().addItem(item);
-				p.msg(sender, p.languageReader.get("CMD_Created"));
+				p.msg(sender, GetText.tr("&aBrew Created"));
 			}
 		}
 
@@ -783,7 +784,7 @@ public class CommandListener implements CommandExecutor {
 		}
 
 		if (!(sender instanceof Player) && player == null) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return null;
 		}
 
@@ -816,14 +817,14 @@ public class CommandListener implements CommandExecutor {
 		if (recipe != null) {
 			return new Tuple<>(recipe.createBrew(quality), player);
 		} else {
-			p.msg(sender, p.languageReader.get("Error_NoBrewName", name));
+			p.msg(sender, GetText.tr("&cNo Recipe with Name: '{0}&c' found!", name));
 		}
 		return null;
 	}
 
 	public void cmdPuke(CommandSender sender, String[] args) {
 		if (!sender.hasPermission("brewery.cmd.puke")) {
-			p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+			p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			return;
 		}
 
@@ -831,20 +832,20 @@ public class CommandListener implements CommandExecutor {
 		if (args.length > 1) {
 			player = p.getServer().getPlayer(args[1]);
 			if (player == null) {
-				p.msg(sender, p.languageReader.get("Error_NoPlayer", args[1]));
+				p.msg(sender, GetText.tr("Player not found: {0}", args[1]));
 				return;
 			}
 		}
 
 		if (!(sender instanceof Player) && player == null) {
-			p.msg(sender, p.languageReader.get("Error_PlayerCommand"));
+			p.msg(sender, GetText.tr("&cThis command can only be executed as a player!"));
 			return;
 		}
 		if (player == null) {
 			player = ((Player) sender);
 		} else {
 			if (!sender.hasPermission("brewery.cmd.pukeOther") && !player.equals(sender)) {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 				return;
 			}
 		}
@@ -860,13 +861,13 @@ public class CommandListener implements CommandExecutor {
 
 	public void cmdDrink(CommandSender sender, String[] args) {
 		if (!sender.hasPermission("brewery.cmd.drink") || !sender.hasPermission("brewery.cmd.drink")) {
-			p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+			p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			return;
 		}
 
 		if (args.length < 2) {
-			p.msg(sender, p.languageReader.get("Etc_Usage"));
-			p.msg(sender, p.languageReader.get("Help_Drink"));
+			p.msg(sender, GetText.tr("Usage:"));
+			p.msg(sender, GetText.tr("&6/brew drink <Recipe> [Quality] [Player] &9Simulates [Player] drinking a Brew"));
 			return;
 		}
 
@@ -875,15 +876,15 @@ public class CommandListener implements CommandExecutor {
 			Player player = brewForPlayer.b();
 			if ((!sender.equals(player) && !sender.hasPermission("brewery.cmd.drinkOther")) ||
 				(sender.equals(player) && !sender.hasPermission("brewery.cmd.drink"))) {
-				p.msg(sender, p.languageReader.get("Error_NoPermissions"));
+				p.msg(sender, GetText.tr("&cYou don't have permissions to do this!"));
 			} else {
 				Brew brew = brewForPlayer.a();
 				String brewName = brew.getCurrentRecipe().getName(brew.getQuality());
 				BPlayer.drink(brew, null, player);
 
-				p.msg(player, p.languageReader.get("CMD_Drink", brewName));
+				p.msg(player, GetText.tr("&aYou drank one {0}", brewName));
 				if (!sender.equals(player)) {
-					p.msg(sender, p.languageReader.get("CMD_DrinkOther", player.getDisplayName(), brewName));
+					p.msg(sender, GetText.tr("&a{0} drinks one {1}", player.getDisplayName(), brewName));
 				}
 			}
 		}
