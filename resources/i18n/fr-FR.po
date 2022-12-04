@@ -1,15 +1,21 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: breweryng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:15-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2022-12-04 22:07\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Crowdin-Project: breweryng\n"
+"X-Crowdin-Project-ID: 553919\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: /dev/resources/i18n/messages.pot\n"
+"X-Crowdin-File-ID: 41\n"
 
 #: src/com/dre/brewery/Barrel.java:53 src/com/dre/brewery/Barrel.java:55
 #: src/com/dre/brewery/Barrel.java:75 src/com/dre/brewery/Barrel.java:77
@@ -39,8 +45,7 @@ msgstr "&cVous n´avez pas la permission de créer des gros barils !"
 
 #: src/com/dre/brewery/BCauldron.java:189
 msgid "&cYou don't have permissions to fill bottles from this cauldron!"
-msgstr ""
-"&cVous n´avez pas la permission de remplir les bouteilles de ce chaudron !"
+msgstr "&cVous n´avez pas la permission de remplir les bouteilles de ce chaudron !"
 
 #: src/com/dre/brewery/BCauldron.java:271
 #: src/com/dre/brewery/listeners/CommandListener.java:66
@@ -74,8 +79,7 @@ msgstr "Ce chaudron est tout juste à ébullition."
 
 #: src/com/dre/brewery/BCauldron.java:493
 msgid "&cYou don't have permissions to put ingredients into cauldrons!"
-msgstr ""
-"&cVous n´avez pas la permission de mettre des ingrédients dans le chaudron !"
+msgstr "&cVous n´avez pas la permission de mettre des ingrédients dans le chaudron !"
 
 #: src/com/dre/brewery/BIngredients.java:143
 msgid "Muddy Brew"
@@ -86,14 +90,12 @@ msgid "Cauldron Brew"
 msgstr "Breuvage indéfini"
 
 #: src/com/dre/brewery/BPlayer.java:246
-#, fuzzy
 msgid "Player_Hangover"
-msgstr "Gueule de bois"
+msgstr ""
 
 #: src/com/dre/brewery/BPlayer.java:246
-#, fuzzy
 msgid "Player_Drunkeness"
-msgstr "Ivresse"
+msgstr ""
 
 #: src/com/dre/brewery/BPlayer.java:328
 msgid "You can't drink any more."
@@ -128,19 +130,13 @@ msgid "{0} tried to say: &0{1}"
 msgstr "{0} essaie de dire: &0{1}"
 
 #: src/com/dre/brewery/filedata/BConfig.java:185
-msgid ""
-"Could not read file config.yml, please make sure the file is in valid yml "
-"format (correct spaces, using ' ' etc.)"
+msgid "Could not read file config.yml, please make sure the file is in valid yml format (correct spaces, using ' ' etc.)"
 msgstr ""
-"Could not read file config.yml, please make sure the file is in valid yml "
-"format (correct spaces, using ' ' etc.)"
 
 #: src/com/dre/brewery/filedata/ConfigUpdater.java:271
 #, java-format
 msgid "Unknown Brewery config version: v{0}, config was not updated!"
-msgstr ""
-"La version de la configuration de Brewery est inconnue: v{0}, la config n´a "
-"pas été mise à jour !"
+msgstr "La version de la configuration de Brewery est inconnue: v{0}, la config n´a pas été mise à jour !"
 
 #: src/com/dre/brewery/integration/ChestShopListener.java:26
 #: src/com/dre/brewery/integration/ShopKeepersListener.java:49
@@ -167,9 +163,8 @@ msgstr "Utilisez &6/brew help &fpour regarder l´aide"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:244
 #: src/com/dre/brewery/listeners/CommandListener.java:260
-#, fuzzy
 msgid "Crafted Brews"
-msgstr "Breuvage indéfini"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:269
 msgid "Go Back"
@@ -184,12 +179,8 @@ msgid "&6/brew help [Page] &9Shows a specific help-page"
 msgstr "&6/brew help [Page] &9Affiche une page spécifique de l´aide"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:294
-msgid ""
-"&6/brew <Player> <%Drunkeness> [Quality]&9 Sets Drunkeness (and Quality) of "
-"a Player"
-msgstr ""
-"&6/brew <Player> <%Drunkeness> [Quality]&9 Définit l´ivresse (et la qualité) "
-"du joueur"
+msgid "&6/brew <Player> <%Drunkeness> [Quality]&9 Sets Drunkeness (and Quality) of a Player"
+msgstr "&6/brew <Player> <%Drunkeness> [Quality]&9 Définit l´ivresse (et la qualité) du joueur"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:298
 msgid "&6/brew info&9 Displays your current Drunkeness and Quality"
@@ -208,38 +199,26 @@ msgid "&6/brew collection&9 Shows what brews you have and haven't crafted"
 msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:318
-msgid ""
-"&6/brew info [Player]&9 Displays the current Drunkeness and Quality of "
-"[Player]"
-msgstr ""
-"&6/brew info [Player]&9 Affiche l´ivresse actuelle de <PLAYER>, cette "
-"commande affiche aussi sa qualité.<Player>"
+msgid "&6/brew info [Player]&9 Displays the current Drunkeness and Quality of [Player]"
+msgstr "&6/brew info [Player]&9 Affiche l´ivresse actuelle de <PLAYER>, cette commande affiche aussi sa qualité.<Player>"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:322
 #: src/com/dre/brewery/listeners/CommandListener.java:736
-msgid ""
-"&6/brew create <Recipe> [Quality] [Player] &9Create a Brew with optional "
-"quality (1-10)"
-msgstr ""
-"&6/brew create <Recipe> [Quality] [Player] &9Crée une boisson avec une "
-"qualité optionelle (1-10)"
+msgid "&6/brew create <Recipe> [Quality] [Player] &9Create a Brew with optional quality (1-10)"
+msgstr "&6/brew create <Recipe> [Quality] [Player] &9Crée une boisson avec une qualité optionelle (1-10)"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:323
 msgid "&6/brew give <Recipe> [Quality] [Player] &9Alias for /brew create"
-msgstr "&6/brew give <Recipe> [Quality] [Player] &9Alias for /brew create"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:327
 #: src/com/dre/brewery/listeners/CommandListener.java:870
-msgid ""
-"&6/brew drink <Recipe> [Quality] [Player] &9Simulates [Player] drinking a "
-"Brew"
+msgid "&6/brew drink <Recipe> [Quality] [Player] &9Simulates [Player] drinking a Brew"
 msgstr ""
-"&6/brew drink <Recipe> [Quality] [Player] &9Simulates [Player] drinking a "
-"Brew"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:331
 msgid "&6/brew ItemName &9Display name of item in hand for the config"
-msgstr "&6/brew ItemName &9Display name of item in hand for the config"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:332
 msgid "&6/brew reload &9Reload config"
@@ -247,18 +226,15 @@ msgstr "&6/brew reload &9Reload la config"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:336
 msgid "&6/brew puke [Player] [Amount] &9Makes you or [Player] puke"
-msgstr "&6/brew puke [Player] [Amount] &9Makes you or [Player] puke"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:340
 msgid "&6/brew wakeup list <Page>&9 Lists all wakeup points"
-msgstr ""
-"&6/brew wakeup list <Page>&9 Affiche une liste de tous les points de réveil"
+msgstr "&6/brew wakeup list <Page>&9 Affiche une liste de tous les points de réveil"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:341
 msgid "&6/brew wakeup list <Page> [World]&9 Lists all wakeup points of <world>"
-msgstr ""
-"&6/brew wakeup list <Page> [World]&9 Affiche une liste de tous les points de "
-"réveil de [world]"
+msgstr "&6/brew wakeup list <Page> [World]&9 Affiche une liste de tous les points de réveil de [world]"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:342
 msgid "&6/brew wakeup check &9Teleports to all wakeup points"
@@ -266,9 +242,7 @@ msgstr "&6/brew wakeup check &9Téléportation vers tous les points de réveil"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:343
 msgid "&6/brew wakeup check <id> &9Teleports to the wakeup point with <id>"
-msgstr ""
-"&6/brew wakeup check <id> &9Téléportation vers le point de réveil avec l´ID "
-"<id>"
+msgstr "&6/brew wakeup check <id> &9Téléportation vers le point de réveil avec l´ID <id>"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:344
 msgid "&6/brew wakeup add &9Adds a wakeup point at your current position"
@@ -281,9 +255,7 @@ msgstr "&6/brew wakeup remove <id> &9Enlève le point de réveil avec l´ID <id>
 
 #: src/com/dre/brewery/listeners/CommandListener.java:349
 msgid "&6/brew static &9Make Brew static -> No further ageing or distilling"
-msgstr ""
-"&6/brew static &9Rend une boisson statique -> Plus affectée par l´âge ou la "
-"distillation"
+msgstr "&6/brew static &9Rend une boisson statique -> Plus affectée par l´âge ou la distillation"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:353
 #: src/com/dre/brewery/listeners/CommandListener.java:546
@@ -337,7 +309,7 @@ msgstr "{0} est &6{1}% &fivre, avec une qualité de &6{2}"
 #: src/com/dre/brewery/listeners/CommandListener.java:516
 #, java-format
 msgid "&aName for the Config is: &f{0}"
-msgstr "&aName for the Config is: &f{0}"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:518
 msgid "&cCould not find item in your hand"
@@ -358,19 +330,15 @@ msgstr "&cL´item dans votre main n´a pas pu être identifié comme une potion 
 
 #: src/com/dre/brewery/listeners/CommandListener.java:669
 msgid "&ePotion is not static anymore and will normally age in barrels."
-msgstr ""
-"&eLa boisson n´est plus statique et vieillira normalement dans les barils."
+msgstr "&eLa boisson n´est plus statique et vieillira normalement dans les barils."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:671
 msgid "Sealed Brews are always static!"
 msgstr "Les boissons scellées sont toujours statiques!"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:676
-msgid ""
-"&aPotion is now static and will not change in barrels or brewing stands."
-msgstr ""
-"&aLa boisson est maintenant statique et ne changera pas dans les barils ou "
-"les stands d´alchimie."
+msgid "&aPotion is now static and will not change in barrels or brewing stands."
+msgstr "&aLa boisson est maintenant statique et ne changera pas dans les barils ou les stands d´alchimie."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:721
 msgid "&aLabel removed!"
@@ -391,36 +359,29 @@ msgstr "&cAucune recette avec le nom: {0}&c n´a été trouvée!"
 #: src/com/dre/brewery/listeners/CommandListener.java:835
 #, java-format
 msgid "Player not found: {0}"
-msgstr "Player not found: {0}"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:885
 #, java-format
 msgid "&aYou drank one {0}"
-msgstr "&aYou drank one {0}"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:887
 #, java-format
 msgid "&a{0} drinks one {1}"
-msgstr "&a{0} drinks one {1}"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/PlayerListener.java:66
 msgid "&cThe Sealing Table is disabled"
 msgstr "&cLa table de scellage est désactivée"
 
 #: src/com/dre/brewery/listeners/PlayerListener.java:267
-msgid ""
-"Your character tries to log in, but is too drunk to find the server. Try "
-"again!"
-msgstr ""
-"Votre personnage tente de se connecter, mais il est trop ivre pour trouver "
-"le serveur. Essayez à nouveau!"
+msgid "Your character tries to log in, but is too drunk to find the server. Try again!"
+msgstr "Votre personnage tente de se connecter, mais il est trop ivre pour trouver le serveur. Essayez à nouveau!"
 
 #: src/com/dre/brewery/listeners/PlayerListener.java:270
-msgid ""
-"Your character is really drunk and has passed out. Try again in 10 minutes!"
-msgstr ""
-"Votre personnage est vraiment ivre et a perdu connaissance. Essayez à "
-"nouveau dans 10 minutes!"
+msgid "Your character is really drunk and has passed out. Try again in 10 minutes!"
+msgstr "Votre personnage est vraiment ivre et a perdu connaissance. Essayez à nouveau dans 10 minutes!"
 
 #: src/com/dre/brewery/lore/BrewLore.java:119
 #: src/com/dre/brewery/lore/BrewLore.java:121
@@ -435,9 +396,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/com/dre/brewery/lore/BrewLore.java:137
-msgctxt ""
-"the word 'fermented' should be a substring of how it is in '{0}' minute(s) "
-"fermented"
+msgctxt "the word 'fermented' should be a substring of how it is in '{0}' minute(s) fermented"
 msgid "fermented"
 msgstr ""
 
@@ -472,18 +431,15 @@ msgstr "Type de bois"
 #: src/com/dre/brewery/lore/BrewLore.java:277
 #, java-format
 msgid "Alc {0}ml"
-msgstr "Alc {0}ml"
+msgstr ""
 
 #: src/com/dre/brewery/MCBarrel.java:200
 msgid "&cThis barrel can't hold any more drinks"
-msgstr "&cThis barrel can't hold any more drinks"
+msgstr ""
 
 #: src/com/dre/brewery/P.java:256
-msgid ""
-"&cNot all recipes could be restored: More information in the server log!"
-msgstr ""
-"&cToutes les recettes n´ont pu être restaurées: Plus d´informations dans les "
-"logs du serveur !"
+msgid "&cNot all recipes could be restored: More information in the server log!"
+msgstr "&cToutes les recettes n´ont pu être restaurées: Plus d´informations dans les logs du serveur !"
 
 #: src/com/dre/brewery/P.java:258
 msgid "&aConfig was successfully reloaded"
@@ -546,7 +502,7 @@ msgstr ""
 
 #: src/com/dre/brewery/utility/BUtil.java:330
 msgid "Page"
-msgstr "Page"
+msgstr ""
 
 #: src/com/dre/brewery/Wakeup.java:93
 #, java-format
@@ -574,12 +530,8 @@ msgstr "&cIl n´y a pas de point de réveil !"
 
 #: src/com/dre/brewery/Wakeup.java:164 src/com/dre/brewery/Wakeup.java:213
 #, java-format
-msgid ""
-"&cThe Wakeup Point with the id: &6{0}&c at position &6{1} {2}, {3}, {4}&c is "
-"filled with Blocks!"
-msgstr ""
-"&cLe point de réveil avec l´ID: &6{0}&c et la position &6{1} {2}, {3}, {4}&c "
-"est rempli de blocs !"
+msgid "&cThe Wakeup Point with the id: &6{0}&c at position &6{1} {2}, {3}, {4}&c is filled with Blocks!"
+msgstr "&cLe point de réveil avec l´ID: &6{0}&c et la position &6{1} {2}, {3}, {4}&c est rempli de blocs !"
 
 #: src/com/dre/brewery/Wakeup.java:192
 msgid "&aThis was the last Wakeup Point"
@@ -587,12 +539,8 @@ msgstr "&aC´était le dernier point de réveil."
 
 #: src/com/dre/brewery/Wakeup.java:210
 #, java-format
-msgid ""
-"Teleport to Wakeup Point with the id: &6{0}&f At position: &6{1} {2}, {3}, "
-"{4}"
-msgstr ""
-"Téléportation vers le point de réveil avec l´ID : &6{0}&f A la position: "
-"&6{1} {2}, {3}, {4}"
+msgid "Teleport to Wakeup Point with the id: &6{0}&f At position: &6{1} {2}, {3}, {4}"
+msgstr "Téléportation vers le point de réveil avec l´ID : &6{0}&f A la position: &6{1} {2}, {3}, {4}"
 
 #: src/com/dre/brewery/Wakeup.java:215
 msgid "To Next Wakeup Point: Punch your fist in the air"
@@ -609,3 +557,4 @@ msgstr "&6Le point de réveil a été annulé"
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&cAucun point de réveil n´est actif pour le moment !"
+
