@@ -180,16 +180,11 @@ public class BrewLore {
 		} else {
 			prefix = "§7";
 		}
-		if (!brew.isUnlabeled()) {
-			if (age >= 1 && age < 2) {
-				prefix = prefix + GetText.tr("One Year") + " ";
-			} else if (age < 201) {
-				prefix = prefix + (int) Math.floor(age) + " " + GetText.tr("Years") + " ";
-			} else {
-				prefix = prefix + GetText.tr("Hundreds of Years") + " ";
-			}
-		}
-		addOrReplaceLore(Type.AGE, prefix, GetText.tr("Barrel aged"), " " + getQualityIcon(quality));
+		final String line =
+			brew.isUnlabeled() ?
+				GetText.tr("Barrel aged") :
+				GetText.trn("{0} year barrel-aged", "{0} years barrel-aged", (int) Math.floor(age));
+		addOrReplaceLore(Type.AGE, prefix, line, " " + getQualityIcon(quality));
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-04 15:02-0500\n"
+"POT-Creation-Date: 2022-12-04 15:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -435,27 +435,22 @@ msgid "Distilled"
 msgstr "蒸馏"
 
 #: src/com/dre/brewery/lore/BrewLore.java:185
-msgid "One Year"
-msgstr "一年"
-
-#: src/com/dre/brewery/lore/BrewLore.java:187
-msgid "Years"
-msgstr "年"
-
-#: src/com/dre/brewery/lore/BrewLore.java:189
-msgid "Hundreds of Years"
-msgstr "百年陈酿"
-
-#: src/com/dre/brewery/lore/BrewLore.java:192
 msgid "Barrel aged"
 msgstr "木桶熟成"
 
-#: src/com/dre/brewery/lore/BrewLore.java:203
-#: src/com/dre/brewery/lore/BrewLore.java:205
+#: src/com/dre/brewery/lore/BrewLore.java:186
+#, java-format
+msgid "{0} year barrel-aged"
+msgid_plural "{0} years barrel-aged"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/com/dre/brewery/lore/BrewLore.java:198
+#: src/com/dre/brewery/lore/BrewLore.java:200
 msgid "Woodtype"
 msgstr "木头种类"
 
-#: src/com/dre/brewery/lore/BrewLore.java:282
+#: src/com/dre/brewery/lore/BrewLore.java:277
 #, java-format
 msgid "Alc {0}ml"
 msgstr "酒精度 {0}ml"
@@ -589,6 +584,15 @@ msgstr "&6苏醒处检查已被取消."
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&c目前没有执行苏醒处检查."
+
+#~ msgid "One Year"
+#~ msgstr "一年"
+
+#~ msgid "Years"
+#~ msgstr "年"
+
+#~ msgid "Hundreds of Years"
+#~ msgstr "百年陈酿"
 
 #~ msgid "minute"
 #~ msgstr "分钟"

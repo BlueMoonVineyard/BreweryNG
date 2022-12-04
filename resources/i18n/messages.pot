@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-04 15:02-0500\n"
+"POT-Creation-Date: 2022-12-04 15:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -430,27 +430,22 @@ msgid "Distilled"
 msgstr ""
 
 #: src/com/dre/brewery/lore/BrewLore.java:185
-msgid "One Year"
-msgstr ""
-
-#: src/com/dre/brewery/lore/BrewLore.java:187
-msgid "Years"
-msgstr ""
-
-#: src/com/dre/brewery/lore/BrewLore.java:189
-msgid "Hundreds of Years"
-msgstr ""
-
-#: src/com/dre/brewery/lore/BrewLore.java:192
 msgid "Barrel aged"
 msgstr ""
 
-#: src/com/dre/brewery/lore/BrewLore.java:203
-#: src/com/dre/brewery/lore/BrewLore.java:205
+#: src/com/dre/brewery/lore/BrewLore.java:186
+#, java-format
+msgid "{0} year barrel-aged"
+msgid_plural "{0} years barrel-aged"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/com/dre/brewery/lore/BrewLore.java:198
+#: src/com/dre/brewery/lore/BrewLore.java:200
 msgid "Woodtype"
 msgstr ""
 
-#: src/com/dre/brewery/lore/BrewLore.java:282
+#: src/com/dre/brewery/lore/BrewLore.java:277
 #, java-format
 msgid "Alc {0}ml"
 msgstr ""

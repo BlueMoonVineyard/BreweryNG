@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-04 15:02-0500\n"
+"POT-Creation-Date: 2022-12-04 15:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -439,27 +439,22 @@ msgid "Distilled"
 msgstr "Дистиллированный"
 
 #: src/com/dre/brewery/lore/BrewLore.java:185
-msgid "One Year"
-msgstr "Один год"
-
-#: src/com/dre/brewery/lore/BrewLore.java:187
-msgid "Years"
-msgstr "года"
-
-#: src/com/dre/brewery/lore/BrewLore.java:189
-msgid "Hundreds of Years"
-msgstr "вековой"
-
-#: src/com/dre/brewery/lore/BrewLore.java:192
 msgid "Barrel aged"
 msgstr "Настоявшееся в бочке"
 
-#: src/com/dre/brewery/lore/BrewLore.java:203
-#: src/com/dre/brewery/lore/BrewLore.java:205
+#: src/com/dre/brewery/lore/BrewLore.java:186
+#, java-format
+msgid "{0} year barrel-aged"
+msgid_plural "{0} years barrel-aged"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/com/dre/brewery/lore/BrewLore.java:198
+#: src/com/dre/brewery/lore/BrewLore.java:200
 msgid "Woodtype"
 msgstr "тип дерева"
 
-#: src/com/dre/brewery/lore/BrewLore.java:282
+#: src/com/dre/brewery/lore/BrewLore.java:277
 #, java-format
 msgid "Alc {0}ml"
 msgstr "Алк {0}ml"
@@ -598,6 +593,15 @@ msgstr "&6Проверка Точки Пробуждения была отмен
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&cНет активных проверок Точек Пробуждения"
+
+#~ msgid "One Year"
+#~ msgstr "Один год"
+
+#~ msgid "Years"
+#~ msgstr "года"
+
+#~ msgid "Hundreds of Years"
+#~ msgstr "вековой"
 
 #~ msgid "minute"
 #~ msgstr "минут"

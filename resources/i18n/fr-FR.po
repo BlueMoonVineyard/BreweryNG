@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-04 15:02-0500\n"
+"POT-Creation-Date: 2022-12-04 15:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -454,27 +454,22 @@ msgid "Distilled"
 msgstr "Distillé"
 
 #: src/com/dre/brewery/lore/BrewLore.java:185
-msgid "One Year"
-msgstr "Un an"
-
-#: src/com/dre/brewery/lore/BrewLore.java:187
-msgid "Years"
-msgstr "Années"
-
-#: src/com/dre/brewery/lore/BrewLore.java:189
-msgid "Hundreds of Years"
-msgstr "Centaines d´années"
-
-#: src/com/dre/brewery/lore/BrewLore.java:192
 msgid "Barrel aged"
 msgstr "Baril âgé"
 
-#: src/com/dre/brewery/lore/BrewLore.java:203
-#: src/com/dre/brewery/lore/BrewLore.java:205
+#: src/com/dre/brewery/lore/BrewLore.java:186
+#, java-format
+msgid "{0} year barrel-aged"
+msgid_plural "{0} years barrel-aged"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/com/dre/brewery/lore/BrewLore.java:198
+#: src/com/dre/brewery/lore/BrewLore.java:200
 msgid "Woodtype"
 msgstr "Type de bois"
 
-#: src/com/dre/brewery/lore/BrewLore.java:282
+#: src/com/dre/brewery/lore/BrewLore.java:277
 #, java-format
 msgid "Alc {0}ml"
 msgstr "Alc {0}ml"
@@ -614,6 +609,15 @@ msgstr "&6Le point de réveil a été annulé"
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&cAucun point de réveil n´est actif pour le moment !"
+
+#~ msgid "One Year"
+#~ msgstr "Un an"
+
+#~ msgid "Years"
+#~ msgstr "Années"
+
+#~ msgid "Hundreds of Years"
+#~ msgstr "Centaines d´années"
 
 #~ msgid "minute"
 #~ msgstr "minute"
