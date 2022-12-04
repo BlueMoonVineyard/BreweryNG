@@ -359,7 +359,9 @@ public class BUtil {
 
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static void saveFile(InputStream in, File dest, String name, boolean overwrite) throws IOException {
-		if (in == null) return;
+		if (in == null) {
+			throw new IOException("Attempting to save a nonexistent stream");
+		}
 		if (!dest.exists()) {
 			dest.mkdirs();
 		}

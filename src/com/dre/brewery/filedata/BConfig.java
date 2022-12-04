@@ -140,10 +140,11 @@ public class BConfig {
 
 	private static void copyLanguages(boolean overwrite) {
 		File i18n = new File(p.getDataFolder(), "i18n");
+		boolean didntExist = !i18n.exists();
 		i18n.mkdirs();
 		for (String l : languages) {
 			try {
-				BUtil.saveFile(p.getResource("i18n/" + l + ".po"), i18n, l + ".po", overwrite);
+				BUtil.saveFile(p.getResource("i18n/" + l + ".po"), i18n, l + ".po", didntExist || overwrite);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -220,10 +221,7 @@ public class BConfig {
 
 		// Check if config is the newest version
 		String version = config.getString("version", null);
-		File i18n = new File(p.getDataFolder(), "i18n");
-		if (!i18n.exists()) {
-			copyLanguages(true);
-		}
+		copyLanguages(false);
 		if (version != null) {
 			if (!version.equals(configVersion) || (oldMat && P.use1_13)) {
 				File file = new File(P.p.getDataFolder(), "config.yml");
@@ -234,6 +232,7 @@ public class BConfig {
 			}
 		}
 
+		File i18n = new File(p.getDataFolder(), "i18n");
 		for (String l : languages) {
 			File file = new File(i18n, l + ".po");
 			try {

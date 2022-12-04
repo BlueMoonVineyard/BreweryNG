@@ -4,7 +4,7 @@
 
 	<groupId>com.github.BlueMoonVineyard</groupId>
 	<artifactId>BreweryNG</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<name>BreweryNG</name>
 
 	<properties>
@@ -23,6 +23,7 @@
 				<directory>${project.basedir}/resources</directory>
 				<includes>
 					<include>**/*.yml</include>
+					<include>**/*.po</include>
 					<include>**/*.txt</include>
 				</includes>
 				<excludes>
