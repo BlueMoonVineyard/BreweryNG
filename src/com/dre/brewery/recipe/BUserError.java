@@ -2,6 +2,8 @@ package com.dre.brewery.recipe;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.mini2Dx.gettext.GetText;
+
 import com.dre.brewery.P;
 
 public interface BUserError {
@@ -17,7 +19,16 @@ public interface BUserError {
         @Override
         public String userMessage() {
             int messagePermutation = ThreadLocalRandom.current().nextInt(1, 3+1);
-            return P.p.languageReader.get("UserError_BadIngredientKind_"+messagePermutation, excessItemStack.displayName());
+			switch (messagePermutation) {
+			case 1:
+				return GetText.tr("Eugh, the taste of the {0} clashes with the other ingredients...", excessItemStack.displayName());
+			case 2:
+				return GetText.tr("The {0} doesn''t taste very good here...", excessItemStack.displayName());
+			case 3:
+				return GetText.tr("There's something in here that shouldn't be in here...", excessItemStack.displayName());
+			default:
+				throw new AssertionError("invalid case");
+			}
         }
     }
     public class MissingIngredientKindError implements BUserError {
@@ -30,9 +41,19 @@ public interface BUserError {
         @Override
         public String userMessage() {
             int messagePermutation = ThreadLocalRandom.current().nextInt(1, 3+1);
-            return P.p.languageReader.get("UserError_MissingIngredientKind_"+messagePermutation, missingItem.displayName());
+			switch (messagePermutation) {
+				case 1:
+					return GetText.tr("Seems like something's missing...", missingItem.displayName());
+				case 2:
+					return GetText.tr("This would be better with some {0}...", missingItem.displayName());
+				case 3:
+					return GetText.tr("Missing {0}}...", missingItem.displayName());
+				default:
+					throw new AssertionError("invalid case");
+			}
         }
     }
+
     public class IngredientQuantityError implements BUserError {
         private RecipeItem item;
         private int actualCount;
@@ -46,9 +67,23 @@ public interface BUserError {
         public String userMessage() {
             int messagePermutation = ThreadLocalRandom.current().nextInt(1, 2+1);
             if (actualCount < item.getAmount()) {
-                return P.p.languageReader.get("UserError_IngredientQuantity_TooLittle_" + messagePermutation, item.displayName());
+				switch (messagePermutation) {
+				case 1:
+					return GetText.tr("Whoa, that's definitely too much {0}!", item.displayName());
+				case 2:
+					return GetText.tr("That's a lot of {0}...", item.displayName());
+				default:
+					throw new AssertionError("invalid case");
+				}
             } else if (actualCount > item.getAmount()) {
-                return P.p.languageReader.get("UserError_IngredientQuantity_TooMuch_" + messagePermutation, item.displayName());
+				switch (messagePermutation) {
+				case 1:
+					return GetText.tr("It could do with a bit more of the taste of {0}...", item.displayName());
+				case 2:
+					return GetText.tr("Not getting enough of that {0} in here.", item.displayName());
+				default:
+					throw new AssertionError("invalid case");
+				}
             }
 
             return "";
@@ -68,9 +103,23 @@ public interface BUserError {
             int messagePermutation = ThreadLocalRandom.current().nextInt(1, 2+1);
 
             if (actuallyDistilled && !neededDistillation) {
-                return P.p.languageReader.get("UserError_DidntNeedDistillation_" + messagePermutation);
+                switch (messagePermutation) {
+				case 1:
+					return GetText.tr("There's something in here that shouldn't be in here...");
+				case 2:
+					return GetText.tr("I think this needs some distillation...");
+				default:
+					throw new AssertionError("invalid case");
+				}
             } else if (neededDistillation && !actuallyDistilled) {
-                return P.p.languageReader.get("UserError_NeededDistillation_" + messagePermutation);
+                switch (messagePermutation) {
+				case 1:
+					return GetText.tr("Seems like something's missing...");
+				case 2:
+					return GetText.tr("I think this didn't need distillation...");
+				default:
+					throw new AssertionError("invalid case");
+				}
             }
 
             return "";

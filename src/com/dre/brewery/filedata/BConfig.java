@@ -28,6 +28,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.mini2Dx.gettext.GetText;
+import org.mini2Dx.gettext.PoFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +38,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class BConfig {
@@ -133,14 +136,26 @@ public class BConfig {
 		return true;
 	}
 
+	private static String[] languages = new String[]{"de-DE"};
+
+	private static void copyLanguages(boolean overwrite) {
+		File i18n = new File(p.getDataFolder(), "i18n");
+		i18n.mkdirs();
+		for (String l : languages) {
+			try {
+				BUtil.saveFile(p.getResource("i18n/" + l + ".po"), i18n, l + ".po", overwrite);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	private static void copyDefaultConfigs(boolean overwrite) {
 		File configs = new File(p.getDataFolder(), "configs");
-		File languages = new File(p.getDataFolder(), "languages");
 		for (String l : new String[] {"de", "en", "fr", "it", "zh", "tw"}) {
 			File lfold = new File(configs, l);
 			try {
 				BUtil.saveFile(p.getResource("config/" + (P.use1_13 ? "v13/" : "v12/") + l + "/config.yml"), lfold, "config.yml", overwrite);
-				BUtil.saveFile(p.getResource("languages/" + l + ".yml"), languages, l + ".yml", false); // Never overwrite languages, they get updated with their updater
 			} catch (IOException e) {
 				if (!(l.equals("zh") || l.equals("tw"))) {
 					// zh and tw not available for some versions
@@ -148,6 +163,7 @@ public class BConfig {
 				}
 			}
 		}
+		copyLanguages(overwrite);
 	}
 
 	public static FileConfiguration loadConfigFile() {
@@ -166,33 +182,65 @@ public class BConfig {
 		}
 
 		// Failed to load
-		if (p.languageReader != null) {
-			P.p.errorLog(p.languageReader.get("Error_YmlRead"));
-		} else {
-			P.p.errorLog("Could not read file config.yml, please make sure the file is in valid yml format (correct spaces etc.)");
-		}
+		P.p.errorLog(GetText.tr("Could not read file config.yml, please make sure the file is in valid yml format (correct spaces, using ' ' etc.)"));
 		return null;
+	}
+
+	private static String grandfatherLanguage(String language) {
+		switch (language) {
+		case "de":
+			return "de-DE";
+		case "en":
+			return "en-US";
+		case "fr":
+			return "fr-FR";
+		case "it":
+			return "it-IT";
+		case "zh":
+			return "zh-CN";
+		case "tw":
+			return "zh-TW";
+		case "es":
+			return "es-ES";
+		case "ru":
+			return "ru-RU";
+		default:
+			return language;
+		}
 	}
 
 	public static void readConfig(FileConfiguration config) {
 		// Set the Language
-		p.language = config.getString("language", "en");
-
-		// Load LanguageReader
-		p.languageReader = new LanguageReader(new File(p.getDataFolder(), "languages/" + p.language + ".yml"), "languages/" + p.language + ".yml");
+		String language = grandfatherLanguage(config.getString("language", "en-US"));
+		p.statsLanguage = language;
+		GetText.setLocale(Locale.forLanguageTag(language));
 
 		// Has to config still got old materials
 		boolean oldMat = config.getBoolean("oldMat", false);
 
 		// Check if config is the newest version
 		String version = config.getString("version", null);
+		File i18n = new File(p.getDataFolder(), "i18n");
+		if (!i18n.exists()) {
+			copyLanguages(true);
+		}
 		if (version != null) {
 			if (!version.equals(configVersion) || (oldMat && P.use1_13)) {
 				File file = new File(P.p.getDataFolder(), "config.yml");
 				copyDefaultConfigs(true);
-				new ConfigUpdater(file).update(version, oldMat, p.language, config);
+				new ConfigUpdater(file).update(version, oldMat, language, config);
 				P.p.log("Config Updated to version: " + configVersion);
 				config = YamlConfiguration.loadConfiguration(file);
+			}
+		}
+
+		for (String l : languages) {
+			File file = new File(i18n, l + ".po");
+			try {
+				PoFile poFile = new PoFile(Locale.forLanguageTag(l), file);
+				GetText.add(poFile);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 

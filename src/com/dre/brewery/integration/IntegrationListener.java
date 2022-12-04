@@ -30,6 +30,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.Plugin;
+import org.mini2Dx.gettext.GetText;
 
 public class IntegrationListener implements Listener {
 
@@ -41,7 +42,7 @@ public class IntegrationListener implements Listener {
 				try {
 					if (!BConfig.wg.checkAccess(event.getPlayer(), event.getSpigot(), plugin)) {
 						event.setCancelled(true);
-						P.p.msg(event.getPlayer(), P.p.languageReader.get("Error_NoBarrelAccess"));
+						P.p.msg(event.getPlayer(), GetText.tr("&cYou don't have permissions to access this barrel!"));
 					}
 				} catch (Throwable e) {
 					event.setCancelled(true);
@@ -73,7 +74,7 @@ public class IntegrationListener implements Listener {
 							if (!pl.getConfig().getBoolean("bypass.inventories") || (!player.hasPermission("gamemodeinventories.bypass") && !player.isOp())) {
 								event.setCancelled(true);
 								if (!pl.getConfig().getBoolean("dont_spam_chat")) {
-									P.p.msg(event.getPlayer(), P.p.languageReader.get("Error_NoBarrelAccess"));
+									P.p.msg(event.getPlayer(), GetText.tr("&cYou don't have permissions to access this barrel!"));
 								}
 								return;
 							}
@@ -93,7 +94,7 @@ public class IntegrationListener implements Listener {
 			if (P.p.getServer().getPluginManager().isPluginEnabled("GriefPrevention")) {
 				try {
 					if (!GriefPreventionBarrel.checkAccess(event)) {
-						P.p.msg(event.getPlayer(), P.p.languageReader.get("Error_NoBarrelAccess"));
+						P.p.msg(event.getPlayer(), GetText.tr("&cYou don't have permissions to access this barrel!"));
 						event.setCancelled(true);
 						return;
 					}
@@ -127,7 +128,7 @@ public class IntegrationListener implements Listener {
 						Player player = event.getPlayer();
 						try {
 							if (!LWCBarrel.checkAccess(player, sign, plugin)) {
-								P.p.msg(event.getPlayer(), P.p.languageReader.get("Error_NoBarrelAccess"));
+								P.p.msg(event.getPlayer(), GetText.tr("&cYou don't have permissions to access this barrel!"));
 								event.setCancelled(true);
 								return;
 							}
@@ -154,7 +155,7 @@ public class IntegrationListener implements Listener {
 			if (P.p.getServer().getPluginManager().isPluginEnabled("Towny")) {
 				try {
 					if (!TownyBarrel.checkAccess(event)) {
-						P.p.msg(event.getPlayer(), P.p.languageReader.get("Error_NoBarrelAccess"));
+						P.p.msg(event.getPlayer(), GetText.tr("&cYou don't have permissions to access this barrel!"));
 						event.setCancelled(true);
 						return;
 					}
@@ -180,7 +181,7 @@ public class IntegrationListener implements Listener {
 			if (P.p.getServer().getPluginManager().isPluginEnabled("BlockLocker")) {
 				try {
 					if (!BlocklockerBarrel.checkAccess(event)) {
-						P.p.msg(event.getPlayer(), P.p.languageReader.get("Error_NoBarrelAccess"));
+						P.p.msg(event.getPlayer(), GetText.tr("&cYou don't have permissions to access this barrel!"));
 						event.setCancelled(true);
 						return;
 					}
@@ -234,7 +235,7 @@ public class IntegrationListener implements Listener {
 
 			if (simulatedEvent.useInteractedBlock() == Event.Result.DENY) {
 				event.setCancelled(true);
-				P.p.msg(event.getPlayer(), P.p.languageReader.get("Error_NoBarrelAccess"));
+				P.p.msg(event.getPlayer(), GetText.tr("&cYou don't have permissions to access this barrel!"));
 				//return;
 			}
 		}

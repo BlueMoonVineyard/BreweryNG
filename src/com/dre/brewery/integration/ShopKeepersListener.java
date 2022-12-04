@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
+import org.mini2Dx.gettext.GetText;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class ShopKeepersListener implements Listener {
 		if (item != null && item.getType() == Material.POTION && event.getClickedInventory() == event.getView().getTopInventory()) {
 			Brew brew = Brew.get(item);
 			if (brew != null && !brew.isSealed()) {
-				P.p.msg(event.getWhoClicked(), P.p.languageReader.get("Player_ShopSealBrew"));
+				P.p.msg(event.getWhoClicked(), GetText.tr("&eIt's recommended to trade/sell &6sealed &eBrews"));
 			}
 		}
 	}

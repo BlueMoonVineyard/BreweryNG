@@ -20,6 +20,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.mini2Dx.gettext.GetText;
 
 
 public class PlayerListener implements Listener {
@@ -62,7 +63,7 @@ public class PlayerListener implements Listener {
 				BSealer sealer = new BSealer(player);
 				event.getPlayer().openInventory(sealer.getInventory());
 			} else {
-				P.p.msg(player, P.p.languageReader.get("Error_SealingTableDisabled"));
+				P.p.msg(player, GetText.tr("&cThe Sealing Table is disabled"));
 			}
 			return;
 		}
@@ -81,7 +82,7 @@ public class PlayerListener implements Listener {
 		if (P.use1_14 && type == Material.BARREL) {
 			if (!player.hasPermission("brewery.openbarrel.mc")) {
 				event.setCancelled(true);
-				P.p.msg(player, P.p.languageReader.get("Error_NoPermissions"));
+				P.p.msg(player, GetText.tr("&cYou don't have permissions to do this!"));
 			}
 			return;
 		}
@@ -263,10 +264,10 @@ public class PlayerListener implements Listener {
 						bplayer.join(player);
 						return;
 					case 2:
-						event.disallow(PlayerLoginEvent.Result.KICK_OTHER, P.p.languageReader.get("Player_LoginDeny"));
+						event.disallow(PlayerLoginEvent.Result.KICK_OTHER, GetText.tr("Your character tries to log in, but is too drunk to find the server. Try again!"));
 						return;
 					case 3:
-						event.disallow(PlayerLoginEvent.Result.KICK_OTHER, P.p.languageReader.get("Player_LoginDenyLong"));
+						event.disallow(PlayerLoginEvent.Result.KICK_OTHER, GetText.tr("Your character is really drunk and has passed out. Try again in 10 minutes!"));
 				}
 			}
 		}

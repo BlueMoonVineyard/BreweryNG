@@ -83,6 +83,22 @@
 							</relocations>
 						</configuration>
 					</execution>
+					<execution>
+						<id>shade-gettext</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+							<relocations>
+								<relocation>
+									<pattern>org.mini2Dx.gettext</pattern>
+									<shadedPattern>com.dre.gettext</shadedPattern>
+								</relocation>
+							</relocations>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 
@@ -182,6 +198,11 @@
 					<groupId>org.yaml</groupId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.mini2Dx</groupId>
+			<artifactId>gettext-lib</artifactId>
+			<version>1.11.0</version>
 		</dependency>
 		<dependency>
 			<!-- https://bstats.org/getting-started/include-metrics -->

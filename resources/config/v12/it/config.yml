@@ -4,7 +4,7 @@
 # -- Opzioni --
 # I valori di default sono scritti fra []
 
-# Lingua da usare (fra quelle in plugins/Brewery/languages)
+# Lingua da usare (fra quelle in plugins/Brewery/i18n)
 language: it
 
 # Se il giocatore si sveglia nella sua /home dopo aver bevuto troppo(il plugin di /home deve essere installato!) [true]

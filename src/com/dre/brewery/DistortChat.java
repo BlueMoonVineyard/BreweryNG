@@ -4,6 +4,7 @@ import com.dre.brewery.api.events.PlayerChatDistortEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.mini2Dx.gettext.GetText;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,7 +78,7 @@ public class DistortChat {
 							if (Character.isSpaceChar(chat.charAt(command.length()))) {
 								if (chat.toLowerCase().startsWith(command.toLowerCase())) {
 									if (log) {
-										P.p.log(P.p.languageReader.get("Player_TriedToSay", name, chat));
+										P.p.log(GetText.tr("{0} tried to say: &0{1}", name, chat));
 									}
 									String message = chat.substring(command.length() + 1);
 									String distorted = distortMessage(message, bPlayer.getDrunkeness());
@@ -133,7 +134,7 @@ public class DistortChat {
 			if (!words.isEmpty()) {
 				String message = event.getMessage();
 				if (log) {
-					P.p.log(P.p.languageReader.get("Player_TriedToSay", event.getPlayer().getName(), message));
+					P.p.log(GetText.tr("{0} tried to say: &0{1}", event.getPlayer().getName(), message));
 				}
 
 				String distorted = distortMessage(message, bPlayer.getDrunkeness());

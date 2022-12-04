@@ -26,6 +26,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
+import org.mini2Dx.gettext.GetText;
 
 import java.util.*;
 
@@ -242,7 +243,7 @@ public class BPlayer {
 			hangover = true;
 		}
 
-		b.append(P.p.languageReader.get(hangover ? "Player_Hangover" : "Player_Drunkeness"));
+		b.append(hangover ? GetText.tr("Player_Hangover") : GetText.tr("Player_Drunkeness"));
 
 		// Drunkeness or Hangover Strength Bars
 		b.append(": §7[");
@@ -324,7 +325,7 @@ public class BPlayer {
 			P.p.getServer().getScheduler().scheduleSyncDelayedTask(P.p, () -> passOut(player), 1);
 		} else {
 			addPuke(player, 60 + (int) (Math.random() * 60.0));
-			P.p.msg(player, P.p.languageReader.get("Player_CantDrink"));
+			P.p.msg(player, GetText.tr("You can't drink any more."));
 		}
 	}
 
@@ -424,7 +425,7 @@ public class BPlayer {
 	}
 
 	public void passOut(Player player) {
-		player.kickPlayer(P.p.languageReader.get("Player_DrunkPassOut"));
+		player.kickPlayer(GetText.tr("You drank too much and passed out."));
 		offlineDrunk = drunkeness;
 		syncToSQL(false);
 	}
@@ -491,7 +492,7 @@ public class BPlayer {
 				Location randomLoc = Wakeup.getRandom(player.getLocation());
 				if (randomLoc != null) {
 					player.teleport(randomLoc);
-					P.p.msg(player, P.p.languageReader.get("Player_Wake"));
+					P.p.msg(player, GetText.tr("Ohh no! I cannot remember how I got here..."));
 				}
 			}
 			offlineDrunk = 0;

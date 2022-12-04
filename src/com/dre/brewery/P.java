@@ -27,7 +27,6 @@ package com.dre.brewery;
 import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.filedata.BData;
 import com.dre.brewery.filedata.DataSave;
-import com.dre.brewery.filedata.LanguageReader;
 import com.dre.brewery.filedata.UpdateChecker;
 import com.dre.brewery.integration.ChestShopListener;
 import com.dre.brewery.integration.IntegrationListener;
@@ -48,6 +47,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mini2Dx.gettext.GetText;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -77,8 +77,7 @@ public class P extends JavaPlugin {
 	public Map<String, Function<ItemLoader, Ingredient>> ingredientLoaders = new HashMap<>();
 
 	// Language
-	public String language;
-	public LanguageReader languageReader;
+	public String statsLanguage;
 
 	// Metrics
 	public Stats stats = new Stats();
@@ -254,9 +253,9 @@ public class P extends JavaPlugin {
 		}
 		if (sender != null) {
 			if (!successful) {
-				msg(sender, p.languageReader.get("Error_Recipeload"));
+				msg(sender, GetText.tr("&cNot all recipes could be restored: More information in the server log!"));
 			} else {
-				p.msg(sender, p.languageReader.get("CMD_Reload"));
+				p.msg(sender, GetText.tr("&aConfig was successfully reloaded"));
 			}
 		}
 		BConfig.reloader = null;

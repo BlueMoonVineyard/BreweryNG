@@ -10,6 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.mini2Dx.gettext.GetText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,7 +197,7 @@ public class MCBarrel {
 			}
 			if (brews >= maxBrews) {
 				event.setCancelled(true);
-				P.p.msg(event.getWhoClicked(), P.p.languageReader.get("Player_BarrelFull"));
+				P.p.msg(event.getWhoClicked(), GetText.tr("&cThis barrel can't hold any more drinks"));
 			} else {
 				brews++;
 			}

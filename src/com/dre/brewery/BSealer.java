@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
+import org.mini2Dx.gettext.GetText;
 
 import java.util.Iterator;
 
@@ -35,7 +36,7 @@ public class BSealer implements InventoryHolder {
 	public BSealer(Player player) {
 		this.player = player;
 		if (inventoryHolderWorking) {
-			Inventory inv = P.p.getServer().createInventory(this, InventoryType.DISPENSER, P.p.languageReader.get("Etc_SealingTable"));
+			Inventory inv = P.p.getServer().createInventory(this, InventoryType.DISPENSER, GetText.tr("Brew Sealing Table"));
 			// Inventory Holder (for DISPENSER, ...) is only passed in Paper, not in Spigot. Doing inventory.getHolder() will return null in spigot :/
 			if (inv.getHolder() == this) {
 				inventory = inv;
@@ -44,7 +45,7 @@ public class BSealer implements InventoryHolder {
 				inventoryHolderWorking = false;
 			}
 		}
-		inventory = P.p.getServer().createInventory(this, 9, P.p.languageReader.get("Etc_SealingTable"));
+		inventory = P.p.getServer().createInventory(this, 9, GetText.tr("Brew Sealing Table"));
 	}
 
 	@Override
@@ -107,7 +108,7 @@ public class BSealer implements InventoryHolder {
 		if (P.use1_14 && block.getType() == Material.SMOKER) {
 			Container smoker = (Container) block.getState();
 			if (smoker.getCustomName() != null) {
-				if (smoker.getCustomName().equals("§e" + P.p.languageReader.get("Etc_SealingTable"))) {
+				if (smoker.getCustomName().equals("§e" + GetText.tr("Brew Sealing Table"))) {
 					return true;
 				} else {
 					return smoker.getPersistentDataContainer().has(TAG_KEY, PersistentDataType.BYTE);
@@ -121,7 +122,7 @@ public class BSealer implements InventoryHolder {
 		if (item.getType() == Material.SMOKER && item.hasItemMeta()) {
 			ItemMeta itemMeta = item.getItemMeta();
 			assert itemMeta != null;
-			if ((itemMeta.hasDisplayName() && itemMeta.getDisplayName().equals("§e" + P.p.languageReader.get("Etc_SealingTable"))) ||
+			if ((itemMeta.hasDisplayName() && itemMeta.getDisplayName().equals("§e" + GetText.tr("Brew Sealing Table"))) ||
 				itemMeta.getPersistentDataContainer().has(BSealer.TAG_KEY, PersistentDataType.BYTE)) {
 				Container smoker = (Container) block.getState();
 				// Rotate the Block 180° so it doesn't look like a Smoker
@@ -139,7 +140,7 @@ public class BSealer implements InventoryHolder {
 		ItemStack sealingTableItem = new ItemStack(Material.SMOKER);
 		ItemMeta meta = P.p.getServer().getItemFactory().getItemMeta(Material.SMOKER);
 		if (meta == null) return;
-		meta.setDisplayName("§e" + P.p.languageReader.get("Etc_SealingTable"));
+		meta.setDisplayName("§e" + GetText.tr("Brew Sealing Table"));
 		meta.getPersistentDataContainer().set(TAG_KEY, PersistentDataType.BYTE, (byte)1);
 		sealingTableItem.setItemMeta(meta);
 

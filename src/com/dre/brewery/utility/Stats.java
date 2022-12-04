@@ -155,7 +155,7 @@ public class Stats {
 				map.put(P.p.getDescription().getVersion(), innerMap);
 				return map;
 			}));
-			metrics.addCustomChart(new SimplePie("language", () -> P.p.language));
+			metrics.addCustomChart(new SimplePie("language", () -> P.p.statsLanguage));
 			metrics.addCustomChart(new SimplePie("config_scramble", () -> BConfig.enableEncode ? "enabled" : "disabled"));
 			metrics.addCustomChart(new SimplePie("config_lore_color", () -> {
 				if (BConfig.colorInBarrels) {

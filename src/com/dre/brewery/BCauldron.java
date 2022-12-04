@@ -21,6 +21,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mini2Dx.gettext.GetText;
 
 import java.util.*;
 
@@ -185,7 +186,7 @@ public class BCauldron {
 	// fills players bottle with cooked brew
 	public boolean fill(Player player, Block block) {
 		if (!player.hasPermission("brewery.cauldron.fill")) {
-			P.p.msg(player, P.p.languageReader.get("Perms_NoCauldronFill"));
+			P.p.msg(player, GetText.tr("&cYou don't have permissions to fill bottles from this cauldron!"));
 			return true;
 		}
 		ItemStack potion = ingredients.cook(LegacyUtil.getCauldronType(block.getType()), state);
@@ -267,15 +268,15 @@ public class BCauldron {
 	// prints the current cooking time to the player
 	public static void printTime(Player player, Block block) {
 		if (!player.hasPermission("brewery.cauldron.time")) {
-			P.p.msg(player, P.p.languageReader.get("Error_NoPermissions"));
+			P.p.msg(player, GetText.tr("&cYou don't have permissions to do this!"));
 			return;
 		}
 		BCauldron bcauldron = get(block);
 		if (bcauldron != null) {
 			if (bcauldron.state > 1) {
-				P.p.msg(player, P.p.languageReader.get("Player_CauldronInfo1", "" + bcauldron.state));
+				P.p.msg(player, GetText.tr("This cauldron has been boiling for {0} minutes.", "" + bcauldron.state));
 			} else {
-				P.p.msg(player, P.p.languageReader.get("Player_CauldronInfo2"));
+				P.p.msg(player, GetText.tr("This cauldron has just started boiling."));
 			}
 		}
 	}
@@ -489,7 +490,7 @@ public class BCauldron {
 			if (item == null) return;
 
 			if (!player.hasPermission("brewery.cauldron.insert")) {
-				P.p.msg(player, P.p.languageReader.get("Perms_NoCauldronInsert"));
+				P.p.msg(player, GetText.tr("&cYou don't have permissions to put ingredients into cauldrons!"));
 				return;
 			}
 			if (ingredientAdd(clickedBlock, item, player)) {

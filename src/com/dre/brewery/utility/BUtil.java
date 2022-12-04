@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
+import org.mini2Dx.gettext.GetText;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -326,7 +327,7 @@ public class BUtil {
 			page = 1;
 		}
 
-		sender.sendMessage(color("&7-------------- &f" + P.p.languageReader.get("Etc_Page") + " &6" + page + "&f/&6" + pages + " &7--------------"));
+		sender.sendMessage(color("&7-------------- &f" + GetText.tr("Page") + " &6" + page + "&f/&6" + pages + " &7--------------"));
 
 		ListIterator<String> iter = strings.listIterator((page - 1) * 7);
 

@@ -6,6 +6,7 @@ import com.dre.brewery.utility.Tuple;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.mini2Dx.gettext.GetText;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -267,7 +268,7 @@ public class ConfigUpdater {
 		}
 
 		if (!fromVersion.equals(BConfig.configVersion)) {
-			P.p.log(P.p.languageReader.get("Error_ConfigUpdate", fromVersion));
+			P.p.log(GetText.tr("Unknown Brewery config version: v{0}, config was not updated!", fromVersion));
 			return;
 		}
 		saveConfig();
@@ -300,7 +301,6 @@ public class ConfigUpdater {
 		int index = indexOfStart("language: en");
 		if (index != -1) {
 			setLine(index, "language: de");
-			P.p.language = "de";
 		}
 
 		// Add the new entries for the Word Distortion above the words section
