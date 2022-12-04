@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: breweryng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:15-0500\n"
-"PO-Revision-Date: 2022-12-04 22:08\n"
+"PO-Revision-Date: 2022-12-04 22:20\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -168,11 +168,11 @@ msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:269
 msgid "Go Back"
-msgstr ""
+msgstr "Zurück"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:277
 msgid "Go Forward"
-msgstr ""
+msgstr "Vorwärts"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:290
 msgid "&6/brew help [Page] &9Shows a specific help-page"
@@ -392,13 +392,13 @@ msgstr "Zutaten"
 #, java-format
 msgid "{0} minute fermented"
 msgid_plural "{0} minutes fermented"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{0} Minute gegärt"
+msgstr[1] "{0} Minuten gegärt"
 
 #: src/com/dre/brewery/lore/BrewLore.java:137
 msgctxt "the word 'fermented' should be a substring of how it is in '{0}' minute(s) fermented"
 msgid "fermented"
-msgstr ""
+msgstr "gegärt"
 
 #: src/com/dre/brewery/lore/BrewLore.java:158
 msgid "-times"
