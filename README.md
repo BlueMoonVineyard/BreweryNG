@@ -3,12 +3,18 @@
 [![Build Status](https://github.com/BlueMoonVineyard/BreweryNG/actions/workflows/maven.yml/badge.svg)](https://github.com/BlueMoonVineyard/BreweryNG/actions/workflows/maven.yml)
 ![License: GPLv3](https://img.shields.io/badge/license-GPLv3-blue)
 [![Releases](https://img.shields.io/github/v/release/BlueMoonVineyard/BreweryNG)](https://github.com/BlueMoonVineyard/BreweryNG/releases/latest)
+![Crowdin](https://badges.crowdin.net/project/localized.svg)
 
 ***
 
 ### Get It
 
 BreweryNG can be obtained from [Spigot](https://www.spigotmc.org/resources/breweryng.104381/).
+
+### Translate It
+
+BreweryNG can be translated on [Crowdin](https://crowdin.com/project/breweryng).
+If your language is not on here, please open an issue!
 
 ### JavaDocs
 
