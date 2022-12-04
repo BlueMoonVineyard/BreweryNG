@@ -593,21 +593,3 @@ msgstr "&6Проверка Точки Пробуждения была отмен
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&cНет активных проверок Точек Пробуждения"
-
-#~ msgid "One Year"
-#~ msgstr "Один год"
-
-#~ msgid "Years"
-#~ msgstr "года"
-
-#~ msgid "Hundreds of Years"
-#~ msgstr "вековой"
-
-#~ msgid "minute"
-#~ msgstr "минут"
-
-#~ msgid "s"
-#~ msgstr "ы"
-
-#~ msgid "fermented"
-#~ msgstr "ферментировано"

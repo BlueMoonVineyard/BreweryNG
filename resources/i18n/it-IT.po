@@ -607,21 +607,3 @@ msgstr "&6Il controllo dei punti di risveglio è stato annullato"
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&cNessun punto di risveglio attivo al momento."
-
-#~ msgid "One Year"
-#~ msgstr "Un Anno"
-
-#~ msgid "Years"
-#~ msgstr "Anni"
-
-#~ msgid "Hundreds of Years"
-#~ msgstr "Centinaia di anni"
-
-#~ msgid "minute"
-#~ msgstr "minuto"
-
-#~ msgid "s"
-#~ msgstr "/i"
-
-#~ msgid "fermented"
-#~ msgstr "fermentata"

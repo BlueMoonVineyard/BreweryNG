@@ -579,21 +579,3 @@ msgstr "&6喚醒點檢查被取消"
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&c目前沒有喚醒點是處於活動狀態"
-
-#~ msgid "One Year"
-#~ msgstr "1年"
-
-#~ msgid "Years"
-#~ msgstr "年"
-
-#~ msgid "Hundreds of Years"
-#~ msgstr "數百年"
-
-#~ msgid "minute"
-#~ msgstr "分鐘"
-
-#~ msgid "s"
-#~ msgstr "的"
-
-#~ msgid "fermented"
-#~ msgstr "發酵"

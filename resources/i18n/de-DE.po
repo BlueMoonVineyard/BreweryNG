@@ -599,21 +599,3 @@ msgstr "&6Aufwachpunkte-Check wurde abgebrochen"
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&cEs läuft kein Aufwachpunkte-Check"
-
-#~ msgid "One Year"
-#~ msgstr "Ein Jahr"
-
-#~ msgid "Years"
-#~ msgstr "Jahre"
-
-#~ msgid "Hundreds of Years"
-#~ msgstr "Hunderte Jahre"
-
-#~ msgid "minute"
-#~ msgstr "minute"
-
-#~ msgid "s"
-#~ msgstr "n"
-
-#~ msgid "fermented"
-#~ msgstr "gegärt"

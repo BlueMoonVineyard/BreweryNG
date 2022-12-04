@@ -584,18 +584,3 @@ msgstr "&6苏醒处检查已被取消."
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&c目前没有执行苏醒处检查."
-
-#~ msgid "One Year"
-#~ msgstr "一年"
-
-#~ msgid "Years"
-#~ msgstr "年"
-
-#~ msgid "Hundreds of Years"
-#~ msgstr "百年陈酿"
-
-#~ msgid "minute"
-#~ msgstr "分钟"
-
-#~ msgid "fermented"
-#~ msgstr "炖煮发酵"
