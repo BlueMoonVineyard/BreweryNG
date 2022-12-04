@@ -136,7 +136,7 @@ public class BConfig {
 		return true;
 	}
 
-	private static String[] languages = new String[]{"de-DE"};
+	private static String[] languages = new String[]{"de-DE", "es-ES", "fr-FR", "it-IT", "ru-RU", "zh-CN", "zh-TW"};
 
 	private static void copyLanguages(boolean overwrite) {
 		File i18n = new File(p.getDataFolder(), "i18n");
