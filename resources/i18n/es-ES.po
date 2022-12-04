@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-30 02:16-0500\n"
+"POT-Creation-Date: 2022-12-04 15:02-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,7 +125,7 @@ msgstr "Mesa de sellado"
 msgid "{0} tried to say: &0{1}"
 msgstr "{0} trató de decir: &0{1}"
 
-#: src/com/dre/brewery/filedata/BConfig.java:178
+#: src/com/dre/brewery/filedata/BConfig.java:185
 msgid ""
 "Could not read file config.yml, please make sure the file is in valid yml "
 "format (correct spaces, using ' ' etc.)"
@@ -425,53 +425,54 @@ msgstr ""
 msgid "Ingredients"
 msgstr "Ingredientes"
 
-#: src/com/dre/brewery/lore/BrewLore.java:134
-msgid "minute"
-msgstr "minuto"
+#: src/com/dre/brewery/lore/BrewLore.java:135
+#, java-format
+msgid "{0} minute fermented"
+msgid_plural "{0} minutes fermented"
+msgstr[0] ""
+msgstr[1] ""
 
-#: src/com/dre/brewery/lore/BrewLore.java:136
-msgid "s"
-msgstr "s"
-
-#: src/com/dre/brewery/lore/BrewLore.java:138
-#: src/com/dre/brewery/lore/BrewLore.java:140
+#: src/com/dre/brewery/lore/BrewLore.java:137
+msgctxt ""
+"the word 'fermented' should be a substring of how it is in '{0}' minute(s) "
+"fermented"
 msgid "fermented"
-msgstr "fermentado"
+msgstr ""
 
-#: src/com/dre/brewery/lore/BrewLore.java:161
+#: src/com/dre/brewery/lore/BrewLore.java:158
 msgid "-times"
 msgstr "-veces"
 
-#: src/com/dre/brewery/lore/BrewLore.java:165
+#: src/com/dre/brewery/lore/BrewLore.java:162
 msgid "Less Distilled"
 msgstr "Menos destilado"
 
-#: src/com/dre/brewery/lore/BrewLore.java:167
+#: src/com/dre/brewery/lore/BrewLore.java:164
 msgid "Distilled"
 msgstr "Destilado"
 
-#: src/com/dre/brewery/lore/BrewLore.java:188
+#: src/com/dre/brewery/lore/BrewLore.java:185
 msgid "One Year"
 msgstr "Un Año"
 
-#: src/com/dre/brewery/lore/BrewLore.java:190
+#: src/com/dre/brewery/lore/BrewLore.java:187
 msgid "Years"
 msgstr "Años"
 
-#: src/com/dre/brewery/lore/BrewLore.java:192
+#: src/com/dre/brewery/lore/BrewLore.java:189
 msgid "Hundreds of Years"
 msgstr "Cientos de años"
 
-#: src/com/dre/brewery/lore/BrewLore.java:195
+#: src/com/dre/brewery/lore/BrewLore.java:192
 msgid "Barrel aged"
 msgstr "en el barril envejecido"
 
-#: src/com/dre/brewery/lore/BrewLore.java:206
-#: src/com/dre/brewery/lore/BrewLore.java:208
+#: src/com/dre/brewery/lore/BrewLore.java:203
+#: src/com/dre/brewery/lore/BrewLore.java:205
 msgid "Woodtype"
 msgstr "Tipo madera"
 
-#: src/com/dre/brewery/lore/BrewLore.java:285
+#: src/com/dre/brewery/lore/BrewLore.java:282
 #, java-format
 msgid "Alc {0}ml"
 msgstr "Alc {0}ml"
@@ -613,3 +614,12 @@ msgstr "&6Se canceló la verificación del punto de activación"
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&cNinguna verificación de punto de activación está activa actualmente"
+
+#~ msgid "minute"
+#~ msgstr "minuto"
+
+#~ msgid "s"
+#~ msgstr "s"
+
+#~ msgid "fermented"
+#~ msgstr "fermentado"

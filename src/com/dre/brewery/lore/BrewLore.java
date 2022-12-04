@@ -131,13 +131,10 @@ public class BrewLore {
 		if (qualityColor && brew.hasRecipe() && brew.getDistillRuns() > 0 == brew.getCurrentRecipe().needsDistilling() && !brew.isStripped()) {
 			BIngredients ingredients = brew.getIngredients();
 			int quality = ingredients.getCookingQuality(brew.getCurrentRecipe(), brew.getDistillRuns() > 0);
-			String prefix = getQualityColor(quality) + ingredients.getCookedTime() + " " + GetText.tr("minute");
-			if (ingredients.getCookedTime() > 1) {
-				prefix = prefix + GetText.tr("s");
-			}
-			addOrReplaceLore(Type.COOK, prefix, " " + GetText.tr("fermented"), " " + getQualityIcon(quality));
+			String prefix = getQualityColor(quality);
+			addOrReplaceLore(Type.COOK, prefix, " " + GetText.trn("{0} minute fermented", "{0} minutes fermented", ingredients.getCookedTime()), " " + getQualityIcon(quality));
 		} else {
-			removeLore(Type.COOK, GetText.tr("fermented"));
+			removeLore(Type.COOK, GetText.trc("the word 'fermented' should be a substring of how it is in '{0}' minute(s) fermented", "fermented"));
 		}
 	}
 
