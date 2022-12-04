@@ -1,15 +1,21 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: breweryng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:15-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2022-12-04 22:08\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: breweryng\n"
+"X-Crowdin-Project-ID: 553919\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /dev/resources/i18n/messages.pot\n"
+"X-Crowdin-File-ID: 41\n"
 
 #: src/com/dre/brewery/Barrel.java:53 src/com/dre/brewery/Barrel.java:55
 #: src/com/dre/brewery/Barrel.java:75 src/com/dre/brewery/Barrel.java:77
@@ -84,14 +90,12 @@ msgid "Cauldron Brew"
 msgstr "未名酿制品"
 
 #: src/com/dre/brewery/BPlayer.java:246
-#, fuzzy
 msgid "Player_Hangover"
-msgstr "你的宿醉"
+msgstr ""
 
 #: src/com/dre/brewery/BPlayer.java:246
-#, fuzzy
 msgid "Player_Drunkeness"
-msgstr "醉酒"
+msgstr ""
 
 #: src/com/dre/brewery/BPlayer.java:328
 msgid "You can't drink any more."
@@ -117,7 +121,7 @@ msgstr "酿坏了的废液"
 #: src/com/dre/brewery/BSealer.java:111 src/com/dre/brewery/BSealer.java:125
 #: src/com/dre/brewery/BSealer.java:143
 msgid "Brew Sealing Table"
-msgstr "Brew Sealing Table"
+msgstr ""
 
 #: src/com/dre/brewery/DistortChat.java:81
 #: src/com/dre/brewery/DistortChat.java:137
@@ -126,12 +130,8 @@ msgid "{0} tried to say: &0{1}"
 msgstr "{0}试图说出: &0{1}"
 
 #: src/com/dre/brewery/filedata/BConfig.java:185
-msgid ""
-"Could not read file config.yml, please make sure the file is in valid yml "
-"format (correct spaces, using ' ' etc.)"
-msgstr ""
-"无法读取config.yml, 请保证该文件符合正确的yml格式!(例如更正错误的空格等试试"
-"看…)"
+msgid "Could not read file config.yml, please make sure the file is in valid yml format (correct spaces, using ' ' etc.)"
+msgstr "无法读取config.yml, 请保证该文件符合正确的yml格式!(例如更正错误的空格等试试看…)"
 
 #: src/com/dre/brewery/filedata/ConfigUpdater.java:271
 #, java-format
@@ -141,7 +141,7 @@ msgstr "未知的配置版本:v{0}, 插件配置未更新!"
 #: src/com/dre/brewery/integration/ChestShopListener.java:26
 #: src/com/dre/brewery/integration/ShopKeepersListener.java:49
 msgid "&eIt's recommended to trade/sell &6sealed &eBrews"
-msgstr "&eIt's recommended to trade/sell &6sealed &eBrews"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/BlockListener.java:31
 msgid "&cYou don't have permissions to create barrels!"
@@ -163,9 +163,8 @@ msgstr "使用&6/brew help&f以查看帮助"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:244
 #: src/com/dre/brewery/listeners/CommandListener.java:260
-#, fuzzy
 msgid "Crafted Brews"
-msgstr "未名酿制品"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:269
 msgid "Go Back"
@@ -180,11 +179,8 @@ msgid "&6/brew help [Page] &9Shows a specific help-page"
 msgstr "&6/brew help [页数] &9显示某一页的帮助."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:294
-msgid ""
-"&6/brew <Player> <%Drunkeness> [Quality]&9 Sets Drunkeness (and Quality) of "
-"a Player"
-msgstr ""
-"&6/brew <目标玩家> <%醉酒程度> [醉酒质量] &9设定目标玩家的醉酒程度与质量."
+msgid "&6/brew <Player> <%Drunkeness> [Quality]&9 Sets Drunkeness (and Quality) of a Player"
+msgstr "&6/brew <目标玩家> <%醉酒程度> [醉酒质量] &9设定目标玩家的醉酒程度与质量."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:298
 msgid "&6/brew info&9 Displays your current Drunkeness and Quality"
@@ -192,7 +188,7 @@ msgstr "&6/brew info &9显示你目前的醉酒程度与质量, 醉酒质量将�
 
 #: src/com/dre/brewery/listeners/CommandListener.java:302
 msgid "&6/brew seal &9Seal Brews for selling in shops"
-msgstr "&6/brew seal &9Seal Brews for selling in shops"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:306
 msgid "&6/brew unlabel &9Removes the detailled label of a potion"
@@ -203,32 +199,22 @@ msgid "&6/brew collection&9 Shows what brews you have and haven't crafted"
 msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:318
-msgid ""
-"&6/brew info [Player]&9 Displays the current Drunkeness and Quality of "
-"[Player]"
+msgid "&6/brew info [Player]&9 Displays the current Drunkeness and Quality of [Player]"
 msgstr "&6/brew info [指定玩家] &9显示指定玩家目前的醉酒程度与质量."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:322
 #: src/com/dre/brewery/listeners/CommandListener.java:736
-msgid ""
-"&6/brew create <Recipe> [Quality] [Player] &9Create a Brew with optional "
-"quality (1-10)"
-msgstr ""
-"&6/brew create <饮品名称(若有颜色符号须附上)> [饮品质量] [授予玩家] &9获得一"
-"杯饮品, 质量可为1到10, 越高越好."
+msgid "&6/brew create <Recipe> [Quality] [Player] &9Create a Brew with optional quality (1-10)"
+msgstr "&6/brew create <饮品名称(若有颜色符号须附上)> [饮品质量] [授予玩家] &9获得一杯饮品, 质量可为1到10, 越高越好."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:323
 msgid "&6/brew give <Recipe> [Quality] [Player] &9Alias for /brew create"
-msgstr "&6/brew give <Recipe> [Quality] [Player] &9Alias for /brew create"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:327
 #: src/com/dre/brewery/listeners/CommandListener.java:870
-msgid ""
-"&6/brew drink <Recipe> [Quality] [Player] &9Simulates [Player] drinking a "
-"Brew"
+msgid "&6/brew drink <Recipe> [Quality] [Player] &9Simulates [Player] drinking a Brew"
 msgstr ""
-"&6/brew drink <Recipe> [Quality] [Player] &9Simulates [Player] drinking a "
-"Brew"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:331
 msgid "&6/brew ItemName &9Display name of item in hand for the config"
@@ -240,13 +226,11 @@ msgstr "&6/brew reload &9重载插件配置, 可用以重载饮品配方."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:336
 msgid "&6/brew puke [Player] [Amount] &9Makes you or [Player] puke"
-msgstr "&6/brew puke [Player] [Amount] &9Makes you or [Player] puke"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:340
 msgid "&6/brew wakeup list <Page>&9 Lists all wakeup points"
-msgstr ""
-"&6/brew wakeup list <页数> &9列出所有的苏醒处, 醉酒后下线的玩家再上线可能会在"
-"这些地方醒来."
+msgstr "&6/brew wakeup list <页数> &9列出所有的苏醒处, 醉酒后下线的玩家再上线可能会在这些地方醒来."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:341
 msgid "&6/brew wakeup list <Page> [World]&9 Lists all wakeup points of <world>"
@@ -350,11 +334,10 @@ msgstr "&e饮品已被取消静滞, 现在可以正常地进行蒸馏或进行�
 
 #: src/com/dre/brewery/listeners/CommandListener.java:671
 msgid "Sealed Brews are always static!"
-msgstr "Sealed Brews are always static!"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:676
-msgid ""
-"&aPotion is now static and will not change in barrels or brewing stands."
+msgid "&aPotion is now static and will not change in barrels or brewing stands."
 msgstr "&a饮品已被静滞, 现在其无法被蒸馏或进行木桶熟成."
 
 #: src/com/dre/brewery/listeners/CommandListener.java:721
@@ -363,7 +346,7 @@ msgstr "&a标签已被去除!"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:724
 msgid "&cThe Brew in your hand is already unlabeled!"
-msgstr "&cThe Brew in your hand is already unlabeled!"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:751
 msgid "&aBrew Created"
@@ -376,31 +359,28 @@ msgstr "&c未找到名字为'{0}&c'的饮品!"
 #: src/com/dre/brewery/listeners/CommandListener.java:835
 #, java-format
 msgid "Player not found: {0}"
-msgstr "Player not found: {0}"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:885
 #, java-format
 msgid "&aYou drank one {0}"
-msgstr "&aYou drank one {0}"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/CommandListener.java:887
 #, java-format
 msgid "&a{0} drinks one {1}"
-msgstr "&a{0} drinks one {1}"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/PlayerListener.java:66
 msgid "&cThe Sealing Table is disabled"
-msgstr "&cThe Sealing Table is disabled"
+msgstr ""
 
 #: src/com/dre/brewery/listeners/PlayerListener.java:267
-msgid ""
-"Your character tries to log in, but is too drunk to find the server. Try "
-"again!"
+msgid "Your character tries to log in, but is too drunk to find the server. Try again!"
 msgstr "你的角色试图登入服务器, 可惜的是他晕得找不着北, 再试一次?"
 
 #: src/com/dre/brewery/listeners/PlayerListener.java:270
-msgid ""
-"Your character is really drunk and has passed out. Try again in 10 minutes!"
+msgid "Your character is really drunk and has passed out. Try again in 10 minutes!"
 msgstr "你的角色喝到不省人事, 昏倒在地, 十分钟后再尝试登录吧!"
 
 #: src/com/dre/brewery/lore/BrewLore.java:119
@@ -413,12 +393,9 @@ msgstr "原料"
 msgid "{0} minute fermented"
 msgid_plural "{0} minutes fermented"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/com/dre/brewery/lore/BrewLore.java:137
-msgctxt ""
-"the word 'fermented' should be a substring of how it is in '{0}' minute(s) "
-"fermented"
+msgctxt "the word 'fermented' should be a substring of how it is in '{0}' minute(s) fermented"
 msgid "fermented"
 msgstr ""
 
@@ -428,7 +405,7 @@ msgstr "次"
 
 #: src/com/dre/brewery/lore/BrewLore.java:162
 msgid "Less Distilled"
-msgstr "Less Distilled"
+msgstr ""
 
 #: src/com/dre/brewery/lore/BrewLore.java:164
 msgid "Distilled"
@@ -443,7 +420,6 @@ msgstr "木桶熟成"
 msgid "{0} year barrel-aged"
 msgid_plural "{0} years barrel-aged"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/com/dre/brewery/lore/BrewLore.java:198
 #: src/com/dre/brewery/lore/BrewLore.java:200
@@ -460,8 +436,7 @@ msgid "&cThis barrel can't hold any more drinks"
 msgstr "&c这个木桶无法再存放更多饮品了"
 
 #: src/com/dre/brewery/P.java:256
-msgid ""
-"&cNot all recipes could be restored: More information in the server log!"
+msgid "&cNot all recipes could be restored: More information in the server log!"
 msgstr "&c加载饮品配方时出现问题, 请查看控制台以获得详细信息!"
 
 #: src/com/dre/brewery/P.java:258
@@ -553,9 +528,7 @@ msgstr "&c目前没有设定任何一个苏醒处!"
 
 #: src/com/dre/brewery/Wakeup.java:164 src/com/dre/brewery/Wakeup.java:213
 #, java-format
-msgid ""
-"&cThe Wakeup Point with the id: &6{0}&c at position &6{1} {2}, {3}, {4}&c is "
-"filled with Blocks!"
+msgid "&cThe Wakeup Point with the id: &6{0}&c at position &6{1} {2}, {3}, {4}&c is filled with Blocks!"
 msgstr "&cid为: &6{0} &c所在方位为: &6{1} {2}, {3}, {4} &c被填充了方块!"
 
 #: src/com/dre/brewery/Wakeup.java:192
@@ -564,9 +537,7 @@ msgstr "&a这是最后一个苏醒处了."
 
 #: src/com/dre/brewery/Wakeup.java:210
 #, java-format
-msgid ""
-"Teleport to Wakeup Point with the id: &6{0}&f At position: &6{1} {2}, {3}, "
-"{4}"
+msgid "Teleport to Wakeup Point with the id: &6{0}&f At position: &6{1} {2}, {3}, {4}"
 msgstr "前往id为: &6{0} &f坐标为: &6{1} {2}, {3}, {4} &r的苏醒处."
 
 #: src/com/dre/brewery/Wakeup.java:215
@@ -584,3 +555,4 @@ msgstr "&6苏醒处检查已被取消."
 #: src/com/dre/brewery/Wakeup.java:226
 msgid "&cNo Wakeup Point Check is currently active"
 msgstr "&c目前没有执行苏醒处检查."
+
