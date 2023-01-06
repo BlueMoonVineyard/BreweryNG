@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -160,18 +161,114 @@ public class BRecipe {
 			}
 		}
 
-		List<String> effectStringList = configSectionRecipes.getStringList(recipeId + ".effects");
-		if (effectStringList != null) {
-			for (String effectString : effectStringList) {
-				BEffect effect = new BEffect(effectString);
-				if (effect.isValid()) {
+		List<?> effectsList = configSectionRecipes.getList(recipeId + ".effects");
+		if (effectsList != null) {
+			for (Object effectString : effectsList) {
+				if (effectString instanceof String) {
+					BPotionEffect effect = new BPotionEffect((String)effectString);
+					if (effect.isValid()) {
+						recipe.effects.add(effect);
+					} else {
+						P.p.errorLog("Error adding Effect to Recipe: " + recipe.getRecipeName());
+					}
+				} else if (effectString instanceof HashMap) {
+					BEffect effect = deserializeNewEffects((HashMap<String, ?>)effectString, recipe);
 					recipe.effects.add(effect);
 				} else {
-					P.p.errorLog("Error adding Effect to Recipe: " + recipe.getRecipeName());
+					P.p.errorLog("An effect in " + recipe.getRecipeName() + " is neither a potion specification or an effect specification");
 				}
 			}
 		}
 		return recipe;
+	}
+
+	/// this handles deserializing the object-type effects rather than the simple string-based notation that
+	/// was used in previous versions
+	private static BEffect deserializeNewEffects(HashMap<String, ?> config, BRecipe into) {
+		String kind = (String)config.get("type");
+		if (kind == null) {
+			P.p.errorLog("An effect in " + into.getRecipeName() + " is missing its 'type'");
+			return null;
+		}
+		switch (kind) {
+		case "potion":
+			if (!(config.get("effect") instanceof String)) {
+				P.p.errorLog("Recipe " + into.getRecipeName() + " needs to specify potion effects as a string, such as 'WATER_BREATHING/1-2/150'");
+				return null;
+			}
+			BPotionEffect effect = new BPotionEffect((String)config.get("effect"));
+			if (!effect.isValid()) {
+				P.p.errorLog("The potion effect '" + (String)config.get("effect") + "' in recipe" + into.getRecipeName() + "is invalid");
+				return null;
+			}
+			return effect;
+		case "delay": {
+			if (!(config.get("duration") instanceof Integer)) {
+				P.p.errorLog("Recipe " + into.getRecipeName() + " needs to specify a 'duration' to delay by");
+				return null;
+			}
+			if (!(config.get("effect") instanceof HashMap)) {
+				P.p.errorLog("Recipe " + into.getRecipeName() + " needs to specify an 'effect' to delay by");
+				return null;
+			}
+			BEffect inner = deserializeNewEffects((HashMap<String, ?>)config.get("effect"), into);
+			if (inner == null) {
+				P.p.errorLog("Recipe " + into.getRecipeName() + " has an error with its delay's effect");
+				return null;
+			}
+			return new BDelayEffect((Integer)config.get("duration"), inner);
+		}
+		case "sequence": {
+			if (!(config.get("steps") instanceof List)) {
+				P.p.errorLog("Recipe " + into.getRecipeName() + " needs to specify 'steps' for the sequence to run");
+				return null;
+			}
+			List<?> steps = (List<?>)config.get("steps");
+			List<BEffect> outSteps = new ArrayList<>();
+			for (Object object : steps) {
+				if (!(object instanceof HashMap)) {
+					P.p.errorLog("Recipe " + into.getRecipeName() + " has a non-step in the sequence of steps");
+					continue;
+				}
+				BEffect step = deserializeNewEffects((HashMap<String, ?>)object, into);
+				if (step == null) {
+					P.p.errorLog("Recipe " + into.getRecipeName() + " has an error with a step in a sequence; skipping step");
+					continue;
+				}
+				outSteps.add(step);
+			}
+			int pauseBetween = 0;
+			if (config.get("pause-between") instanceof Integer) {
+				pauseBetween = (Integer)config.get("pause-between");
+			}
+			return new BSequenceEffect(pauseBetween, outSteps);
+		}
+		case "repeat": {
+			if (!(config.get("effect") instanceof HashMap)) {
+				P.p.errorLog("Recipe " + into.getRecipeName() + " needs to specify an 'effect' to repeat");
+				return null;
+			}
+			HashMap<String, ?> step = (HashMap<String, ?>)config.get("effect");
+			BEffect bStep = deserializeNewEffects(step, into);
+			if (bStep == null) {
+				P.p.errorLog("Recipe " + into.getRecipeName() + " has an error with its effect in its repeat");
+				return null;
+			}
+			int pauseBetween = 0;
+			if (config.get("pause-between") instanceof Integer) {
+				pauseBetween = (Integer)config.get("pause-between");
+			}
+			if (!(config.get("times") instanceof Integer)) {
+				P.p.errorLog("Recipe " + into.getRecipeName() + " needs to specify the amount of 'times' to repeat the 'step'");
+				return null;
+			}
+			int times = (Integer)config.get("times");
+			return new BRepeatEffect(times, pauseBetween, bStep);
+		}
+		default:
+			P.p.errorLog("Recipe " + into.getRecipeName() + " has an unrecognized effect type " + kind);
+			return null;
+		}
 	}
 
 	public static List<RecipeItem> loadIngredients(ConfigurationSection cfg, String recipeId) {
@@ -978,7 +1075,7 @@ public class BRecipe {
 			return this;
 		}
 
-		public Builder addEffects(BEffect... effects) {
+		public Builder addEffects(BPotionEffect... effects) {
 			Collections.addAll(recipe.effects, effects);
 			return this;
 		}

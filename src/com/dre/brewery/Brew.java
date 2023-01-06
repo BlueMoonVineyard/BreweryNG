@@ -6,6 +6,7 @@ import com.dre.brewery.filedata.ConfigUpdater;
 import com.dre.brewery.lore.*;
 import com.dre.brewery.lore.BrewLore.Type;
 import com.dre.brewery.recipe.BEffect;
+import com.dre.brewery.recipe.BPotionEffect;
 import com.dre.brewery.recipe.BRecipe;
 import com.dre.brewery.recipe.BUserError;
 import com.dre.brewery.recipe.PotionColor;

@@ -1,6 +1,7 @@
 package com.dre.brewery.lore;
 
 import com.dre.brewery.recipe.BEffect;
+import com.dre.brewery.recipe.BPotionEffect;
 import com.dre.brewery.BIngredients;
 import com.dre.brewery.recipe.BRecipe;
 import com.dre.brewery.Brew;

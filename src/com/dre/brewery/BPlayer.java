@@ -7,6 +7,7 @@ import com.dre.brewery.api.events.brew.BrewDrinkEvent;
 import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.lore.BrewLore;
 import com.dre.brewery.recipe.BEffect;
+import com.dre.brewery.recipe.BPotionEffect;
 import com.dre.brewery.utility.BUtil;
 import com.dre.brewery.utility.PermissionUtil;
 import net.md_5.bungee.api.ChatMessageType;
@@ -176,9 +177,12 @@ public class BPlayer {
 
 		int brewAlc = drinkEvent.getAddedAlcohol();
 		int quality = drinkEvent.getQuality();
-		List<PotionEffect> effects = getBrewEffects(brew.getEffects(), quality);
 
-		applyEffects(effects, player, PlayerEffectEvent.EffectType.DRINK);
+		for (BEffect effect : brew.getEffects()) {
+			effect.apply(quality, player);
+			// applyEffects(effects, player, PlayerEffectEvent.EffectType.DRINK);
+		}
+
 		if (brewAlc < 0) {
 			// If the Drink has negative alcohol, drain some alcohol
 			bPlayer.drain(player, -brewAlc);
@@ -724,28 +728,6 @@ public class BPlayer {
 		}
 		for (PotionEffect effect : list) {
 			BUtil.reapplyPotionEffect(player, effect, true);
-		}
-	}
-
-	public static List<PotionEffect> getBrewEffects(List<BEffect> effects, int quality) {
-		List<PotionEffect> out = new ArrayList<>();
-		if (effects != null) {
-			for (BEffect effect : effects) {
-				PotionEffect e = effect.generateEffect(quality);
-				if (e != null) {
-					out.add(e);
-				}
-			}
-		}
-		return out;
-	}
-
-	public static void addBrewEffects(Brew brew, Player player) {
-		List<BEffect> effects = brew.getEffects();
-		if (effects != null) {
-			for (BEffect effect : effects) {
-				effect.apply(brew.getQuality(), player);
-			}
 		}
 	}
 
