@@ -1,5 +1,6 @@
 package com.dre.brewery.listeners;
 
+import com.dre.brewery.BCauldron;
 import com.dre.brewery.BPlayer;
 import com.dre.brewery.BSealer;
 import com.dre.brewery.Barrel;
@@ -85,22 +86,32 @@ public class BlockListener implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	private Object getBreweryObject(Block at) {
+		if (Barrel.get(at) != null) {
+			return Barrel.get(at);
+		}
+		if (BCauldron.get(at) != null) {
+			return BCauldron.get(at);
+		}
+		return null;
+	}
+
+	@EventHandler(ignoreCancelled = true)
 	public void onPistonRetract(BlockPistonRetractEvent event) {
-		if (event.isSticky()) {
-			for (Block block : event.getBlocks()) {
-				if (Barrel.get(block) != null) {
-					event.setCancelled(true);
-					return;
-				}
+		for (Block block : event.getBlocks()) {
+			var relative = block.getRelative(event.getDirection());
+			if (getBreweryObject(block) != null || (relative.getType() == Material.AIR && getBreweryObject(block) != null)) {
+				event.setCancelled(true);
+				return;
 			}
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	@EventHandler(ignoreCancelled = true)
 	public void onPistonExtend(BlockPistonExtendEvent event) {
 		for (Block block : event.getBlocks()) {
-			if (Barrel.get(block) != null) {
+			var relative = block.getRelative(event.getDirection());
+			if (getBreweryObject(block) != null || (relative.getType() == Material.AIR && getBreweryObject(block) != null)) {
 				event.setCancelled(true);
 				return;
 			}
