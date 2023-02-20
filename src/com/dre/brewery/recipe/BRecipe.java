@@ -566,7 +566,7 @@ public class BRecipe {
 
 		BIngredients bIngredients = new BIngredients(list, cookingTime);
 
-		return new Brew(bIngredients, quality, 0, distillruns, getAge(), wood, getLiquidType(), getRecipeName(), false, true, 0);
+		return new Brew(bIngredients, quality, 0, distillruns, getAge(), wood, getLiquidType(), getRecipeName(), false, true, false, 0);
 	}
 
 	public void updateAcceptedLists() {

@@ -1,5 +1,6 @@
 package com.dre.brewery;
 
+import com.dre.brewery.BCauldron.LiquidType;
 import com.dre.brewery.api.events.brew.BrewModifyEvent;
 import com.dre.brewery.lore.Base91EncoderStream;
 import com.dre.brewery.lore.BrewLore;
@@ -123,7 +124,7 @@ public class BIngredients {
 			int quality = (int) Math.round((getIngredientQuality(cookRecipe) + getCookingQuality(cookRecipe, false)) / 2.0);
 			int alc = (int) Math.round(cookRecipe.getAlcohol() * ((float) quality / 10.0f));
 			P.p.debugLog("cooked potion has Quality: " + quality + ", Alc: " + alc);
-			brew = new Brew(quality, alc, cookRecipe, this);
+			brew = new Brew(this, quality, alc, (byte)0, quality, alc, liquidType, cookedName, false, false, false, 0);
 			BrewLore lore = new BrewLore(brew, potionMeta);
 			lore.updateQualityStars(false);
 			lore.updateCustomLore();
@@ -137,7 +138,7 @@ public class BIngredients {
 
 		} else {
 			// new base potion
-			brew = new Brew(this);
+			brew = new Brew(this, 0, 0, (byte)0, (float)0.0, (float)0.0, liquidType, null, false, false, false, 0);
 
 			if (state <= 0) {
 				cookedName = GetText.tr("Muddy Brew");
@@ -530,12 +531,12 @@ public class BIngredients {
 		}
 	}
 
-	public static BIngredients load(DataInputStream in, short dataVersion) throws IOException {
+	public static BIngredients load(DataInputStream in) throws IOException {
 		int cookedTime = in.readInt();
 		byte size = in.readByte();
 		List<Ingredient> ing = new ArrayList<>(size);
 		for (; size > 0; size--) {
-			ItemLoader itemLoader = new ItemLoader(dataVersion, in, in.readUTF());
+			ItemLoader itemLoader = new ItemLoader(in, in.readUTF());
 			if (!P.p.ingredientLoaders.containsKey(itemLoader.getSaveID())) {
 				P.p.errorLog("Ingredient Loader not found: " + itemLoader.getSaveID());
 				break;
