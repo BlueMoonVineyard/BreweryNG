@@ -198,7 +198,7 @@ public class BData {
 	public static BIngredients deserializeIngredients(String mat) {
 		try (DataInputStream in = new DataInputStream(new Base91DecoderStream(new ByteArrayInputStream(mat.getBytes())))) {
 			byte ver = in.readByte();
-			return BIngredients.load(in, ver);
+			return BIngredients.load(in);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new BIngredients();

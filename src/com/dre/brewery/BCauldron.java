@@ -31,6 +31,18 @@ public class BCauldron {
 		LAVA,
 		SNOW;
 
+		public String toString() {
+			switch (this) {
+				case WATER:
+					return "water";
+				case LAVA:
+					return "lava";
+				case SNOW:
+					return "snow";
+				default:
+					return "water";
+			}
+		}
 		public static LiquidType fromString(String string) {
 			switch (string.toLowerCase()) {
 				case "water":

@@ -1,5 +1,6 @@
 package com.dre.brewery;
 
+import com.dre.brewery.BCauldron.LiquidType;
 import com.dre.brewery.api.events.brew.BrewModifyEvent;
 import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.filedata.ConfigUpdater;
@@ -38,7 +39,7 @@ import java.util.Objects;
  * Represents the liquid in the brewed Potions
  */
 public class Brew implements Cloneable {
-	public static final byte SAVE_VER = 1;
+	public static final byte SAVE_VER = 2;
 	private static long saveSeed;
 	private static List<Long> prevSaveSeeds = new ArrayList<>(); // Save Seeds that have been used in the past, stored to decode brews made at that time
 	public static Map<Integer, Brew> legacyPotions = new HashMap<>();
@@ -60,28 +61,12 @@ public class Brew implements Cloneable {
 	private boolean needsSave; // There was a change that has not yet been saved
 
 	/**
-	 * A new Brew with only ingredients and a liquid type
-	 */
-	public Brew(BIngredients ingredients) {
-		this.ingredients = ingredients;
-		touch();
-	}
-
-	/**
-	 * A Brew with quality, alc and recipe already set
-	 */
-	public Brew(int quality, int alc, BRecipe recipe, BIngredients ingredients) {
-		this.ingredients = ingredients;
-		this.quality = quality;
-		this.alc = alc;
-		this.currentRecipe = recipe;
-		touch();
-	}
-
-	/**
 	 * Loading a Brew with all values set
 	 */
-	public Brew(BIngredients ingredients, int quality, int alc, byte distillRuns, float ageTime, float wood, BCauldron.LiquidType liquidType, String recipe, boolean unlabeled, boolean immutable, int lastUpdate) {
+	public Brew(BIngredients ingredients, int quality, int alc, byte distillRuns, float ageTime, float wood, BCauldron.LiquidType liquidType, String recipe, boolean unlabeled, boolean immutable, boolean stripped, int lastUpdate) {
+		assert ingredients != null : "ingredients should not be null";
+		assert liquidType != null : "liquid type should not be null";
+
 		this.ingredients = ingredients;
 		this.quality = quality;
 		this.alc = alc;
@@ -90,13 +75,10 @@ public class Brew implements Cloneable {
 		this.wood = wood;
 		this.unlabeled = unlabeled;
 		this.immutable = immutable;
+		this.stripped = stripped;
 		this.lastUpdate = lastUpdate;
 		this.liquidType = liquidType;
 		setRecipeFromString(recipe);
-	}
-
-	// Loading from InputStream
-	private Brew() {
 	}
 
 	/**
@@ -902,13 +884,19 @@ public class Brew implements Cloneable {
 				P.p.errorLog("Parity check failed on Brew while loading, trying to load anyways!");
 				parityFailed = true;
 			}
-			Brew brew = new Brew();
+			Brew brew = null;
 			byte ver = in.readByte();
 			switch (ver) {
 				case 1:
 
 					unscrambler.start();
-					brew.loadFromStream(in, ver);
+					brew = Brew.loadFromStreamV1(in);
+
+					break;
+				case 2:
+
+					unscrambler.start();
+					brew = Brew.loadFromStreamV2(in);
 
 					break;
 				default:
@@ -945,9 +933,13 @@ public class Brew implements Cloneable {
 		return null;
 	}
 
-	private void loadFromStream(DataInputStream in, byte dataVersion) throws IOException {
-		quality = in.readByte();
+	private static Brew loadFromStreamV1(DataInputStream in) throws IOException {
+		byte quality = in.readByte();
 		int bools = in.readUnsignedByte();
+		short alc = 0;
+		byte distillRuns = 0;
+		float ageTime = 0;
+		float wood = 0;
 		if ((bools & 64) != 0) {
 			alc = in.readShort();
 		}
@@ -964,11 +956,31 @@ public class Brew implements Cloneable {
 		if ((bools & 8) != 0) {
 			recipe = in.readUTF();
 		}
-		unlabeled = (bools & 16) != 0;
-		immutable = (bools & 32) != 0;
-		stripped = (bools & 128) != 0;
-		ingredients = BIngredients.load(in, dataVersion);
-		setRecipeFromString(recipe);
+		boolean unlabeled = (bools & 16) != 0;
+		boolean immutable = (bools & 32) != 0;
+		boolean stripped = (bools & 128) != 0;
+		BIngredients ingredients = BIngredients.load(in);
+
+		return new Brew(ingredients, quality, alc, distillRuns, ageTime, wood, LiquidType.WATER, recipe, unlabeled, immutable, stripped, distillRuns);
+	}
+	private static Brew loadFromStreamV2(DataInputStream in) throws IOException {
+		byte quality = in.readByte();
+		short bools = in.readShort();
+		boolean unlabeled = (bools & 1<<0) != 0;
+		boolean immutable = (bools & 1<<1) != 0;
+		boolean stripped =  (bools & 1<<2) != 0;
+		short alc = in.readShort();
+		byte distillRuns = in.readByte();
+		float ageTime = in.readFloat();
+		float wood = in.readFloat();
+		LiquidType liquidType = LiquidType.fromString(in.readUTF());
+		String recipeName = in.readUTF();
+		if (recipeName == "") {
+			recipeName = null;
+		}
+		BIngredients ingredients = BIngredients.load(in);
+
+		return new Brew(ingredients, quality, alc, distillRuns, ageTime, wood, liquidType, recipeName, unlabeled, immutable, stripped, distillRuns);
 	}
 
 	/**
@@ -1024,29 +1036,19 @@ public class Brew implements Cloneable {
 		alc = Math.max(alc, Short.MIN_VALUE);
 
 		out.writeByte((byte) quality);
-		int bools = 0;
-		bools |= ((distillRuns != 0) 	? 1 : 0);
-		bools |= (ageTime > 0 	? 2 : 0);
-		bools |= (wood != -1 	? 4 : 0);
-		bools |= (currentRecipe != null ? 8 : 0);
-		bools |= (unlabeled 	? 16 : 0);
-		bools |= (immutable 	? 32 : 0);
-		bools |= (alc != 0 		? 64 : 0);
-		bools |= (stripped 		? 128 : 0);
-		out.writeByte(bools);
-		if (alc != 0) {
-			out.writeShort(alc);
-		}
-		if (distillRuns != 0) {
-			out.writeByte(distillRuns);
-		}
-		if (ageTime > 0) {
-			out.writeFloat(ageTime);
-		}
-		if (wood != -1) {
-			out.writeFloat(wood);
-		}
-		if (currentRecipe != null) {
+		short bools = 0;
+		bools |= (unlabeled 	? 1<<0 : 0);
+		bools |= (immutable 	? 1<<1 : 0);
+		bools |= (stripped 		? 1<<2 : 0);
+		out.writeShort(bools);
+		out.writeShort(alc);
+		out.writeByte(distillRuns);
+		out.writeFloat(ageTime);
+		out.writeFloat(wood);
+		out.writeUTF(liquidType.toString());
+		if (currentRecipe == null) {
+			out.writeUTF("");
+		} else {
 			out.writeUTF(currentRecipe.getRecipeName());
 		}
 		ingredients.save(out);
@@ -1090,7 +1092,7 @@ public class Brew implements Cloneable {
 	 * Load potion data from data file for backwards compatibility
 	 */
 	public static void loadLegacy(BIngredients ingredients, int uid, int quality, int alc, byte distillRuns, float ageTime, float wood, String recipe, boolean unlabeled, boolean persistent, boolean stat, int lastUpdate) {
-		Brew brew = new Brew(ingredients, quality, alc, distillRuns, ageTime, wood, BCauldron.LiquidType.WATER, recipe, unlabeled, stat, lastUpdate);
+		Brew brew = new Brew(ingredients, quality, alc, distillRuns, ageTime, wood, BCauldron.LiquidType.WATER, recipe, unlabeled, stat, false, lastUpdate);
 		brew.persistent = persistent;
 		if (brew.lastUpdate <= 0) {
 			// We failed to save the lastUpdate, restart the countdown
