@@ -133,7 +133,7 @@ public class BrewLore {
 			BIngredients ingredients = brew.getIngredients();
 			int quality = ingredients.getCookingQuality(brew.getCurrentRecipe(), brew.getDistillRuns() > 0);
 			String prefix = getQualityColor(quality);
-			addOrReplaceLore(Type.COOK, prefix, " " + GetText.trn("{0} minute fermented", "{0} minutes fermented", ingredients.getCookedTime()), " " + getQualityIcon(quality));
+			addOrReplaceLore(Type.COOK, prefix, GetText.trn("{0} minute fermented", "{0} minutes fermented", ingredients.getCookedTime(), ingredients.getCookedTime()), " " + getQualityIcon(quality));
 		} else {
 			removeLore(Type.COOK, GetText.trc("the word 'fermented' should be a substring of how it is in '{0}' minute(s) fermented", "fermented"));
 		}
@@ -184,7 +184,7 @@ public class BrewLore {
 		final String line =
 			brew.isUnlabeled() ?
 				GetText.tr("Barrel aged") :
-				GetText.trn("{0} year barrel-aged", "{0} years barrel-aged", (int) Math.floor(age));
+				GetText.trn("{0} year barrel-aged", "{0} years barrel-aged", (int) Math.floor(age), (int) Math.floor(age));
 		addOrReplaceLore(Type.AGE, prefix, line, " " + getQualityIcon(quality));
 	}
 
