@@ -644,7 +644,7 @@ public class Brew implements Cloneable {
 		// Distill Lore
 		if (currentRecipe != null && BConfig.colorInBrewer != BrewLore.hasColorLore(potionMeta)) {
 			lore.convertLore(BConfig.colorInBrewer);
-		} else {
+		} else if (currentRecipe != null) {
 			lore.updateQualityStars(BConfig.colorInBrewer);
 			lore.updateCustomLore();
 			lore.updateDistillLore(BConfig.colorInBrewer);

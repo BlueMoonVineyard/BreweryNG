@@ -350,6 +350,7 @@ public class BIngredients {
 			}
 		}
 
+		assert matchingRecipes.size() > 0 : "we must have at least 1 matching recipe";
 		return matchingRecipes.get(ThreadLocalRandom.current().nextInt(matchingRecipes.size()));
 	}
 
