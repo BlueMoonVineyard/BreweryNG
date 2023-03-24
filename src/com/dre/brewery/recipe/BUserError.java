@@ -56,17 +56,18 @@ public interface BUserError {
 
     public class IngredientQuantityError implements BUserError {
         private RecipeItem item;
-        private int actualCount;
+        private int userCount;
 
         public IngredientQuantityError(RecipeItem item, int actualCount) {
             this.item = item;
-            this.actualCount = actualCount;
+            this.userCount = actualCount;
+			assert userCount != item.getAmount() : "it's not an error if the ingredient amounts match";
         }
 
         @Override
         public String userMessage() {
             int messagePermutation = ThreadLocalRandom.current().nextInt(1, 2+1);
-            if (actualCount < item.getAmount()) {
+            if (userCount > item.getAmount()) {
 				switch (messagePermutation) {
 				case 1:
 					return GetText.tr("Whoa, that's definitely too much {0}!", item.displayName());
@@ -75,7 +76,7 @@ public interface BUserError {
 				default:
 					throw new AssertionError("invalid case");
 				}
-            } else if (actualCount > item.getAmount()) {
+            } else if (userCount < item.getAmount()) {
 				switch (messagePermutation) {
 				case 1:
 					return GetText.tr("It could do with a bit more of the taste of {0}...", item.displayName());
