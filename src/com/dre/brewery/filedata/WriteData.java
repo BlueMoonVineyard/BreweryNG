@@ -2,15 +2,17 @@ package com.dre.brewery.filedata;
 
 
 import java.io.File;
+import java.util.function.Consumer;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
 import com.dre.brewery.P;
+import com.dre.brewery.utility.BTask;
 
 /**
  * Writes the collected Data to file in Async Thread
  */
-public class WriteData implements Runnable {
+public class WriteData implements Consumer<BTask> {
 
 	private FileConfiguration data;
 	private FileConfiguration worldData;
@@ -21,7 +23,7 @@ public class WriteData implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	public void accept(BTask task) {
 		File datafile = new File(P.p.getDataFolder(), "data.yml");
 		File worlddatafile = new File(P.p.getDataFolder(), "worlddata.yml");
 
@@ -37,7 +39,6 @@ public class WriteData implements Runnable {
 		}
 
 		DataSave.lastSave = 1;
-		DataSave.running = null;
 		BData.dataMutex.set(0);
 	}
 }

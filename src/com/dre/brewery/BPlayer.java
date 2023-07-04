@@ -8,6 +8,7 @@ import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.lore.BrewLore;
 import com.dre.brewery.recipe.BEffect;
 import com.dre.brewery.recipe.BPotionEffect;
+import com.dre.brewery.utility.BTask;
 import com.dre.brewery.utility.BUtil;
 import com.dre.brewery.utility.PermissionUtil;
 import net.md_5.bungee.api.ChatMessageType;
@@ -34,7 +35,7 @@ import java.util.*;
 public class BPlayer {
 	private static Map<String, BPlayer> players = new HashMap<>();// Players uuid and BPlayer
 	private static Map<Player, Integer> pTasks = new HashMap<>();// Player and count
-	private static int taskId;
+	private static BTask task;
 	private static Random pukeRand;
 
 	private final String uuid;
@@ -223,8 +224,8 @@ public class BPlayer {
 		try {
 			// It this returns false, then the Action Bar is not supported. Do not repeat the message as it was sent into chat
 			if (sendDrunkenessMessage(player)) {
-				P.p.getServer().getScheduler().scheduleSyncDelayedTask(P.p, () -> sendDrunkenessMessage(player), 40);
-				P.p.getServer().getScheduler().scheduleSyncDelayedTask(P.p, () -> sendDrunkenessMessage(player), 80);
+				P.p.scheduler.runTaskFor(player, sched -> sendDrunkenessMessage(player), 40);
+				P.p.scheduler.runTaskFor(player, sched -> sendDrunkenessMessage(player), 80);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -308,7 +309,7 @@ public class BPlayer {
 		b.append("§7]");
 		final String text = b.toString();
 		if (hangover && P.use1_11) {
-			P.p.getServer().getScheduler().scheduleSyncDelayedTask(P.p, () -> player.sendTitle("", text, 30, 100, 90), 160);
+			P.p.scheduler.runTaskFor(player, sched -> player.sendTitle("", text, 30, 100, 90), 160);
 			return false;
 		}
 		try {
@@ -326,7 +327,7 @@ public class BPlayer {
 		drunkeness = 100;
 		syncToSQL(false);
 		if (BConfig.overdrinkKick && !player.hasPermission("brewery.bypass.overdrink")) {
-			P.p.getServer().getScheduler().scheduleSyncDelayedTask(P.p, () -> passOut(player), 1);
+			P.p.scheduler.runTaskFor(player, sched -> passOut(player), 1);
 		} else {
 			addPuke(player, 60 + (int) (Math.random() * 60.0));
 			P.p.msg(player, GetText.tr("You can't drink any more."));
@@ -472,7 +473,7 @@ public class BPlayer {
 			return;
 		}
 		// delayed login event as the player is not fully accessible pre login
-		P.p.getServer().getScheduler().runTaskLater(P.p, () -> login(player), 1L);
+		P.p.scheduler.runAsyncTaskLater((task) -> login(player), 1L);
 	}
 
 	// he may be having a hangover
@@ -578,7 +579,7 @@ public class BPlayer {
 		BUtil.reapplyPotionEffect(player, PotionEffectType.HUNGER.createEffect(80, 4), true);
 
 		if (pTasks.isEmpty()) {
-			taskId = P.p.getServer().getScheduler().scheduleSyncRepeatingTask(P.p, BPlayer::pukeTask, 1L, 1L);
+			task = P.p.scheduler.runAsyncTaskOnTimer(sched -> pukeTask(), 1L, 1L);
 		}
 		pTasks.put(player, event.getCount());
 	}
@@ -591,7 +592,7 @@ public class BPlayer {
 			if (!player.isValid() || !player.isOnline()) {
 				iter.remove();
 			}
-			puke(player);
+			P.p.scheduler.runTaskFor(player, sched -> puke(player), 0);
 			if (count <= 1) {
 				iter.remove();
 			} else {
@@ -599,7 +600,7 @@ public class BPlayer {
 			}
 		}
 		if (pTasks.isEmpty()) {
-			P.p.getServer().getScheduler().cancelTask(taskId);
+			task.cancel();
 		}
 	}
 
@@ -765,13 +766,13 @@ public class BPlayer {
 				if (bplayer.offlineDrunk == 0) {
 					Player player = BUtil.getPlayerfromString(name);
 					if (player != null) {
+						P.p.scheduler.runTaskFor(player, (task) -> {
+							bplayer.drunkEffects(player);
 
-						bplayer.drunkEffects(player);
-
-						if (BConfig.enablePuke) {
-							bplayer.drunkPuke(player);
-						}
-
+							if (BConfig.enablePuke) {
+								bplayer.drunkPuke(player);
+							}
+						}, 0);
 					}
 				}
 			}

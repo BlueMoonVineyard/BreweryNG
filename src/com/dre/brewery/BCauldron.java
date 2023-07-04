@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import org.mini2Dx.gettext.GetText;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BCauldron {
 	public enum LiquidType {
@@ -60,8 +61,8 @@ public class BCauldron {
 	public static final byte EMPTY = 0, SOME = 1, FULL = 2;
 	public static final int PARTICLEPAUSE = 15;
 	public static Random particleRandom = new Random();
-	private static Set<UUID> plInteracted = new HashSet<>(); // Interact Event helper
-	public static Map<Block, BCauldron> bcauldrons = new HashMap<>(); // All active cauldrons. Mapped to their block for fast retrieve
+	private static Set<UUID> plInteracted = ConcurrentHashMap.newKeySet(); // Interact Event helper
+	public static Map<Block, BCauldron> bcauldrons = new ConcurrentHashMap<>(); // All active cauldrons. Mapped to their block for fast retrieve
 
 	private BIngredients ingredients = new BIngredients();
 	private final Block block;
@@ -294,7 +295,12 @@ public class BCauldron {
 	}
 
 	public void cookEffect() {
-		if (BUtil.isChunkLoaded(block) && LegacyUtil.isCauldronHeatsource(block.getRelative(BlockFace.DOWN))) {
+		P.p.scheduler.runTaskAt(block.getLocation(), sched -> {
+			boolean valid = BUtil.isChunkLoaded(block) && LegacyUtil.isCauldronHeatsource(block.getRelative(BlockFace.DOWN));
+			if (!valid) {
+				return;
+			}
+
 			Color color = getParticleColor();
 			// Colorable spirally spell, 0 count enables color instead of the offset variables
 			// Configurable RGB color. The last parameter seems to control the hue and motion, but i couldn't find
@@ -323,7 +329,7 @@ public class BCauldron {
 				// Two hovering pixely dust clouds, a bit offset and with DustOptions to give some color and size
 				block.getWorld().spawnParticle(Particle.REDSTONE, particleLocation, 2, 0.15, 0.2, 0.15, new Particle.DustOptions(color, 1.5f));
 			}
-		}
+		}, 0);
 	}
 
 	private Location getRandParticleLoc() {
@@ -486,7 +492,7 @@ public class BCauldron {
 				if (event.getHand() == EquipmentSlot.HAND) {
 					final UUID id = player.getUniqueId();
 					plInteracted.add(id);
-					P.p.getServer().getScheduler().runTask(P.p, () -> plInteracted.remove(id));
+					P.p.scheduler.runTaskFor(event.getPlayer(), sched -> plInteracted.remove(id), 0);
 				} else if (event.getHand() == EquipmentSlot.OFF_HAND) {
 					if (!plInteracted.remove(player.getUniqueId())) {
 						item = player.getInventory().getItemInMainHand();
@@ -608,7 +614,7 @@ public class BCauldron {
 	// bukkit bug not updating the inventory while executing event, have to
 	// schedule the give
 	public static void giveItem(final Player player, final ItemStack item) {
-		P.p.getServer().getScheduler().runTaskLater(P.p, () -> player.getInventory().addItem(item), 1L);
+		P.p.scheduler.runTaskFor(player, sched -> player.getInventory().addItem(item), 1L);
 	}
 
 }

@@ -7,9 +7,11 @@ import com.dre.brewery.api.events.barrel.BarrelRemoveEvent;
 import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.integration.barrel.LogBlockBarrel;
 import com.dre.brewery.lore.BrewLore;
+import com.dre.brewery.utility.BTask;
 import com.dre.brewery.utility.BUtil;
 import com.dre.brewery.utility.BoundingBox;
 import com.dre.brewery.utility.LegacyUtil;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -24,21 +26,23 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mini2Dx.gettext.GetText;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.Collection;
 
 /**
  * A Multi Block Barrel with Inventory
  */
 public class Barrel implements InventoryHolder {
 
-	public static List<Barrel> barrels = new ArrayList<>();
+	public static List<Barrel> barrels = Collections.synchronizedList(new ArrayList<>());
 	private static int check = 0; // Which Barrel was last checked
 
 	private final Block spigot;
@@ -108,7 +112,7 @@ public class Barrel implements InventoryHolder {
 					randomInTheBack.checked = false;
 				}
 			}
-			new BarrelCheck().runTaskTimer(P.p, 1, 1);
+			P.p.scheduler.runAsyncTaskOnTimer(new BarrelCheck(barrels.stream().filter((barrel) -> !barrel.checked).toList()), 1, 1);
 		}
 	}
 
@@ -552,38 +556,33 @@ public class Barrel implements InventoryHolder {
 		}
 	}
 
-	public static class BarrelCheck extends BukkitRunnable {
-		@Override
-		public void run() {
-			boolean repeat = true;
-			while (repeat) {
-				if (check < barrels.size()) {
-					Barrel barrel = barrels.get(check);
-					if (!barrel.checked) {
-						Block broken = barrel.body.getBrokenBlock(false);
-						if (broken != null) {
-							P.p.debugLog("Barrel at "
-								+ broken.getWorld().getName() + "/" + broken.getX() + "/" + broken.getY() + "/" + broken.getZ()
-								+ " has been destroyed unexpectedly, contents will drop");
-							// remove the barrel if it was destroyed
-							barrel.remove(broken, null, true);
-						} else {
-							// Dont check this barrel again, its enough to check it once after every restart (and when randomly chosen)
-							// as now this is only the backup if we dont register the barrel breaking,
-							// for example when removing it with some world editor
-							barrel.checked = true;
-						}
-						repeat = false;
-					}
-					check++;
-				} else {
-					check = 0;
-					repeat = false;
-					cancel();
-				}
-			}
+	public static class BarrelCheck implements Consumer<BTask> {
+		private Collection<Barrel> barrelsToCheck;
+
+		public BarrelCheck(Collection<Barrel> barrels) {
+			this.barrelsToCheck = barrels;
 		}
 
+		@Override
+		public void accept(BTask task) {
+			for (Barrel barrel : barrelsToCheck) {
+				P.p.scheduler.runTaskAt(barrel.body.getSpigot().getLocation(), (ignored) -> {
+					Block broken = barrel.body.getBrokenBlock(false);
+					if (broken != null) {
+						P.p.debugLog("Barrel at "
+							+ broken.getWorld().getName() + "/" + broken.getX() + "/" + broken.getY() + "/" + broken.getZ()
+							+ " has been destroyed unexpectedly, contents will drop");
+						// remove the barrel if it was destroyed
+						barrel.remove(broken, null, true);
+					} else {
+						// Dont check this barrel again, its enough to check it once after every restart (and when randomly chosen)
+						// as now this is only the backup if we dont register the barrel breaking,
+						// for example when removing it with some world editor
+						barrel.checked = true;
+					}
+				}, 0);
+			}
+		}
 	}
 
 }

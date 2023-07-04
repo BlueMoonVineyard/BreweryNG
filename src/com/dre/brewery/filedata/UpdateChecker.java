@@ -1,6 +1,7 @@
 package com.dre.brewery.filedata;
 
 import com.dre.brewery.P;
+import com.dre.brewery.utility.BTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -12,13 +13,14 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.function.Consumer;
 
 
 /**
  * Update Checker modified from the Gravity Update Checker Example:
  * https://github.com/gravitylow/ServerModsAPI-Example/blob/master/Update.java
  */
-public class UpdateChecker implements Runnable {
+public class UpdateChecker implements Consumer<BTask> {
 	// The project's unique ID
 	private static final int projectID = 68006;
 
@@ -46,7 +48,7 @@ public class UpdateChecker implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	public void accept(BTask it) {
 		query();
 	}
 

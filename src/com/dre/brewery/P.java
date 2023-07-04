@@ -36,6 +36,8 @@ import com.dre.brewery.integration.barrel.BlocklockerBarrel;
 import com.dre.brewery.integration.barrel.LogBlockBarrel;
 import com.dre.brewery.listeners.*;
 import com.dre.brewery.recipe.*;
+import com.dre.brewery.utility.BScheduler;
+import com.dre.brewery.utility.BTask;
 import com.dre.brewery.utility.BUtil;
 import com.dre.brewery.utility.LegacyUtil;
 import com.dre.brewery.utility.Stats;
@@ -53,6 +55,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class P extends JavaPlugin {
@@ -81,6 +84,9 @@ public class P extends JavaPlugin {
 
 	// Metrics
 	public Stats stats = new Stats();
+
+	// Scheduling
+	public BScheduler scheduler = BScheduler.getScheduler(this);
 
 	@Override
 	public void onEnable() {
@@ -166,17 +172,17 @@ public class P extends JavaPlugin {
 		}
 
 		// Heartbeat
-		p.getServer().getScheduler().runTaskTimer(p, new BreweryRunnable(), 650, 1200);
-		p.getServer().getScheduler().runTaskTimer(p, new DrunkRunnable(), 120, 120);
+		p.scheduler.runAsyncTaskOnTimer(new BreweryRunnable(), 650, 1200);
+		p.scheduler.runAsyncTaskOnTimer(new DrunkRunnable(), 120, 120);
 
 		if (use1_9) {
-			p.getServer().getScheduler().runTaskTimer(p, new CauldronParticles(), 1, 1);
+			p.scheduler.runAsyncTaskOnTimer(new CauldronParticles(), 1, 1);
 		}
 
 		// Disable Update Check for older mc versions
 		if (use1_14 && BConfig.updateCheck) {
 			try {
-				p.getServer().getScheduler().runTaskLaterAsynchronously(p, new UpdateChecker(), 135);
+				p.scheduler.runAsyncTaskLater(new UpdateChecker(), 135);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -190,9 +196,6 @@ public class P extends JavaPlugin {
 
 		// Disable listeners
 		HandlerList.unregisterAll(this);
-
-		// Stop shedulers
-		getServer().getScheduler().cancelTasks(this);
 
 		if (p == null) {
 			return;
@@ -372,27 +375,27 @@ public class P extends JavaPlugin {
 
 	// Runnables
 
-	public static class DrunkRunnable implements Runnable {
+	public static class DrunkRunnable implements Consumer<BTask> {
 		@Override
-		public void run() {
+		public void accept(BTask it) {
 			if (!BPlayer.isEmpty()) {
 				BPlayer.drunkeness();
 			}
 		}
 	}
 
-	public class BreweryRunnable implements Runnable {
+	public class BreweryRunnable implements Consumer<BTask> {
 		@Override
-		public void run() {
+		public void accept(BTask it) {
 			long t1 = System.nanoTime();
 			BConfig.reloader = null;
-			Iterator<BCauldron> iter = BCauldron.bcauldrons.values().iterator();
-			while (iter.hasNext()) {
-				// runs every min to update cooking time
-				if (!iter.next().onUpdate()) {
-					iter.remove();
-				}
-			}
+			BCauldron.bcauldrons.forEach((block, cauldron) -> {
+				P.p.scheduler.runTaskAt(block.getLocation(), (task) -> {
+					if (!cauldron.onUpdate()) {
+						BCauldron.bcauldrons.remove(block);
+					}
+				}, 0);
+			});
 			long t2 = System.nanoTime();
 			Barrel.onUpdate();// runs every min to check and update ageing time
 			long t3 = System.nanoTime();
@@ -415,9 +418,9 @@ public class P extends JavaPlugin {
 
 	}
 
-	public class CauldronParticles implements Runnable {
+	public class CauldronParticles implements Consumer<BTask> {
 		@Override
-		public void run() {
+		public void accept(BTask it) {
 			if (!BConfig.enableCauldronParticles) return;
 			if (BConfig.minimalParticles && BCauldron.particleRandom.nextFloat() > 0.5f) {
 				return;

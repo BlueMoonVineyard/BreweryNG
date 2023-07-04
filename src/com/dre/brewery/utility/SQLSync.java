@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class SQLSync {
 	private BlockingQueue<Object> saveDataQueue = new ArrayBlockingQueue<>(64);
@@ -80,17 +81,17 @@ public class SQLSync {
 			if (statement.execute("SELECT * FROM Brewery_Z_BPlayers WHERE uuid = '" + uuid.toString() + "';")) {
 				final ResultSet result = statement.getResultSet();
 				if (result.next()) {
-					P.p.getServer().getScheduler().runTask(P.p, () -> {
+					P.p.scheduler.runAsyncTaskLater((task) -> {
 						try {
 							new BPlayer(uuid.toString(), result.getInt("quality"), result.getInt("drunkeness"), result.getInt("offlineDrunk"));
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
-					});
+					}, 0);
 					return;
 				}
 			}
-			P.p.getServer().getScheduler().runTask(P.p, () -> BPlayer.sqlRemoved(uuid));
+			P.p.scheduler.runAsyncTaskLater((task) -> BPlayer.sqlRemoved(uuid), 0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,7 +100,7 @@ public class SQLSync {
 	private void initAsyncTask() {
 		if (sqlTaskRunning) return;
 		sqlTaskRunning = true;
-		P.p.getServer().getScheduler().runTaskAsynchronously(P.p, new SQLSaver());
+		P.p.scheduler.runAsyncTaskLater(new SQLSaver(), 0L);
 	}
 
 
@@ -198,10 +199,10 @@ public class SQLSync {
 		public String name;
 	}
 
-	private class SQLSaver implements Runnable {
+	private class SQLSaver implements Consumer<BTask> {
 
 		@Override
-		public void run() {
+		public void accept(BTask it) {
 			try {
 				while (true) {
 					try {
@@ -230,7 +231,7 @@ public class SQLSync {
 									if (storedOfflineDrunk != d.offlineDrunk) {
 										// The player is not offlineDrunk anymore,
 										// Someone else is changing the mysql data
-										P.p.getServer().getScheduler().runTask(P.p, () -> BPlayer.sqlRemoved(d.uuid));
+										P.p.scheduler.runAsyncTaskLater((task) -> BPlayer.sqlRemoved(d.uuid), 0);
 										continue;
 									}
 								}

@@ -12,12 +12,14 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.mini2Dx.gettext.GetText;
 
+import com.dre.brewery.utility.BTask;
+
 import java.util.Iterator;
 
+// TODO: this class may be very bork under Folia because of inventory shenaniganery
 /**
  * The Sealing Inventory that is being checked for Brews and seals them after a second.
  * <p>Class doesn't load in mc 1.12 and lower (Can't find RecipeChoice, BlockData and NamespacedKey)
@@ -31,7 +33,7 @@ public class BSealer implements InventoryHolder {
 	private final Player player;
 	private short[] slotTime = new short[9];
 	private ItemStack[] contents = null;
-	private BukkitTask task;
+	private BTask task;
 
 	public BSealer(Player player) {
 		this.player = player;
@@ -57,7 +59,7 @@ public class BSealer implements InventoryHolder {
 	public void clickInv() {
 		contents = null;
 		if (task == null) {
-			task = P.p.getServer().getScheduler().runTaskTimer(P.p, this::itemChecking, 1, 1);
+			task = P.p.scheduler.runAsyncTaskOnTimer(sched -> itemChecking(), 1, 1);
 		}
 	}
 

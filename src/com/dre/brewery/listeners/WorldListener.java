@@ -21,7 +21,7 @@ public class WorldListener implements Listener {
 	public void onWorldLoad(WorldLoadEvent event) {
 		final World world = event.getWorld();
 		if (BConfig.loadDataAsync) {
-			P.p.getServer().getScheduler().runTaskAsynchronously(P.p, () -> lwDataTask(world));
+			P.p.scheduler.runAsyncTaskLater((task) -> lwDataTask(world), 0);
 		} else {
 			lwDataTask(world);
 		}
@@ -46,15 +46,10 @@ public class WorldListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldUnload(WorldUnloadEvent event) {
 		World world = event.getWorld();
-		if (DataSave.running == null) {
-			// No datasave running, save data if we have any in that world
-			if (Barrel.hasDataInWorld(world) || BCauldron.hasDataInWorld(world)) {
-				DataSave.unloadingWorlds.add(world);
-				DataSave.save(false);
-			}
-		} else {
-			// already running, tell it to unload world
+		// No datasave running, save data if we have any in that world
+		if (Barrel.hasDataInWorld(world) || BCauldron.hasDataInWorld(world)) {
 			DataSave.unloadingWorlds.add(world);
+			DataSave.save(false);
 		}
 	}
 

@@ -185,7 +185,7 @@ public class BData {
 
 			final List<World> worlds = P.p.getServer().getWorlds();
 			if (BConfig.loadDataAsync) {
-				P.p.getServer().getScheduler().runTaskAsynchronously(P.p, () -> lwDataTask(worlds));
+				P.p.scheduler.runAsyncTaskLater((task) -> lwDataTask(worlds), 0);
 			} else {
 				lwDataTask(worlds);
 			}
@@ -330,8 +330,6 @@ public class BData {
 		}
 
 		// loading Barrel
-		final List<Barrel> initBarrels = new ArrayList<>();
-		final List<Barrel> initBadBarrels = new ArrayList<>();
 		if (BData.worldData.contains("Barrel." + uuid)) {
 			ConfigurationSection section = BData.worldData.getConfigurationSection("Barrel." + uuid);
 			for (String barrel : section.getKeys(false)) {
@@ -374,21 +372,25 @@ public class BData {
 							}
 						}
 
-						Barrel b;
-						if (invSection != null) {
-							b = new Barrel(block, sign, box, invSection.getValues(true), time, true);
-						} else {
-							// Barrel has no inventory
-							b = new Barrel(block, sign, box, null, time, true);
-						}
+						final BoundingBox bbox = box;
+						P.p.scheduler.runTaskAt(block.getLocation(), (task) -> {
+							Barrel b;
+							if (invSection != null) {
+								b = new Barrel(block, sign, bbox, invSection.getValues(true), time, true);
+							} else {
+								// Barrel has no inventory
+								b = new Barrel(block, sign, bbox, null, time, true);
+							}
 
-						if (b.getBody().getBounds() != null) {
-							initBarrels.add(b);
-						} else {
-							// The Barrel Bounds need recreating, as they were missing or corrupt
-							initBadBarrels.add(b);
-						}
-
+							if (b.getBody().getBounds() != null) {
+								Barrel.barrels.add(b);
+							} else {
+								// The Barrel Bounds need recreating, as they were missing or corrupt
+								if (b.getBody().regenerateBounds()) {
+									Barrel.barrels.add(b);
+								}
+							}
+						}, 0);
 					} else {
 						P.p.errorLog("Incomplete Block-Data in data.yml: " + section.getCurrentPath() + "." + barrel);
 					}
@@ -425,30 +427,15 @@ public class BData {
 			}
 		}
 
-		// Merge Loaded Data in Main Thread
-		P.p.getServer().getScheduler().runTask(P.p, () -> {
-			if (P.p.getServer().getWorld(world.getUID()) == null) {
-				return;
-			}
-			if (!initCauldrons.isEmpty()) {
-				BCauldron.bcauldrons.putAll(initCauldrons);
-			}
-			if (!initBarrels.isEmpty()) {
-				Barrel.barrels.addAll(initBarrels);
-			}
-			if (!initBadBarrels.isEmpty()) {
-				for (Barrel badBarrel : initBadBarrels) {
-					if (badBarrel.getBody().regenerateBounds()) {
-						Barrel.barrels.add(badBarrel);
-					}
-					// In case Barrel Block locations were missing and could not be recreated: do not add the barrel
-				}
-
-			}
-			if (!initWakeups.isEmpty()) {
-				Wakeup.wakeups.addAll(initWakeups);
-			}
-		});
+		if (P.p.getServer().getWorld(world.getUID()) == null) {
+			return;
+		}
+		if (!initCauldrons.isEmpty()) {
+			BCauldron.bcauldrons.putAll(initCauldrons);
+		}
+		if (!initWakeups.isEmpty()) {
+			Wakeup.wakeups.addAll(initWakeups);
+		}
 	}
 
 	public static boolean acquireDataLoadMutex() {

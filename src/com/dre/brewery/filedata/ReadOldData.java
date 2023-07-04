@@ -5,18 +5,24 @@ import java.io.File;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import com.dre.brewery.P;
+import com.dre.brewery.utility.BTask;
 
-public class ReadOldData extends BukkitRunnable {
+import java.util.function.Consumer;
 
-	public FileConfiguration data;
-	public boolean done = false;
+public class ReadOldData implements Consumer<BTask> {
+
+	private FileConfiguration data;
+	private Consumer<FileConfiguration> followUpConsumer;
+
+	public ReadOldData(Consumer<FileConfiguration> followUpConsumer) {
+		this.followUpConsumer = followUpConsumer;
+	}
 
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	@Override
-	public void run() {
+	public void accept(BTask it) {
 		int wait = 0;
 		// Set the Data Mutex to -1 if it is 0=Free
 		while (!BData.dataMutex.compareAndSet(0, -1)) {
@@ -37,7 +43,7 @@ public class ReadOldData extends BukkitRunnable {
 		if (BData.worldData == null) {
 			if (!worldDataFile.exists()) {
 				data = new YamlConfiguration();
-				done = true;
+				followUpConsumer.accept(data);
 				return;
 			}
 
@@ -53,7 +59,7 @@ public class ReadOldData extends BukkitRunnable {
 			DataSave.lastBackup++;
 		}
 
-		done = true;
+		followUpConsumer.accept(data);
 	}
 
 	public FileConfiguration getData() {
