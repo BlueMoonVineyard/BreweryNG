@@ -64,6 +64,8 @@ public class LegacyUtil {
 			get("CRIMSON_STAIRS"),
 			get("WARPED_STAIRS"),
 			get("MANGROVE_STAIRS"),
+			get("CHERRY_STAIRS"),
+			get("BAMBOO_STAIRS"),
 		};
 		for (Material stair : gotStairs) {
 			if (stair != null) {
@@ -93,6 +95,19 @@ public class LegacyUtil {
 	public static final Set<Material> PLANKS;
 	public static final Set<Material> WOOD_STAIRS;
 	public static final Set<Material> FENCES;
+
+	public static final byte OAK_WOOD = 2;
+	public static final byte SPRUCE_WOOD = 4;
+	public static final byte BIRCH_WOOD = 1;
+	public static final byte JUNGLE_WOOD = 3;
+	public static final byte ACACIA_WOOD = 5;
+	public static final byte DARK_OAK_WOOD = 6;
+	public static final byte CRIMSON_WOOD = 7;
+	public static final byte WARPED_WOOD = 8;
+	public static final byte MANGROVE_WOOD = 9;
+	public static final byte CHERRY_WOOD = 10;
+	public static final byte BAMBOO_WOOD = 11;
+	public static final byte HIGHEST_WOOD_TYPE = BAMBOO_WOOD;
 
 	// Materials removed in 1.13
 	public static final Material STATIONARY_LAVA = get("STATIONARY_LAVA");
@@ -177,23 +192,27 @@ public class LegacyUtil {
 		if (P.use1_13 || isWoodStairs(wood.getType())) {
 			String material = wood.getType().name();
 			if (material.startsWith("OAK")) {
-				return 2;
+				return OAK_WOOD;
 			} else if (material.startsWith("SPRUCE")) {
-				return 4;
+				return SPRUCE_WOOD;
 			} else if (material.startsWith("BIRCH")) {
-				return 1;
+				return BIRCH_WOOD;
 			} else if (material.startsWith("JUNGLE")) {
-				return 3;
+				return JUNGLE_WOOD;
 			} else if (material.startsWith("ACACIA")) {
-				return 5;
+				return ACACIA_WOOD;
 			} else if (material.startsWith("DARK_OAK")) {
-				return 6;
+				return DARK_OAK_WOOD;
 			} else if (material.startsWith("CRIMSON")) {
-				return 7;
+				return CRIMSON_WOOD;
 			} else if (material.startsWith("WARPED")) {
-				return 8;
+				return WARPED_WOOD;
 			} else if (material.startsWith("MANGROVE")) {
-				return 9;
+				return MANGROVE_WOOD;
+			} else if (material.startsWith("CHERRY")) {
+				return CHERRY_WOOD;
+			} else if (material.startsWith("BAMBOO")) {
+				return BAMBOO_WOOD;
 			} else {
 				return 0;
 			}

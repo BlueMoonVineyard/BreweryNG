@@ -6,6 +6,7 @@ import com.dre.brewery.Brew;
 import com.dre.brewery.P;
 import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.utility.BUtil;
+import com.dre.brewery.utility.LegacyUtil;
 import com.dre.brewery.utility.StringParser;
 import com.dre.brewery.utility.Tuple;
 import org.bukkit.Color;
@@ -427,7 +428,7 @@ public class BRecipe {
 			P.p.errorLog("Invalid distilltime '" + distillTime + "' in Recipe: " + getRecipeName());
 			return false;
 		}
-		if (wood < 0 || wood > 9) {
+		if (wood < 0 || wood > LegacyUtil.HIGHEST_WOOD_TYPE) {
 			P.p.errorLog("Invalid wood type '" + wood + "' in Recipe: " + getRecipeName());
 			return false;
 		}
