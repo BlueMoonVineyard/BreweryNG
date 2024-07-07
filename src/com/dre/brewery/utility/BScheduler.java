@@ -86,26 +86,26 @@ public interface BScheduler {
 
 		@Override
 		public BTask runTaskAt(Location location, Consumer<BTask> task, long delay) {
-			var ret = p.getServer().getScheduler().runTaskLater(p, new Runner(task), delay);
+			var ret = new Runner(task).runTaskLater(p, delay);
 			return BTask.from(ret);
 		}
 
 
 		@Override
 		public BTask runTaskFor(Entity entity, Consumer<BTask> task, long delay) {
-			var ret = p.getServer().getScheduler().runTaskLater(p, new Runner(task), delay);
+			var ret = new Runner(task).runTaskLater(p, delay);
 			return BTask.from(ret);
 		}
 
 		@Override
 		public BTask runAsyncTaskOnTimer(Consumer<BTask> task, long initialDelayTicks, long intervalTicks) {
-			var ret = p.getServer().getScheduler().runTaskTimer(p, new Runner(task), initialDelayTicks, intervalTicks);
+			var ret = new Runner(task).runTaskTimer(p, initialDelayTicks, intervalTicks);
 			return BTask.from(ret);
 		}
 
 		@Override
 		public BTask runAsyncTaskLater(Consumer<BTask> task, long delay) {
-			var ret = p.getServer().getScheduler().runTaskLaterAsynchronously(p, new Runner(task), delay);
+			var ret = new Runner(task).runTaskLaterAsynchronously(p, delay);
 			return BTask.from(ret);
 		}
 	}

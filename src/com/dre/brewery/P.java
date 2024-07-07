@@ -67,6 +67,7 @@ public class P extends JavaPlugin {
 	public static boolean use1_11;
 	public static boolean use1_13;
 	public static boolean use1_14;
+	public static boolean use1_20_5;
 
 	// Listeners
 	public BlockListener blockListener;
@@ -99,6 +100,7 @@ public class P extends JavaPlugin {
 		use1_11 = !v.matches("(^|.*[^.\\d])1\\.10([^\\d].*|$)") && !v.matches("(^|.*[^.\\d])1\\.[0-9]([^\\d].*|$)");
 		use1_13 = !v.matches("(^|.*[^.\\d])1\\.1[0-2]([^\\d].*|$)") && !v.matches("(^|.*[^.\\d])1\\.[0-9]([^\\d].*|$)");
 		use1_14 = !v.matches("(^|.*[^.\\d])1\\.1[0-3]([^\\d].*|$)") && !v.matches("(^|.*[^.\\d])1\\.[0-9]([^\\d].*|$)");
+		use1_20_5 = !v.matches("(^|.*[^.\\d])1\\.20\\.[1-4]([^\\d].*|$)") && !v.matches("(^|.*[^.\\d])1\\.1[0-9]([^\\d].*|$)") && !v.matches("(^|.*[^.\\d])1\\.[0-9]([^\\d].*|$)");
 
 		//MC 1.13 uses a different NBT API than the newer versions..
 		// We decide here which to use, the new or the old or none at all
