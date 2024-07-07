@@ -224,6 +224,10 @@ public class CommandListener implements CommandExecutor {
 				ItemMeta itemMeta = item.getItemMeta();
 				itemMeta.setDisplayName(meta.getDisplayName());
 				item.setItemMeta(itemMeta);
+				List<String> lore = recipe.getUndiscoveredLore() == null ? null : recipe.getUndiscoveredLore().stream()
+					.map(line -> "§r§f" + line)
+					.toList();
+				item.setLore(lore);
 				pane.addItem(new GuiItem(item, ev -> ev.setCancelled(true)));
 			}
 		}
@@ -239,7 +243,7 @@ public class CommandListener implements CommandExecutor {
 		Player pSender = (Player)sender;
 
 		PaginatedPane paginatedPane = new PaginatedPane(0, 0, 9, 5);
-		List<BRecipe> eligible = BRecipe.getAllRecipes().stream().filter(recipe -> recipe.getOptionalID().isPresent()).toList();
+		List<BRecipe> eligible = BRecipe.getAllRecipes().stream().filter(recipe -> recipe.getOptionalID().isPresent()).filter(recipe -> !recipe.isHidden()).toList();
 		List<List<BRecipe>> pageRecipes = Lists.partition(eligible, 5*9);
 		ChestGui gui = new ChestGui(6, MessageFormat.format("{0} ({1}/{2})", GetText.tr("Crafted Brews"), 1, pageRecipes.size()));
 

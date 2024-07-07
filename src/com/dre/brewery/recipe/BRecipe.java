@@ -36,6 +36,8 @@ public class BRecipe {
 	private String[] name;
 	private boolean saveInData; // If this recipe should be saved in data and loaded again when the server restarts. Applicable to non-config recipes
 	private String optionalID; // ID that might be given by the config
+	private List<String> undiscoveredLore; // The text that shows when a brew hasn't been crafted yet in the collection
+	private boolean hidden; // Whether to hide this brew from the collection
 
 	// brewing
 	private List<RecipeItem> ingredients = new ArrayList<>(); // Items and amounts
@@ -108,6 +110,9 @@ public class BRecipe {
 			P.p.errorLog(recipeId + ": Recipe Name invalid");
 			return null;
 		}
+
+		recipe.undiscoveredLore = BUtil.loadCfgStringList(configSectionRecipes, recipeId + ".undiscoveredLore");;
+		recipe.hidden = configSectionRecipes.getBoolean(recipeId + ".hidden", false);
 
 		recipe.ingredients = loadIngredients(configSectionRecipes, recipeId);
 		if (recipe.ingredients == null || recipe.ingredients.isEmpty()) {
@@ -663,6 +668,14 @@ public class BRecipe {
 		return Optional.ofNullable(optionalID);
 	}
 
+	public List<String> getUndiscoveredLore() {
+		return undiscoveredLore;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
 	public List<RecipeItem> getIngredients() {
 		return ingredients;
 	}
@@ -784,6 +797,14 @@ public class BRecipe {
 	}
 
 	// Setters
+
+	public void setUndiscoveredLore(List<String> description) {
+		this.undiscoveredLore = description;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
 
 	/**
 	 * When Changing ingredients, Accepted Lists have to be updated in BCauldronRecipe
@@ -931,6 +952,19 @@ public class BRecipe {
 			recipe = new BRecipe(names, PotionColor.WATER);
 		}
 
+
+		public Builder addUndiscoveredLore(String line) {
+			if (recipe.undiscoveredLore == null) {
+				recipe.undiscoveredLore = new ArrayList<>();
+			}
+			recipe.undiscoveredLore.add(line);
+			return this;
+		}
+
+		public Builder setHidden(boolean hidden) {
+			recipe.hidden = hidden;
+			return this;
+		}
 
 		public Builder addIngredient(RecipeItem... item) {
 			Collections.addAll(recipe.ingredients, item);
