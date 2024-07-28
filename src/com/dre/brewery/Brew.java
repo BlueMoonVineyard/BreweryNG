@@ -29,11 +29,7 @@ import org.mini2Dx.gettext.GetText;
 import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Represents the liquid in the brewed Potions
@@ -232,18 +228,17 @@ public class Brew implements Cloneable {
 					return true;
 				}
 			}
-
-			if (quality > 0) {
-				currentRecipe = ingredients.getBestRecipe(wood, ageTime, distillRuns > 0, liquidType);
-				if (currentRecipe != null) {
+		}
+		if (quality > 0) {
+			currentRecipe = ingredients.getBestRecipe(wood, ageTime, distillRuns > 0, liquidType);
+			if (currentRecipe != null) {
 					/*if (!immutable) {
 						this.quality = calcQuality();
 					}*/
-					P.p.log("A Brew was made from Recipe: '" + name + "' which could not be found. '" + currentRecipe.getRecipeName() + "' used instead!");
-					return true;
-				} else {
-					P.p.errorLog("A Brew was made from Recipe: '" + name + "' which could not be found!");
-				}
+				P.p.log("A Brew was made from Recipe: '" + name + "' which could not be found. '" + currentRecipe.getRecipeName() + "' used instead!");
+				return true;
+			} else {
+				P.p.errorLog("A Brew was made from Recipe: '" + name + "' which could not be found!");
 			}
 		}
 		return false;
@@ -423,7 +418,7 @@ public class Brew implements Cloneable {
 		if (currentRecipe != null && quality > 0) {
 			return currentRecipe.getEffects();
 		}
-		return null;
+		return Collections.emptyList();
 	}
 
 	/**

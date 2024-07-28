@@ -173,9 +173,15 @@ public class BrewLore {
 	 */
 	public void updateAgeLore(boolean qualityColor) {
 		if (brew.isStripped()) return;
-		String prefix;
+		if (brew.hasRecipe() && brew.getCurrentRecipe().getAge() < 1) return;
 		float age = brew.getAgeTime();
-		int quality = brew.getIngredients().getAgeQuality(brew.getCurrentRecipe(), age);
+		String prefix;
+		int quality;
+		if (brew.hasRecipe()) {
+			quality = brew.getIngredients().getAgeQuality(brew.getCurrentRecipe(), age);
+		} else {
+			quality = 0;
+		}
 		if (qualityColor && !brew.isUnlabeled() && brew.hasRecipe()) {
 			prefix = getQualityColor(quality);
 		} else {
@@ -435,7 +441,7 @@ public class BrewLore {
 	 * Adds the Effect names to the Items description
  	 */
 	public void addOrReplaceEffects(List<BEffect> effects, int quality) {
-		if (!P.use1_9 && effects != null) {
+		if (!P.use1_9) {
 			for (BEffect effect : effects) {
 				if (!effect.isHidden()) {
 					effect.writeInto(meta, quality);

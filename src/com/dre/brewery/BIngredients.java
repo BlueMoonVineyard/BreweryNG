@@ -124,7 +124,7 @@ public class BIngredients {
 			int quality = (int) Math.round((getIngredientQuality(cookRecipe) + getCookingQuality(cookRecipe, false)) / 2.0);
 			int alc = (int) Math.round(cookRecipe.getAlcohol() * ((float) quality / 10.0f));
 			P.p.debugLog("cooked potion has Quality: " + quality + ", Alc: " + alc);
-			brew = new Brew(this, quality, alc, (byte)0, quality, alc, liquidType, cookedName, false, false, false, 0);
+			brew = new Brew(this, quality, alc, (byte)0, 0, alc, liquidType, cookRecipe.getRecipeName(), false, false, false, 0);
 			BrewLore lore = new BrewLore(brew, potionMeta);
 			lore.updateQualityStars(false);
 			lore.updateCustomLore();
