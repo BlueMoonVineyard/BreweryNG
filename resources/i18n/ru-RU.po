@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: breweryng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:15-0500\n"
-"PO-Revision-Date: 2022-12-04 22:08\n"
+"PO-Revision-Date: 2023-02-22 10:39\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -164,15 +164,15 @@ msgstr "Использование &6/brew help &fдля отображения 
 #: src/com/dre/brewery/listeners/CommandListener.java:244
 #: src/com/dre/brewery/listeners/CommandListener.java:260
 msgid "Crafted Brews"
-msgstr ""
+msgstr "Изготовленные напитки"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:269
 msgid "Go Back"
-msgstr ""
+msgstr "Вернуться назад"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:277
 msgid "Go Forward"
-msgstr ""
+msgstr "Перейти вперед"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:290
 msgid "&6/brew help [Page] &9Shows a specific help-page"
@@ -196,7 +196,7 @@ msgstr "&6/brew unlabel &9Убирает детальное название б�
 
 #: src/com/dre/brewery/listeners/CommandListener.java:314
 msgid "&6/brew collection&9 Shows what brews you have and haven't crafted"
-msgstr ""
+msgstr "&6/brew collection&9 показывает, какие напитки вы еще не изготовили"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:318
 msgid "&6/brew info [Player]&9 Displays the current Drunkeness and Quality of [Player]"
@@ -209,7 +209,7 @@ msgstr "&6/brew create <Recipe> [Quality] [Player] &9Создаёт бражку
 
 #: src/com/dre/brewery/listeners/CommandListener.java:323
 msgid "&6/brew give <Recipe> [Quality] [Player] &9Alias for /brew create"
-msgstr ""
+msgstr "&6/brew give <Recipe> [Quality] [Player] &9сокращение для /brew create"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:327
 #: src/com/dre/brewery/listeners/CommandListener.java:870
@@ -294,7 +294,7 @@ msgstr "&a{0} теперь пьян на &6{1}% &a, с элементами &6{2
 #: src/com/dre/brewery/listeners/CommandListener.java:841
 #: src/com/dre/brewery/Wakeup.java:96 src/com/dre/brewery/Wakeup.java:181
 msgid "&cThis command can only be executed as a player!"
-msgstr ""
+msgstr "&cЭта команда может быть выполнена только со стороны игрока!"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:495
 #, java-format
@@ -359,17 +359,17 @@ msgstr "&cРецепта с названием: '{0}&c' не найдено!"
 #: src/com/dre/brewery/listeners/CommandListener.java:835
 #, java-format
 msgid "Player not found: {0}"
-msgstr ""
+msgstr "Игрок не найден: {0}"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:885
 #, java-format
 msgid "&aYou drank one {0}"
-msgstr ""
+msgstr "&aВы выпили один {0}"
 
 #: src/com/dre/brewery/listeners/CommandListener.java:887
 #, java-format
 msgid "&a{0} drinks one {1}"
-msgstr ""
+msgstr "&{0} выпил один {1}"
 
 #: src/com/dre/brewery/listeners/PlayerListener.java:66
 msgid "&cThe Sealing Table is disabled"
@@ -392,15 +392,15 @@ msgstr "Ингредиенты"
 #, java-format
 msgid "{0} minute fermented"
 msgid_plural "{0} minutes fermented"
-msgstr[0] ""
+msgstr[0] "Ферментировалось {0} минуту"
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
+msgstr[3] "Ферментировалось {0} минут"
 
 #: src/com/dre/brewery/lore/BrewLore.java:137
 msgctxt "the word 'fermented' should be a substring of how it is in '{0}' minute(s) fermented"
 msgid "fermented"
-msgstr ""
+msgstr "ферментировалось"
 
 #: src/com/dre/brewery/lore/BrewLore.java:158
 msgid "-times"
@@ -422,10 +422,10 @@ msgstr "Настоявшееся в бочке"
 #, java-format
 msgid "{0} year barrel-aged"
 msgid_plural "{0} years barrel-aged"
-msgstr[0] ""
+msgstr[0] "Бочка {0}-летней выдержки"
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
+msgstr[3] "Бочка {0}-летней выдержки"
 
 #: src/com/dre/brewery/lore/BrewLore.java:198
 #: src/com/dre/brewery/lore/BrewLore.java:200
@@ -447,7 +447,7 @@ msgstr ""
 
 #: src/com/dre/brewery/P.java:258
 msgid "&aConfig was successfully reloaded"
-msgstr ""
+msgstr "&aКонфигурация была успешно перезагружена"
 
 #: src/com/dre/brewery/recipe/BUserError.java:24
 #, java-format
@@ -494,15 +494,15 @@ msgstr ""
 #: src/com/dre/brewery/recipe/BUserError.java:83
 #, java-format
 msgid "Not getting enough of that {0} in here."
-msgstr ""
+msgstr "Здесь недостаточно {0}."
 
 #: src/com/dre/brewery/recipe/BUserError.java:110
 msgid "I think this needs some distillation..."
-msgstr ""
+msgstr "Я думаю, что это нуждается в дистиляции..."
 
 #: src/com/dre/brewery/recipe/BUserError.java:119
 msgid "I think this didn't need distillation..."
-msgstr ""
+msgstr "Я думаю, что это не нуждалось в дистилляции..."
 
 #: src/com/dre/brewery/utility/BUtil.java:330
 msgid "Page"
